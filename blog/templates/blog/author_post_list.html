@@ -3,58 +3,148 @@
 <head>
     <title>{{ author.username }}'s Timeline</title>
     <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .info-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
         .card-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px;
         }
         .card {
-            border: 1px solid #ccc;
+            height: 250px;
             border-radius: 8px;
-            padding: 16px;
-            box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            overflow: hidden;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            background-color: #eee;
+            background-image: linear-gradient(to right, #e2e2e2, #d1d1d1); /* Placeholder */
+            transition: transform 0.2s ease-in-out;
         }
-        .card img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 4px;
+        .card:hover {
+            transform: scale(1.03);
+        }
+        .card-main-link {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            text-decoration: none;
+            color: inherit;
+        }
+        .card-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
+            padding: 40px 20px 20px 20px;
+        }
+        .card-title {
+            color: #fff;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+        .actions {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.5);
+            padding: 5px;
+            border-radius: 5px;
+            z-index: 10; /* Ensure actions are on top */
+        }
+        .actions a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9em;
+            padding: 0 5px;
+        }
+        /* Themes */
+        .theme-dark {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        .theme-dark .info-section, .theme-dark .card {
+            background-color: #1e1e1e;
+        }
+        .theme-dark a {
+            color: #bb86fc;
+        }
+        .theme-sepia {
+            background-color: #fbf0d9;
+            color: #5b4636;
+        }
+        .theme-sepia .info-section, .theme-sepia .card {
+            background-color: #f4e8c8;
+        }
+        .theme-sepia a {
+            color: #8d5524;
         }
     </style>
 </head>
-<body>
-    <h1>{{ author.username }}'s Timeline</h1>
-    <a href="{% url 'post_list' %}">Back to Main Timeline</a>
-    <hr>
-    <h2>Presentations</h2>
-    {% if user == author %}
-        <a href="{% url 'presentation_create' %}">Create New Presentation</a>
-    {% endif %}
-    <ul>
-        {% for presentation in presentations %}
-            <li><a href="{% url 'presentation_detail' pk=presentation.pk %}">{{ presentation.title }}</a></li>
-        {% empty %}
-            <li>No presentations yet.</li>
-        {% endfor %}
-    </ul>
-    <hr>
-    <h2>All Posts</h2>
-    <div class="card-container">
-        {% for post in posts %}
-            <div class="card">
-                <h3>{{ post.title }}</h3>
-                <p><small>Subject: {{ post.subject.name }} | Published: {{ post.created_date|date:"d M Y" }}</small></p>
-                {% if post.photo %}
-                    <img src="{{ post.photo.url }}" alt="{{ post.annotation }}">
-                {% endif %}
-                <p>{{ post.content|truncatewords:30 }}</p>
-                {% if user == post.author %}
-                    <a href="{% url 'post_edit' pk=post.pk %}">Edit</a> |
-                    <a href="{% url 'post_delete' pk=post.pk %}">Delete</a>
-                {% endif %}
-            </div>
-        {% empty %}
-            <p>This author has no posts yet.</p>
-        {% endfor %}
+<body class="theme-{{ profile.theme }}">
+    <div class="container">
+        <p><a href="{% url 'post_list' %}">&larr; Back to Main Timeline</a></p>
+        <h1>{{ author.username }}'s Timeline</h1>
+        {% if user == author %}
+            <p><a href="{% url 'edit_profile' %}">Edit Profile & Theme</a></p>
+        {% endif %}
+
+        <div class="info-section">
+            <h2>Presentations</h2>
+            {% if user == author %}
+                <p><a href="{% url 'presentation_create' %}">Create New Presentation</a></p>
+            {% endif %}
+            <ul>
+                {% for presentation in presentations %}
+                    <li><a href="{% url 'presentation_detail' pk=presentation.pk %}">{{ presentation.title }}</a></li>
+                {% empty %}
+                    <li>No presentations yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <h2>All Posts</h2>
+        <div class="card-container">
+            {% for post in posts %}
+                <div class="card" {% if post.photo %}style="background-image: url('{{ post.photo.url }}');"{% endif %}>
+                    <a href="{% url 'post_detail' pk=post.pk %}" class="card-main-link">
+                        <div class="card-overlay">
+                            <h2 class="card-title">{{ post.title }}</h2>
+                        </div>
+                    </a>
+                    {% if user == post.author %}
+                        <div class="actions">
+                            <a href="{% url 'post_edit' pk=post.pk %}">Edit</a>
+                            <a href="{% url 'post_delete' pk=post.pk %}">Delete</a>
+                        </div>
+                    {% endif %}
+                </div>
+            {% empty %}
+                <div class="info-section">
+                    <p>This author has no posts yet.</p>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 </body>
 </html>

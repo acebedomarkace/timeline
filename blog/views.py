@@ -1,21 +1,29 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User, Group
-from .models import Post, Presentation
-from .forms import PostForm, PresentationForm
+from .models import Post, Presentation, Subject, PeerReviewRequest, Comment, Profile
+from .forms import PostForm, PresentationForm, CommentForm, PeerReviewRequestForm, ProfileForm
 
 def post_list(request):
-    posts = Post.objects.order_by('-created_date')
+    all_posts = Post.objects.order_by('-created_date')
     presentations = None
+    pending_reviews = None
     if request.user.is_authenticated and request.user.groups.filter(name='Students').exists():
-        posts = posts.filter(author=request.user)
+        all_posts = all_posts.filter(author=request.user)
         presentations = Presentation.objects.filter(author=request.user)
+        pending_reviews = PeerReviewRequest.objects.filter(reviewer=request.user, status='pending')
+
+    paginator = Paginator(all_posts, 6) # Show 6 posts per page.
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     
     context = {
-        'posts': posts,
-        'presentations': presentations
+        'page_obj': page_obj,
+        'presentations': presentations,
+        'pending_reviews': pending_reviews
     }
     return render(request, 'blog/post_list.html', context)
 
@@ -49,7 +57,14 @@ def author_post_list(request, username):
     author = get_object_or_404(User, username=username)
     posts = Post.objects.filter(author=author).order_by('-created_date')
     presentations = Presentation.objects.filter(author=author)
-    return render(request, 'blog/author_post_list.html', {'author': author, 'posts': posts, 'presentations': presentations})
+    profile = Profile.objects.get_or_create(user=author)[0]
+    context = {
+        'author': author,
+        'posts': posts,
+        'presentations': presentations,
+        'profile': profile
+    }
+    return render(request, 'blog/author_post_list.html', context)
 
 @login_required
 def post_edit(request, pk):
@@ -70,10 +85,26 @@ def is_teacher(user):
 
 @login_required
 @user_passes_test(is_teacher)
-def teacher_dashboard(request):
-    students_group = Group.objects.get(name='Students')
-    students = User.objects.filter(groups=students_group)
-    return render(request, 'blog/teacher_dashboard.html', {'students': students})
+def teacher_dashboard(request, username=None):
+    student_posts = Post.objects.filter(author__groups__name='Students')
+    selected_student = None
+
+    if username:
+        selected_student = get_object_or_404(User, username=username)
+        student_posts = student_posts.filter(author=selected_student)
+
+    subjects = Subject.objects.filter(post__in=student_posts).distinct().prefetch_related('post_set')
+    
+    subject_posts = {subject: subject.post_set.filter(id__in=student_posts).order_by('-created_date') for subject in subjects}
+
+    students = User.objects.filter(groups__name='Students').order_by('username')
+
+    context = {
+        'subject_posts': subject_posts,
+        'students': students,
+        'selected_student': selected_student
+    }
+    return render(request, 'blog/teacher_dashboard.html', context)
 
 @login_required
 def post_delete(request, pk):
@@ -102,3 +133,73 @@ def presentation_create(request):
 def presentation_detail(request, pk):
     presentation = get_object_or_404(Presentation, pk=pk)
     return render(request, 'blog/presentation_detail.html', {'presentation': presentation})
+
+@login_required
+def request_peer_review(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if post.author != request.user:
+        return redirect('post_list')
+
+    if request.method == 'POST':
+        form = PeerReviewRequestForm(request.POST, user=request.user)
+        if form.is_valid():
+            reviewers = form.cleaned_data['reviewers']
+            for reviewer in reviewers:
+                PeerReviewRequest.objects.get_or_create(
+                    post=post,
+                    requester=request.user,
+                    reviewer=reviewer
+                )
+            return redirect('post_detail', pk=post.pk)
+    else:
+        form = PeerReviewRequestForm(user=request.user)
+
+    context = {
+        'form': form,
+        'post': post
+    }
+    return render(request, 'blog/request_peer_review.html', context)
+
+def post_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    post.view_count += 1
+    post.save(update_fields=['view_count'])
+
+    comment_form = None
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            comment_form = CommentForm(request.POST)
+            if comment_form.is_valid():
+                new_comment = comment_form.save(commit=False)
+                new_comment.post = post
+                new_comment.author = request.user
+                new_comment.save()
+
+                # If the commenter is a student, check for a review request
+                if request.user.groups.filter(name='Students').exists():
+                    PeerReviewRequest.objects.filter(
+                        post=post,
+                        reviewer=request.user,
+                        status='pending'
+                    ).update(status='completed')
+
+                return redirect('post_detail', pk=post.pk)
+        comment_form = CommentForm()
+
+    context = {
+        'post': post,
+        'comment_form': comment_form
+    }
+    return render(request, 'blog/post_detail.html', context)
+
+@login_required
+def edit_profile(request):
+    profile, created = Profile.objects.get_or_create(user=request.user)
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('author_post_list', username=request.user.username)
+    else:
+        form = ProfileForm(instance=profile)
+    return render(request, 'blog/edit_profile.html', {'form': form})

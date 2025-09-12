@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>New Presentation</title>
+    <title>Request Peer Review</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -25,19 +25,6 @@
             text-align: center;
             font-size: 1.8em;
         }
-        .form-container label {
-            font-weight: 500;
-            display: block;
-            margin-bottom: 5px;
-        }
-        .form-container input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            margin-bottom: 20px;
-        }
         .form-container button {
             width: 100%;
             padding: 12px;
@@ -60,26 +47,20 @@
         .checkbox-list label {
             display: block;
             margin-bottom: 8px;
-            font-weight: normal;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <p><a href="{% url 'author_post_list' username=user.username %}">&larr; Back to Timeline</a></p>
+        <p><a href="{% url 'post_detail' pk=post.pk %}">&larr; Back to Post</a></p>
         <div class="form-container">
-            <h2>Create a New Presentation</h2>
+            <h2>Request Peer Review for "{{ post.title }}"</h2>
             <form method="post">
                 {% csrf_token %}
-                <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
-                {{ form.title }}
-
-                <label for="{{ form.posts.id_for_label }}">{{ form.posts.label }}</label>
                 <div class="checkbox-list">
-                    {{ form.posts }}
+                    {{ form.reviewers }}
                 </div>
-                
-                <button type="submit">Save Presentation</button>
+                <button type="submit">Send Requests</button>
             </form>
         </div>
     </div>
