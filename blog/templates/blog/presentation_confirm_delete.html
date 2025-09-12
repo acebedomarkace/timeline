@@ -55,9 +55,9 @@
 <body>
     <div class="form-container">
         <h2>Are you sure?</h2>
-        <p>You are about to permanently delete the post titled:</p>
-        <p><strong>"{{ post.title }}"</strong></p>
-        <p>This action cannot be undone.</p>
+        <p>You are about to permanently delete the presentation titled:</p>
+        <p><strong>"{{ presentation.title }}"</strong></p>
+        <p>This will not delete the posts within it.</p>
         <form method="post">
             {% csrf_token %}
             <div class="button-group">

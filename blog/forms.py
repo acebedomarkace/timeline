@@ -11,7 +11,7 @@ from django.contrib.auth.models import User
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['subject', 'title', 'content', 'photo', 'annotation', 'audio_file', 'audio_description', 'youtube_url']
+        fields = ['subject', 'title', 'content', 'photo', 'annotation', 'audio_file', 'audio_description', 'youtube_url', 'video_file', 'video_description']
 
 class PresentationForm(forms.ModelForm):
     class Meta:

@@ -91,6 +91,16 @@
                     <audio controls src="{{ post.audio_file.url }}"></audio>
                     <p><em>{{ post.audio_description }}</em></p>
                 {% endif %}
+
+                {% if post.video_file %}
+                    <div style="margin-top: 20px; width: 80%;">
+                        <video controls style="width: 100%; max-width: 100%; border-radius: 4px;">
+                            <source src="{{ post.video_file.url }}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <p><em>{{ post.video_description }}</em></p>
+                    </div>
+                {% endif %}
             </div>
         {% endfor %}
     </div>

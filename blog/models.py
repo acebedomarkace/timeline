@@ -21,6 +21,8 @@ class Post(models.Model):
     audio_file = models.FileField(upload_to='audio/', blank=True, null=True)
     audio_description = models.TextField(blank=True, null=True)
     youtube_url = models.URLField(blank=True, null=True)
+    video_file = models.FileField(upload_to='videos/', blank=True, null=True)
+    video_description = models.TextField(blank=True, null=True)
     view_count = models.PositiveIntegerField(default=0)
     created_date = models.DateTimeField(default=timezone.now)
     updated_date = models.DateTimeField(auto_now=True)
@@ -87,9 +89,13 @@ class PeerReviewRequest(models.Model):
 
 class Profile(models.Model):
     THEME_CHOICES = [
-        ('light', 'Light'),
-        ('dark', 'Dark'),
+        ('light', 'Default Light'),
+        ('dark', 'Default Dark'),
         ('sepia', 'Sepia'),
+        ('ocean', 'Ocean'),
+        ('forest', 'Forest'),
+        ('sunset', 'Sunset'),
+        ('monochrome', 'Monochrome'),
     ]
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     theme = models.CharField(max_length=10, choices=THEME_CHOICES, default='light')

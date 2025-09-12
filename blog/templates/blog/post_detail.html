@@ -28,10 +28,21 @@
             font-size: 1em;
             color: #666;
             margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
         }
         .post-card .meta a {
             color: #007bff;
             text-decoration: none;
+        }
+        .meta-item {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+        .meta-item svg {
+            margin-right: 5px;
         }
         .post-card img {
             max-width: 100%;
@@ -81,9 +92,15 @@
         </p>
         <div class="post-card">
             <h1>{{ post.title }}</h1>
-            <p class="meta">
-                By <a href="{% url 'author_post_list' username=post.author.username %}">{{ post.author.username }}</a> in {{ post.subject.name }} on {{ post.created_date|date:"F j, Y" }} | {{ post.view_count }} {% if post.view_count == 1 %}view{% else %}views{% endif %}
-            </p>
+            <div class="meta">
+                <span class="meta-item">By <a href="{% url 'author_post_list' username=post.author.username %}">{{ post.author.username }}</a></span>
+                <span class="meta-item">in {{ post.subject.name }}</span>
+                <span class="meta-item">on {{ post.created_date|date:"F j, Y" }}</span>
+                <span class="meta-item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                    {{ post.view_count }} {% if post.view_count == 1 %}view{% else %}views{% endif %}
+                </span>
+            </div>
             {% if post.photo %}
                 <img src="{{ post.photo.url }}" alt="{{ post.annotation }}">
                 <p><em>{{ post.annotation }}</em></p>
@@ -109,6 +126,16 @@
             {% if post.audio_file %}
                 <audio controls src="{{ post.audio_file.url }}"></audio>
                 <p><em>{{ post.audio_description }}</em></p>
+            {% endif %}
+
+            {% if post.video_file %}
+                <div style="margin-top: 20px;">
+                    <video controls style="width: 100%; max-width: 100%; border-radius: 4px;">
+                        <source src="{{ post.video_file.url }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <p><em>{{ post.video_description }}</em></p>
+                </div>
             {% endif %}
         </div>
 

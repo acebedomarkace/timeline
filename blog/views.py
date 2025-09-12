@@ -203,3 +203,35 @@ def edit_profile(request):
     else:
         form = ProfileForm(instance=profile)
     return render(request, 'blog/edit_profile.html', {'form': form})
+
+@login_required
+def presentation_edit(request, pk):
+    presentation = get_object_or_404(Presentation, pk=pk)
+    if presentation.author != request.user:
+        return redirect('post_list')
+    
+    if request.method == 'POST':
+        form = PresentationForm(request.POST, user=request.user, instance=presentation)
+        if form.is_valid():
+            form.save()
+            return redirect('author_post_list', username=request.user.username)
+    else:
+        form = PresentationForm(user=request.user, instance=presentation)
+    
+    context = {
+        'form': form,
+        'presentation': presentation
+    }
+    return render(request, 'blog/presentation_form.html', context)
+
+@login_required
+def presentation_delete(request, pk):
+    presentation = get_object_or_404(Presentation, pk=pk)
+    if presentation.author != request.user:
+        return redirect('post_list')
+    
+    if request.method == 'POST':
+        presentation.delete()
+        return redirect('author_post_list', username=request.user.username)
+        
+    return render(request, 'blog/presentation_confirm_delete.html', {'presentation': presentation})

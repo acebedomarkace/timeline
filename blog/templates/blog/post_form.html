@@ -2,13 +2,234 @@
 <html>
 <head>
     <title>New Post</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+        }
+        .form-container h2 {
+            margin-top: 0;
+            text-align: center;
+            font-size: 1.8em;
+        }
+        .form-container .form-field {
+            margin-bottom: 20px;
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        .form-container input[type="text"],
+        .form-container input[type="url"],
+        .form-container textarea,
+        .form-container select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-container textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        .form-container button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 1.1em;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+    .recorder-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+        .recorder-controls button {
+            width: auto;
+            padding: 8px 12px;
+            margin-top: 0;
+            flex-shrink: 0;
+        }
+        #recordingStatus, #videoRecordingStatus {
+            font-weight: 500;
+            color: #dc3545;
+        }
+        #videoPreview {
+            display: none;
+            width: 100%;
+            max-width: 400px;
+            margin-top: 10px;
+            border-radius: 4px;
+            background-color: #000;
+        }
+    </style>
 </head>
 <body>
-    <h2>Create a New Post</h2>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save</button>
-    </form>
+    <div class="container">
+        <p><a href="{% url 'post_list' %}">&larr; Back to Timeline</a></p>
+        <div class="form-container">
+            <h2>Create a New Post</h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="form-field">
+                    <label for="{{ form.subject.id_for_label }}">{{ form.subject.label }}</label>
+                    {{ form.subject }}
+                </div>
+                <div class="form-field">
+                    <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
+                    {{ form.title }}
+                </div>
+                <div class="form-field">
+                    <label for="{{ form.content.id_for_label }}">{{ form.content.label }}</label>
+                    {{ form.content }}
+                </div>
+                <div class="form-field">
+                    <label for="{{ form.photo.id_for_label }}">{{ form.photo.label }}</label>
+                    {{ form.photo }}
+                </div>
+                <div class="form-field">
+                    <label for="{{ form.annotation.id_for_label }}">{{ form.annotation.label }}</label>
+                    {{ form.annotation }}
+                </div>
+                <div class="form-field">
+                    <label for="{{ form.audio_file.id_for_label }}">{{ form.audio_file.label }}</label>
+                    <p style="font-size: 0.9em; color: #666;">You can upload a file or record audio directly.</p>
+                    <div class="recorder-controls">
+                        <button type="button" id="startAudioRecordingBtn">Start Audio Recording</button>
+                        <button type="button" id="stopAudioRecordingBtn" disabled>Stop</button>
+                        <span id="recordingStatus"></span>
+                    </div>
+                    {{ form.audio_file }}
+                </div>
+                <div class="form-field">
+                    <label for="{{ form.audio_description.id_for_label }}">{{ form.audio_description.label }}</label>
+                    {{ form.audio_description }}
+                </div>
+                <div class="form-field">
+                    <label for="{{ form.youtube_url.id_for_label }}">{{ form.youtube_url.label }}</label>
+                    {{ form.youtube_url }}
+                </div>
+                <div class="form-field">
+                    <label for="{{ form.video_file.id_for_label }}">{{ form.video_file.label }}</label>
+                    <p style="font-size: 0.9em; color: #666;">You can upload a file or record a video directly.</p>
+                    <div class="recorder-controls">
+                        <button type="button" id="startVideoRecordingBtn">Start Video Recording</button>
+                        <button type="button" id="stopVideoRecordingBtn" disabled>Stop</button>
+                        <span id="videoRecordingStatus"></span>
+                    </div>
+                    <video id="videoPreview" muted autoplay playsinline></video>
+                    {{ form.video_file }}
+                </div>
+                <div class="form-field">
+                    <label for="{{ form.video_description.id_for_label }}">{{ form.video_description.label }}</label>
+                    {{ form.video_description }}
+                </div>
+
+                <button type="submit">Save Post</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Audio Recording Logic
+        const startAudioBtn = document.getElementById('startAudioRecordingBtn');
+        const stopAudioBtn = document.getElementById('stopAudioRecordingBtn');
+        const audioStatus = document.getElementById('recordingStatus');
+        const audioFileInput = document.getElementById('{{ form.audio_file.id_for_label }}');
+        let audioMediaRecorder;
+        let audioChunks = [];
+
+        startAudioBtn.addEventListener('click', async () => {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                audioMediaRecorder = new MediaRecorder(stream);
+                audioMediaRecorder.ondataavailable = event => audioChunks.push(event.data);
+                audioMediaRecorder.onstop = () => {
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                    const audioFile = new File([audioBlob], 'audio_recording.webm', { type: 'audio/webm' });
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(audioFile);
+                    audioFileInput.files = dataTransfer.files;
+                    audioStatus.textContent = 'Recording ready!';
+                    startAudioBtn.disabled = false;
+                    stopAudioBtn.disabled = true;
+                    audioChunks = [];
+                };
+                audioMediaRecorder.start();
+                audioStatus.textContent = 'Recording...';
+                startAudioBtn.disabled = true;
+                stopAudioBtn.disabled = false;
+            } catch (err) {
+                console.error("Error accessing microphone:", err);
+                audioStatus.textContent = 'Microphone access denied.';
+            }
+        });
+        stopAudioBtn.addEventListener('click', () => audioMediaRecorder.stop());
+
+        // Video Recording Logic
+        const startVideoBtn = document.getElementById('startVideoRecordingBtn');
+        const stopVideoBtn = document.getElementById('stopVideoRecordingBtn');
+        const videoStatus = document.getElementById('videoRecordingStatus');
+        const videoFileInput = document.getElementById('{{ form.video_file.id_for_label }}');
+        const videoPreview = document.getElementById('videoPreview');
+        let videoMediaRecorder;
+        let videoChunks = [];
+        let videoStream;
+
+        startVideoBtn.addEventListener('click', async () => {
+            try {
+                videoStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                videoPreview.srcObject = videoStream;
+                videoPreview.style.display = 'block';
+                videoMediaRecorder = new MediaRecorder(videoStream);
+                videoMediaRecorder.ondataavailable = event => videoChunks.push(event.data);
+                videoMediaRecorder.onstop = () => {
+                    const videoBlob = new Blob(videoChunks, { type: 'video/webm' });
+                    const videoFile = new File([videoBlob], 'video_recording.webm', { type: 'video/webm' });
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(videoFile);
+                    videoFileInput.files = dataTransfer.files;
+                    videoStatus.textContent = 'Video ready!';
+                    startVideoBtn.disabled = false;
+                    stopVideoBtn.disabled = true;
+                    videoChunks = [];
+                    videoPreview.style.display = 'none';
+                    // Stop the camera track
+                    videoStream.getTracks().forEach(track => track.stop());
+                };
+                videoMediaRecorder.start();
+                videoStatus.textContent = 'Recording...';
+                startVideoBtn.disabled = true;
+                stopVideoBtn.disabled = false;
+            } catch (err) {
+                console.error("Error accessing camera/microphone:", err);
+                videoStatus.textContent = 'Camera/Mic access denied.';
+            }
+        });
+        stopVideoBtn.addEventListener('click', () => videoMediaRecorder.stop());
+    </script>
 </body>
 </html>

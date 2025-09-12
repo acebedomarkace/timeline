@@ -14,6 +14,8 @@ urlpatterns = [
     path('post/<int:pk>/delete/', views.post_delete, name='post_delete'),
     path('presentation/new/', views.presentation_create, name='presentation_create'),
     path('presentation/<int:pk>/', views.presentation_detail, name='presentation_detail'),
+    path('presentation/<int:pk>/edit/', views.presentation_edit, name='presentation_edit'),
+    path('presentation/<int:pk>/delete/', views.presentation_delete, name='presentation_delete'),
     path('profile/edit/', views.edit_profile, name='edit_profile'),
 ]
 
