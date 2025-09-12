@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Timeline</title>
+</head>
+<body>
+    <header>
+        {% if user.is_authenticated %}
+            <p>
+                Hi {{ user.username }}!
+                <a href="{% url 'post_create' %}">Create Post</a> |
+                {% if is_teacher %}
+                    <a href="{% url 'teacher_dashboard' %}">Teacher Dashboard</a> |
+                {% endif %}
+                <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" style="background:none; border:none; padding:0; color:blue; text-decoration:underline; cursor:pointer;">Logout</button>
+                </form>
+            </p>
+        {% else %}
+            <p><a href="{% url 'login' %}">Login</a> or <a href="{% url 'signup' %}">Sign Up</a></p>
+        {% endif %}
+    </header>
+    <hr>
+
+    {% if presentations is not None %}
+    <div class="presentations-section" style="padding: 10px; border: 1px solid #eee; margin-bottom: 20px;">
+        <h2>My Presentations</h2>
+        <a href="{% url 'presentation_create' %}">Create New Presentation</a>
+        <ul>
+            {% for presentation in presentations %}
+                <li><a href="{% url 'presentation_detail' pk=presentation.pk %}">{{ presentation.title }}</a></li>
+            {% empty %}
+                <li>You have not created any presentations yet.</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <h1>Timeline</h1>
+    {% for post in posts %}
+        <div>
+            <h2>{{ post.title }}</h2>
+            <p>by <a href="{% url 'author_post_list' username=post.author.username %}">{{ post.author.username }}</a> in {{ post.subject.name }} on {{ post.created_date }}</p>
+            <p>{{ post.content }}</p>
+            {% if post.photo %}
+                <img src="{{ post.photo.url }}" alt="{{ post.annotation }}" width="300">
+                <p>{{ post.annotation }}</p>
+            {% endif %}
+            {% if post.audio_file %}
+                <audio controls>
+                    <source src="{{ post.audio_file.url }}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <p>{{ post.audio_description }}</p>
+            {% endif %}
+        </div>
+        <hr>
+    {% endfor %}
+</body>
+</html>

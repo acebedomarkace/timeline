@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teacher Dashboard</title>
+</head>
+<body>
+    <h1>Teacher Dashboard</h1>
+    <h2>All Students</h2>
+    <ul>
+        {% for student in students %}
+            <li>
+                <a href="{% url 'author_post_list' username=student.username %}">{{ student.username }}</a>
+            </li>
+        {% empty %}
+            <li>No students have signed up yet.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'post_list' %}">Back to Main Timeline</a>
+</body>
+</html>

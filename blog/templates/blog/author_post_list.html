@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ author.username }}'s Timeline</title>
+    <style>
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+        }
+        .card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ author.username }}'s Timeline</h1>
+    <a href="{% url 'post_list' %}">Back to Main Timeline</a>
+    <hr>
+    <h2>Presentations</h2>
+    {% if user == author %}
+        <a href="{% url 'presentation_create' %}">Create New Presentation</a>
+    {% endif %}
+    <ul>
+        {% for presentation in presentations %}
+            <li><a href="{% url 'presentation_detail' pk=presentation.pk %}">{{ presentation.title }}</a></li>
+        {% empty %}
+            <li>No presentations yet.</li>
+        {% endfor %}
+    </ul>
+    <hr>
+    <h2>All Posts</h2>
+    <div class="card-container">
+        {% for post in posts %}
+            <div class="card">
+                <h3>{{ post.title }}</h3>
+                <p><small>Subject: {{ post.subject.name }} | Published: {{ post.created_date|date:"d M Y" }}</small></p>
+                {% if post.photo %}
+                    <img src="{{ post.photo.url }}" alt="{{ post.annotation }}">
+                {% endif %}
+                <p>{{ post.content|truncatewords:30 }}</p>
+                {% if user == post.author %}
+                    <a href="{% url 'post_edit' pk=post.pk %}">Edit</a> |
+                    <a href="{% url 'post_delete' pk=post.pk %}">Delete</a>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p>This author has no posts yet.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>

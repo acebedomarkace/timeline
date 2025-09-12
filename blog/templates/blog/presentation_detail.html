@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ presentation.title }}</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; display: flex; }
+        .main-content {
+            flex-grow: 1;
+            padding-right: 320px; /* Space for the TOC pane */
+        }
+        .toc-pane {
+            width: 320px;
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100vh;
+            background-color: #f9f9f9;
+            border-left: 1px solid #eee;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+        .toc-pane h3 { margin-top: 0; }
+        .toc-pane ul { list-style-type: none; padding-left: 0; }
+        .toc-pane li a { text-decoration: none; color: #333; display: block; padding: 5px 0; }
+        .toc-pane li a:hover { background-color: #eee; }
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            box-sizing: border-box;
+            border-bottom: 1px solid #eee;
+        }
+        .slide img { max-width: 60%; max-height: 50vh; }
+        .slide audio { margin-top: 20px; }
+        .slide h2 { margin-bottom: 10px; }
+        .slide p { color: #555; }
+        .exit-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="{% url 'author_post_list' username=presentation.author.username %}" class="exit-link">&larr; Back to Timeline</a>
+
+    <div class="main-content">
+        <div style="padding: 40px;">
+            <h1>{{ presentation.title }}</h1>
+            <p>By {{ presentation.author.username }}</p>
+        </div>
+
+        {% for post in presentation.posts.all %}
+            <div class="slide" id="post-{{ post.pk }}">
+                <h2>{{ post.title }}</h2>
+                <p><small>Subject: {{ post.subject.name }}</small></p>
+                {% if post.photo %}
+                    <img src="{{ post.photo.url }}" alt="{{ post.annotation }}">
+                    <p><em>{{ post.annotation }}</em></p>
+                {% endif %}
+                <p>{{ post.content }}</p>
+                {% if post.audio_file %}
+                    <audio controls src="{{ post.audio_file.url }}"></audio>
+                    <p><em>{{ post.audio_description }}</em></p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="toc-pane">
+        <h3>Table of Contents</h3>
+        <ul>
+            {% for post in presentation.posts.all %}
+                <li><a href="#post-{{ post.pk }}">{{ post.title }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <script>
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                window.location.href = "{% url 'author_post_list' username=presentation.author.username %}";
+            }
+        });
+    </script>
+
+</body>
+</html>
