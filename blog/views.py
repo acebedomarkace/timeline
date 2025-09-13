@@ -5,7 +5,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User, Group
 from .models import Post, Presentation, Subject, PeerReviewRequest, Comment, Profile
-from .forms import PostForm, PresentationForm, CommentForm, PeerReviewRequestForm, ProfileForm
+from .forms import PostForm, PresentationForm, CommentForm, PeerReviewRequestForm, ProfileForm, PrivateFeedbackForm, PostReviewStatusForm
 from django.db.models import Q
 from django.utils import timezone
 from django.db.models.functions import ExtractYear
@@ -214,35 +214,66 @@ def request_peer_review(request, pk):
     }
     return render(request, 'blog/request_peer_review.html', context)
 
+from .forms import PostForm, PresentationForm, CommentForm, PeerReviewRequestForm, ProfileForm, PrivateFeedbackForm, PostReviewStatusForm
+
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.view_count += 1
     post.save(update_fields=['view_count'])
 
     comment_form = None
+    private_feedback_form = None
+    review_status_form = None
+    
     if request.user.is_authenticated:
         if request.method == 'POST':
-            comment_form = CommentForm(request.POST)
-            if comment_form.is_valid():
-                new_comment = comment_form.save(commit=False)
-                new_comment.post = post
-                new_comment.author = request.user
-                new_comment.save()
+            # Comment form submission
+            if 'comment_submit' in request.POST:
+                comment_form = CommentForm(request.POST)
+                if comment_form.is_valid():
+                    new_comment = comment_form.save(commit=False)
+                    new_comment.post = post
+                    new_comment.author = request.user
+                    new_comment.save()
 
-                # If the commenter is a student, check for a review request
-                if request.user.groups.filter(name='Students').exists():
-                    PeerReviewRequest.objects.filter(
-                        post=post,
-                        reviewer=request.user,
-                        status='pending'
-                    ).update(status='completed')
+                    if request.user.groups.filter(name='Students').exists():
+                        PeerReviewRequest.objects.filter(
+                            post=post,
+                            reviewer=request.user,
+                            status='pending'
+                        ).update(status='completed')
+                    return redirect('post_detail', pk=post.pk)
 
-                return redirect('post_detail', pk=post.pk)
+            # Private feedback form submission for teachers
+            if is_teacher(request.user) and 'feedback_submit' in request.POST:
+                private_feedback_form = PrivateFeedbackForm(request.POST)
+                if private_feedback_form.is_valid():
+                    new_feedback = private_feedback_form.save(commit=False)
+                    new_feedback.post = post
+                    new_feedback.author = request.user
+                    new_feedback.save()
+                    return redirect('post_detail', pk=post.pk)
+
+            # Review status form submission for teachers
+            if is_teacher(request.user) and 'status_submit' in request.POST:
+                review_status_form = PostReviewStatusForm(request.POST, instance=post)
+                if review_status_form.is_valid():
+                    review_status_form.save()
+                    return redirect('post_detail', pk=post.pk)
+
         comment_form = CommentForm()
+        if is_teacher(request.user):
+            private_feedback_form = PrivateFeedbackForm()
+            review_status_form = PostReviewStatusForm(instance=post)
+
+    private_feedback = post.private_feedback.all() if request.user == post.author or (request.user.is_authenticated and is_teacher(request.user)) else []
 
     context = {
         'post': post,
-        'comment_form': comment_form
+        'comment_form': comment_form,
+        'private_feedback': private_feedback,
+        'private_feedback_form': private_feedback_form,
+        'review_status_form': review_status_form,
     }
     return render(request, 'blog/post_detail.html', context)
 

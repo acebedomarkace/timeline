@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post, Presentation, Comment, PeerReviewRequest, Profile
+from .models import Post, Presentation, Comment, PeerReviewRequest, Profile, PrivateFeedback
 
 class ProfileForm(forms.ModelForm):
     class Meta:
@@ -33,6 +33,19 @@ class CommentForm(forms.ModelForm):
         widgets = {
             'text': forms.Textarea(attrs={'rows': 4}),
         }
+
+class PrivateFeedbackForm(forms.ModelForm):
+    class Meta:
+        model = PrivateFeedback
+        fields = ['text']
+        widgets = {
+            'text': forms.Textarea(attrs={'rows': 4}),
+        }
+
+class PostReviewStatusForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['review_status']
 
 class PeerReviewRequestForm(forms.Form):
     reviewers = forms.ModelMultipleChoiceField(

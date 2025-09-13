@@ -95,6 +95,13 @@
             {% endif %}
         </p>
         <div class="post-card">
+            {% if user == post.author %}
+                <div class="status-indicator" style="padding: 10px; border-radius: 5px; margin-bottom: 20px; background-color: 
+                    {% if post.review_status == 'approved' %}#d4edda{% elif post.review_status == 'revision_requested' %}#fff3cd{% else %}#f8d7da{% endif %}; color: 
+                    {% if post.review_status == 'approved' %}#155724{% elif post.review_status == 'revision_requested' %}#856404{% else %}#721c24{% endif %};">
+                    <strong>Status:</strong> {{ post.get_review_status_display }}
+                </div>
+            {% endif %}
             <h1>{{ post.title }}</h1>
             <div class="meta">
                 <span class="meta-item">
@@ -150,8 +157,51 @@
             {% endif %}
         </div>
 
+        {% if user.is_authenticated and 'Teachers' in user.groups.all|join:", " %}
+        <div class="teacher-actions" style="background-color: #fff; border-radius: 8px; padding: 30px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-top: 20px;">
+            <h2>Teacher Actions</h2>
+            <div style="display: flex; gap: 20px;">
+                <div style="flex: 1;">
+                    <h3>Update Status</h3>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ review_status_form.as_p }}
+                        <button type="submit" name="status_submit" style="padding: 10px 15px; border: none; border-radius: 4px; background-color: #28a745; color: #fff; cursor: pointer;">Update Status</button>
+                    </form>
+                </div>
+                <div style="flex: 2;">
+                    <h3>Leave Private Feedback</h3>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ private_feedback_form.as_p }}
+                        <button type="submit" name="feedback_submit" style="padding: 10px 15px; border: none; border-radius: 4px; background-color: #007bff; color: #fff; cursor: pointer;">Submit Feedback</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if private_feedback %}
+        <div class="private-feedback-section" style="background-color: #fff3cd; border-radius: 8px; padding: 30px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-top: 20px;">
+            <h2>Private Feedback</h2>
+            {% for feedback in private_feedback %}
+                <div class="comment" style="border-bottom: 1px solid #eee; padding: 15px 0;">
+                    <div class="comment-author-info">
+                        <img src="{{ feedback.author.profile.image.url }}">
+                        <div>
+                            <strong>{{ feedback.author.username }}</strong>
+                            <span class="teacher-badge">Teacher</span>
+                            <div style="color: #666; font-size: 0.9em;">{{ feedback.created_date|date:"F j, Y" }}</div>
+                        </div>
+                    </div>
+                    <p>{{ feedback.text|linebreaksbr }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
         <div class="comments-section" style="background-color: #fff; border-radius: 8px; padding: 30px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-top: 20px;">
-            <h2>Feedback & Peer Review</h2>
+            <h2>Public Feedback & Peer Review</h2>
             {% for comment in post.comments.all %}
                 <div class="comment" style="border-bottom: 1px solid #eee; padding: 15px 0;">
                     <div class="comment-author-info">
@@ -167,16 +217,16 @@
                     <p>{{ comment.text|linebreaksbr }}</p>
                 </div>
             {% empty %}
-                <p>No feedback has been given yet.</p>
+                <p>No public feedback has been given yet.</p>
             {% endfor %}
 
             {% if comment_form %}
                 <hr>
-                <h3>Leave Feedback</h3>
+                <h3>Leave Public Feedback</h3>
                 <form method="post">
                     {% csrf_token %}
                     {{ comment_form.as_p }}
-                    <button type="submit" style="padding: 10px 15px; border: none; border-radius: 4px; background-color: #007bff; color: #fff; cursor: pointer;">Submit Comment</button>
+                    <button type="submit" name="comment_submit" style="padding: 10px 15px; border: none; border-radius: 4px; background-color: #007bff; color: #fff; cursor: pointer;">Submit Comment</button>
                 </form>
             {% endif %}
         </div>

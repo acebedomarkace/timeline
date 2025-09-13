@@ -16,6 +16,11 @@ class Post(models.Model):
         ('draft', 'Draft'),
         ('published', 'Published'),
     )
+    REVIEW_STATUS_CHOICES = (
+        ('needs_review', 'Needs Review'),
+        ('revision_requested', 'Revision Requested'),
+        ('approved', 'Approved'),
+    )
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject, on_delete=models.PROTECT)
     title = models.CharField(max_length=200)
@@ -31,6 +36,7 @@ class Post(models.Model):
     created_date = models.DateTimeField(default=timezone.now)
     updated_date = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
+    review_status = models.CharField(max_length=20, choices=REVIEW_STATUS_CHOICES, default='needs_review')
 
     def get_youtube_embed_url(self):
         if not self.youtube_url:
@@ -56,6 +62,15 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+class PrivateFeedback(models.Model):
+    post = models.ForeignKey(Post, related_name='private_feedback', on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    text = models.TextField()
+    created_date = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f'Feedback by {self.author} on {self.post}'
 
 class Presentation(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
