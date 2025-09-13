@@ -51,14 +51,20 @@ def post_create(request):
         form = PostForm()
     return render(request, 'blog/post_form.html', {'form': form})
 
-def author_post_list(request, username):
+def author_post_list(request, username, year=None):
     author = get_object_or_404(User, username=username)
     
     posts = Post.objects.filter(author=author).order_by('-created_date')
+    if year:
+        posts = posts.filter(created_date__year=year)
+        
     presentations = Presentation.objects.filter(author=author)
     profile = Profile.objects.get_or_create(user=author)[0]
     
     archive_years = Post.objects.filter(author=author).annotate(year=ExtractYear('created_date')).values_list('year', flat=True).distinct().order_by('-year')
+
+    # Fetch pending peer review requests
+    pending_reviews = PeerReviewRequest.objects.filter(reviewer=author, status='pending')
 
     context = {
         'author': author,
@@ -66,6 +72,8 @@ def author_post_list(request, username):
         'presentations': presentations,
         'profile': profile,
         'archive_years': archive_years,
+        'selected_year': year,
+        'pending_reviews': pending_reviews,
         'current_year': timezone.now().year
     }
     return render(request, 'blog/author_post_list.html', context)
