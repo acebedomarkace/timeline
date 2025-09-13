@@ -152,6 +152,7 @@
                     <div class="user-menu-dropdown" id="userMenuDropdown">
                         <a href="{% url 'author_post_list' username=user.username %}">My Timeline</a>
                         <a href="{% url 'edit_profile' %}">Edit Profile</a>
+                        <a href="{% url 'password_change' %}">Change Password</a>
                         {% if is_teacher %}
                             <a href="{% url 'teacher_dashboard' %}">Teacher Dashboard</a>
                         {% endif %}

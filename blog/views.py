@@ -271,6 +271,12 @@ def presentation_edit(request, pk):
     }
     return render(request, 'blog/presentation_form.html', context)
 
+from django.contrib.auth.views import PasswordChangeView
+from django.contrib.messages.views import SuccessMessageMixin
+
+class CustomPasswordChangeView(SuccessMessageMixin, PasswordChangeView):
+    success_message = "Your password has been changed successfully."
+
 @login_required
 def presentation_delete(request, pk):
     presentation = get_object_or_404(Presentation, pk=pk)

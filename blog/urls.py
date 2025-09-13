@@ -1,7 +1,12 @@
-from django.urls import path
+from django.urls import path, reverse_lazy
 from . import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
+    path('password_change/', views.CustomPasswordChangeView.as_view(
+        template_name='registration/password_change_form.html',
+        success_url=reverse_lazy('timeline_redirect')
+    ), name='password_change'),
     path('', views.timeline_redirect, name='timeline_redirect'),
     path('public-timeline/', views.public_timeline, name='public_timeline'),
     path('archive/<int:year>/', views.public_timeline, name='post_list_archive'),
@@ -21,4 +26,3 @@ urlpatterns = [
     path('presentation/<int:pk>/delete/', views.presentation_delete, name='presentation_delete'),
     path('profile/edit/', views.edit_profile, name='edit_profile'),
 ]
-
