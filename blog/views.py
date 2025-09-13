@@ -6,24 +6,22 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User, Group
 from .models import Post, Presentation, Subject, PeerReviewRequest, Comment, Profile
 from .forms import PostForm, PresentationForm, CommentForm, PeerReviewRequestForm, ProfileForm
+from django.utils import timezone
+from django.db.models.functions import ExtractYear
 
 def post_list(request):
-    all_posts = Post.objects.order_by('-created_date')
-    presentations = None
-    pending_reviews = None
+    # If the user is a student, redirect them to their personal timeline.
     if request.user.is_authenticated and request.user.groups.filter(name='Students').exists():
-        all_posts = all_posts.filter(author=request.user)
-        presentations = Presentation.objects.filter(author=request.user)
-        pending_reviews = PeerReviewRequest.objects.filter(reviewer=request.user, status='pending')
+        return redirect('author_post_list', username=request.user.username)
 
-    paginator = Paginator(all_posts, 6) # Show 6 posts per page.
+    # Otherwise, show the public timeline for guests and teachers.
+    all_posts = Post.objects.order_by('-created_date')
+    paginator = Paginator(all_posts, 6)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
     context = {
         'page_obj': page_obj,
-        'presentations': presentations,
-        'pending_reviews': pending_reviews
     }
     return render(request, 'blog/post_list.html', context)
 
@@ -55,14 +53,20 @@ def post_create(request):
 
 def author_post_list(request, username):
     author = get_object_or_404(User, username=username)
+    
     posts = Post.objects.filter(author=author).order_by('-created_date')
     presentations = Presentation.objects.filter(author=author)
     profile = Profile.objects.get_or_create(user=author)[0]
+    
+    archive_years = Post.objects.filter(author=author).annotate(year=ExtractYear('created_date')).values_list('year', flat=True).distinct().order_by('-year')
+
     context = {
         'author': author,
         'posts': posts,
         'presentations': presentations,
-        'profile': profile
+        'profile': profile,
+        'archive_years': archive_years,
+        'current_year': timezone.now().year
     }
     return render(request, 'blog/author_post_list.html', context)
 
@@ -132,7 +136,19 @@ def presentation_create(request):
 
 def presentation_detail(request, pk):
     presentation = get_object_or_404(Presentation, pk=pk)
-    return render(request, 'blog/presentation_detail.html', {'presentation': presentation})
+    
+    # Group posts by subject
+    subject_posts = {}
+    for post in presentation.posts.all().order_by('subject__name', '-created_date'):
+        if post.subject not in subject_posts:
+            subject_posts[post.subject] = []
+        subject_posts[post.subject].append(post)
+
+    context = {
+        'presentation': presentation,
+        'subject_posts': subject_posts
+    }
+    return render(request, 'blog/presentation_detail.html', context)
 
 @login_required
 def request_peer_review(request, pk):

@@ -21,7 +21,32 @@
             overflow-y: auto;
         }
         .toc-pane h3 { margin-top: 0; }
-        .toc-pane ul { list-style-type: none; padding-left: 0; }
+        .toc-pane .subject-heading {
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .toc-pane .subject-heading::after {
+            content: '−'; /* Minus sign */
+            font-size: 1.2em;
+            transition: transform 0.2s;
+        }
+        .toc-pane .subject-heading.collapsed::after {
+            content: '+'; /* Plus sign */
+        }
+        .toc-pane ul {
+            list-style-type: decimal;
+            padding-left: 20px;
+            overflow: hidden;
+            max-height: 1000px; /* Large value to allow animation */
+            transition: max-height 0.3s ease-in-out;
+        }
+        .toc-pane ul.collapsed {
+            max-height: 0;
+        }
         .toc-pane li a { text-decoration: none; color: #333; display: block; padding: 5px 0; }
         .toc-pane li a:hover { background-color: #eee; }
         .slide {
@@ -63,7 +88,7 @@
 
         {% for post in presentation.posts.all %}
             <div class="slide" id="post-{{ post.pk }}">
-                <h2>{{ post.title }}</h2>
+                <h2>{{ forloop.counter }}. {{ post.title }}</h2>
                 <p><small>Subject: {{ post.subject.name }}</small></p>
                 {% if post.photo %}
                     <img src="{{ post.photo.url }}" alt="{{ post.annotation }}">
@@ -88,13 +113,13 @@
                 {% endwith %}
 
                 {% if post.audio_file %}
-                    <audio controls src="{{ post.audio_file.url }}"></audio>
+                    <audio controls controlsList="nodownload" src="{{ post.audio_file.url }}"></audio>
                     <p><em>{{ post.audio_description }}</em></p>
                 {% endif %}
 
                 {% if post.video_file %}
                     <div style="margin-top: 20px; width: 80%;">
-                        <video controls style="width: 100%; max-width: 100%; border-radius: 4px;">
+                        <video controls controlsList="nodownload" style="width: 100%; max-width: 100%; border-radius: 4px;">
                             <source src="{{ post.video_file.url }}" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
@@ -107,11 +132,14 @@
 
     <div class="toc-pane">
         <h3>Table of Contents</h3>
-        <ul>
-            {% for post in presentation.posts.all %}
-                <li><a href="#post-{{ post.pk }}">{{ post.title }}</a></li>
-            {% endfor %}
-        </ul>
+        {% for subject, posts in subject_posts.items %}
+            <h4 class="subject-heading">{{ subject.name }} ({{ posts|length }})</h4>
+            <ul>
+                {% for post in posts %}
+                    <li><a href="#post-{{ post.pk }}">{{ post.title }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
     </div>
 
     <script>
@@ -119,6 +147,14 @@
             if (event.key === 'Escape') {
                 window.location.href = "{% url 'author_post_list' username=presentation.author.username %}";
             }
+        });
+
+        document.querySelectorAll('.subject-heading').forEach(heading => {
+            heading.addEventListener('click', () => {
+                heading.classList.toggle('collapsed');
+                const postList = heading.nextElementSibling;
+                postList.classList.toggle('collapsed');
+            });
         });
     </script>
 

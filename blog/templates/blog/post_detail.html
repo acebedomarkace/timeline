@@ -93,7 +93,14 @@
         <div class="post-card">
             <h1>{{ post.title }}</h1>
             <div class="meta">
-                <span class="meta-item">By <a href="{% url 'author_post_list' username=post.author.username %}">{{ post.author.username }}</a></span>
+                <span class="meta-item">
+                    By&nbsp;
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'author_post_list' username=post.author.username %}">{{ post.author.username }}</a>
+                    {% else %}
+                        {{ post.author.username }}
+                    {% endif %}
+                </span>
                 <span class="meta-item">in {{ post.subject.name }}</span>
                 <span class="meta-item">on {{ post.created_date|date:"F j, Y" }}</span>
                 <span class="meta-item">
@@ -124,13 +131,13 @@
             {% endwith %}
 
             {% if post.audio_file %}
-                <audio controls src="{{ post.audio_file.url }}"></audio>
+                <audio controls controlsList="nodownload" src="{{ post.audio_file.url }}"></audio>
                 <p><em>{{ post.audio_description }}</em></p>
             {% endif %}
 
             {% if post.video_file %}
                 <div style="margin-top: 20px;">
-                    <video controls style="width: 100%; max-width: 100%; border-radius: 4px;">
+                    <video controls controlsList="nodownload" style="width: 100%; max-width: 100%; border-radius: 4px;">
                         <source src="{{ post.video_file.url }}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>

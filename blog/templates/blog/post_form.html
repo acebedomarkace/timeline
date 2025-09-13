@@ -47,17 +47,30 @@
             resize: vertical;
             min-height: 120px;
         }
-        .form-container button {
-            width: 100%;
+        .form-container .button-group {
+            margin-top: 30px;
+            display: flex;
+            gap: 10px;
+        }
+        .form-container .btn, .form-container a.btn {
+            flex-grow: 1;
             padding: 12px;
             border: none;
             border-radius: 4px;
-            background-color: #007bff;
-            color: #fff;
             font-size: 1.1em;
             font-weight: 500;
             cursor: pointer;
-            margin-top: 20px;
+            text-decoration: none;
+            text-align: center;
+            line-height: 1.5; /* Ensure consistent height */
+        }
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            color: #fff;
         }
     .recorder-controls {
             display: flex;
@@ -88,7 +101,6 @@
 </head>
 <body>
     <div class="container">
-        <p><a href="{% url 'post_list' %}">&larr; Back to Timeline</a></p>
         <div class="form-container">
             <h2>Create a New Post</h2>
             <form method="post" enctype="multipart/form-data">
@@ -148,7 +160,10 @@
                     {{ form.video_description }}
                 </div>
 
-                <button type="submit">Save Post</button>
+                <div class="button-group">
+                    <a href="{% url 'author_post_list' username=user.username %}" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Save Post</button>
+                </div>
             </form>
         </div>
     </div>

@@ -11,15 +11,121 @@
             padding: 20px;
         }
         .container {
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
+            display: grid;
+            grid-template-columns: 250px 1fr; /* Sidebar and main content */
+            gap: 30px;
         }
-        .info-section {
+        .sidebar {
+            grid-column: 1 / 2;
+        }
+        .main-content {
+            grid-column: 2 / 3;
+        }
+        header {
+            background-color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            grid-column: 1 / -1; /* Make header span both columns */
+        }
+        .logo {
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+        .logo a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .user-menu {
+            position: relative;
+        }
+        .user-menu-trigger {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .user-menu-trigger .username {
+            font-weight: 500;
+            color: #007bff; /* Default link color */
+        }
+        .user-menu-dropdown {
+            position: absolute;
+            top: 120%;
+            right: 0;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            width: 200px;
+            overflow: hidden;
+            display: none;
+            z-index: 1000; /* Ensure it's on top */
+        }
+        .user-menu-dropdown.show {
+            display: block;
+        }
+        .user-menu-dropdown a, .user-menu-dropdown button {
+            display: block;
+            width: 100%;
+            padding: 12px 15px;
+            text-align: left;
+            border: none;
+            background: none;
+            color: #333;
+            text-decoration: none;
+            font-size: 1em;
+        }
+        .user-menu-dropdown a:hover, .user-menu-dropdown button:hover {
+            background-color: #f0f2f5;
+        }
+        .info-card {
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
             margin-bottom: 20px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .info-card h2 {
+            margin-top: 0;
+            font-size: 1.2em;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .info-card h2::after {
+            content: '−'; /* Minus sign */
+            font-size: 1.2em;
+            transition: transform 0.2s;
+        }
+        .info-card h2.collapsed::after {
+            content: '+'; /* Plus sign */
+        }
+        .info-card ul {
+            list-style-type: none;
+            padding-left: 0;
+            overflow: hidden;
+            max-height: 1000px; /* Large value to allow animation */
+            transition: max-height 0.3s ease-in-out;
+        }
+        .info-card ul.collapsed {
+            max-height: 0;
+        }
+        .info-card li {
+            padding: 5px 0;
+        }
+        .archive-link {
+            cursor: pointer;
+        }
+        .archive-link.active {
+            font-weight: bold;
         }
         .card-container {
             display: grid;
@@ -102,6 +208,60 @@
         .presentation-actions a {
             text-decoration: none;
         }
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-left: 10px;
+            object-fit: cover;
+        }
+        .fab-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+        }
+        .fab {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #007bff;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+        .fab-options {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.2s, visibility 0.2s;
+        }
+        .fab-options.show {
+            visibility: visible;
+            opacity: 1;
+        }
+        .fab-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #fff;
+            padding: 10px 15px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+            text-decoration: none;
+            color: #333;
+            white-space: nowrap;
+        }
         /* Themes */
         .theme-dark {
             background-color: #121212;
@@ -163,64 +323,178 @@
         .theme-monochrome a {
             color: #343a40;
         }
+        /* Theme-specific placeholders for cards without images */
+        .theme-dark .placeholder-card { background-image: linear-gradient(to right, #434343, #282828); }
+        .theme-sepia .placeholder-card { background-image: linear-gradient(to right, #a08c72, #8c7a65); }
+        .theme-ocean .placeholder-card { background-image: linear-gradient(to right, #00c6ff, #0072ff); }
+        .theme-forest .placeholder-card { background-image: linear-gradient(to right, #5a9a5a, #3a7a3a); }
+        .theme-sunset .placeholder-card { background-image: linear-gradient(to right, #ff7e5f, #feb47b); }
+        .theme-monochrome .placeholder-card { background-image: linear-gradient(to right, #6c757d, #343a40); }
     </style>
 </head>
 <body class="theme-{{ profile.theme }}">
     <div class="container">
-        <p><a href="{% url 'post_list' %}">&larr; Back to Main Timeline</a></p>
-        <h1>{{ author.username }}'s Timeline</h1>
-        {% if user == author %}
-            <p><a href="{% url 'edit_profile' %}">Edit Profile & Theme</a></p>
-        {% endif %}
-
-        <div class="info-section">
-            <h2>Presentations</h2>
-            {% if user == author %}
-                <p><a href="{% url 'presentation_create' %}">Create New Presentation</a></p>
-            {% endif %}
-            <ul>
-                {% for presentation in presentations %}
-                    <li>
-                        <a href="{% url 'presentation_detail' pk=presentation.pk %}">{{ presentation.title }}</a>
-                        {% if user == author %}
-                            | <a href="{% url 'presentation_edit' pk=presentation.pk %}">Edit</a>
-                            | <a href="{% url 'presentation_delete' pk=presentation.pk %}">Delete</a>
+        <header>
+            <div class="logo">
+                <a href="{% url 'post_list' %}">Timeline</a>
+            </div>
+            <div class="user-menu">
+                {% if user.is_authenticated %}
+                    <div class="user-menu-trigger" id="userMenuTrigger">
+                        <span class="username">{{ user.username }}</span>
+                        <img class="profile-pic" src="{{ user.profile.image.url }}">
+                    </div>
+                    <div class="user-menu-dropdown" id="userMenuDropdown">
+                        <a href="{% url 'author_post_list' username=user.username %}">My Timeline</a>
+                        <a href="{% url 'edit_profile' %}">Edit Profile</a>
+                        {% if is_teacher %}
+                            <a href="{% url 'teacher_dashboard' %}">Teacher Dashboard</a>
                         {% endif %}
-                    </li>
-                {% empty %}
-                    <li>No presentations yet.</li>
-                {% endfor %}
-            </ul>
+                        <form action="{% url 'logout' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit">Logout</button>
+                        </form>
+                    </div>
+                {% else %}
+                    <a href="{% url 'login' %}">Login</a> | <a href="{% url 'signup' %}">Sign Up</a>
+                {% endif %}
+            </div>
+        </header>
+        <div class="sidebar">
+            <div class="info-card">
+                <h2 class="collapsible-heading">Archives</h2>
+                <ul class="collapsible-list">
+                    <li><a href="#" class="archive-link active" data-year="all">All Posts</a></li>
+                    {% for year in archive_years %}
+                        <li>
+                            <a href="#" class="archive-link" data-year="{{ year }}">{{ year }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="info-card">
+                <h2 class="collapsible-heading">Presentations</h2>
+                <ul class="collapsible-list">
+                    {% for presentation in presentations %}
+                        <li>
+                            <a href="{% url 'presentation_detail' pk=presentation.pk %}" title="{{ presentation.title }}" class="truncated-link">{{ presentation.title }}</a>
+                            {% if user == author %}
+                                <span class="presentation-actions">
+                                    <a href="{% url 'presentation_edit' pk=presentation.pk %}" title="Edit Presentation">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                    </a>
+                                    <a href="{% url 'presentation_delete' pk=presentation.pk %}" title="Delete Presentation">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                    </a>
+                                </span>
+                            {% endif %}
+                        </li>
+                    {% empty %}
+                        <li>No presentations yet.</li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
-
-        <h2>All Posts</h2>
-        <div class="card-container">
-            {% for post in posts %}
-                <div class="card" {% if post.photo %}style="background-image: url('{{ post.photo.url }}');"{% endif %}>
-                    <a href="{% url 'post_detail' pk=post.pk %}" class="card-main-link">
-                        <div class="card-overlay">
-                            <h2 class="card-title">{{ post.title }}</h2>
-                        </div>
-                    </a>
-                    {% if user == post.author %}
-                        <div class="actions">
-                            <a href="{% url 'post_edit' pk=post.pk %}">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                                <span class="tooltip">Edit Post</span>
-                            </a>
-                            <a href="{% url 'post_delete' pk=post.pk %}">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                                <span class="tooltip">Delete Post</span>
-                            </a>
-                        </div>
-                    {% endif %}
-                </div>
-            {% empty %}
-                <div class="info-section">
-                    <p>This author has no posts yet.</p>
-                </div>
-            {% endfor %}
+        <div class="main-content">
+            <div class="card-container">
+                {% for post in posts %}
+                    <div class="card {% if not post.photo %}placeholder-card{% endif %}" data-year="{{ post.created_date.year }}" {% if post.photo %}style="background-image: url('{{ post.photo.url }}');"{% endif %}>
+                        <a href="{% url 'post_detail' pk=post.pk %}" class="card-main-link">
+                            <div class="card-overlay">
+                                <h2 class="card-title">{{ post.title }}</h2>
+                            </div>
+                        </a>
+                        {% if user == author %}
+                            <div class="actions">
+                                <a href="{% url 'post_edit' pk=post.pk %}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                    <span class="tooltip">Edit Post</span>
+                                </a>
+                                <a href="{% url 'post_delete' pk=post.pk %}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                    <span class="tooltip">Delete Post</span>
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% empty %}
+                    <div class="info-card" style="grid-column: 1 / -1;">
+                        <p>This author has no posts for this year.</p>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
+    {% if user == author %}
+    <div class="fab-container">
+        <div class="fab-options">
+            <a href="{% url 'presentation_create' %}" class="fab-option">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+                New Presentation
+            </a>
+            <a href="{% url 'post_create' %}" class="fab-option">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                New Post
+            </a>
+        </div>
+        <div class="fab" id="fabBtn">+</div>
+    </div>
+    {% endif %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const archiveLinks = document.querySelectorAll('.archive-link');
+            const postCards = document.querySelectorAll('.card');
+            const postsHeading = document.getElementById('posts-heading');
+
+            archiveLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    archiveLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+
+                    const selectedYear = this.getAttribute('data-year');
+
+                    if (selectedYear === 'all') {
+                        postsHeading.textContent = 'All Posts';
+                        postCards.forEach(card => card.style.display = 'block');
+                    } else {
+                        postsHeading.textContent = `Posts for ${selectedYear}`;
+                        postCards.forEach(card => {
+                            if (card.getAttribute('data-year') === selectedYear) {
+                                card.style.display = 'block';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        });
+                    }
+                });
+            });
+
+            const fabBtn = document.getElementById('fabBtn');
+            const fabOptions = document.querySelector('.fab-options');
+            if (fabBtn) {
+                fabBtn.addEventListener('click', () => {
+                    fabOptions.classList.toggle('show');
+                });
+            }
+
+            const userMenuTrigger = document.getElementById('userMenuTrigger');
+            const userMenuDropdown = document.getElementById('userMenuDropdown');
+            if (userMenuTrigger) {
+                userMenuTrigger.addEventListener('click', () => {
+                    userMenuDropdown.classList.toggle('show');
+                });
+            }
+
+            document.querySelectorAll('.collapsible-heading').forEach(heading => {
+                heading.addEventListener('click', () => {
+                    heading.classList.toggle('collapsed');
+                    const postList = heading.nextElementSibling;
+                    postList.classList.toggle('collapsed');
+                });
+            });
+        });
+    </script>
 </body>
 </html>
