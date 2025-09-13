@@ -162,7 +162,8 @@
 
                 <div class="button-group">
                     <a href="{% url 'author_post_list' username=user.username %}" class="btn btn-secondary">Cancel</a>
-                    <button type="submit" class="btn btn-primary">Save Post</button>
+                    <button type="submit" name="status" value="draft" class="btn btn-secondary">Save as Draft</button>
+                    <button type="submit" name="status" value="published" class="btn btn-primary">Publish</button>
                 </div>
             </form>
         </div>

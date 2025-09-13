@@ -12,6 +12,10 @@ class Subject(models.Model):
         return self.name
 
 class Post(models.Model):
+    STATUS_CHOICES = (
+        ('draft', 'Draft'),
+        ('published', 'Published'),
+    )
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject, on_delete=models.PROTECT)
     title = models.CharField(max_length=200)
@@ -26,6 +30,7 @@ class Post(models.Model):
     view_count = models.PositiveIntegerField(default=0)
     created_date = models.DateTimeField(default=timezone.now)
     updated_date = models.DateTimeField(auto_now=True)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
 
     def get_youtube_embed_url(self):
         if not self.youtube_url:

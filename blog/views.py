@@ -19,7 +19,7 @@ def timeline_redirect(request):
     return redirect('public_timeline')
 
 def public_timeline(request):
-    all_posts = Post.objects.order_by('-created_date')
+    all_posts = Post.objects.filter(status='published').order_by('-created_date')
     paginator = Paginator(all_posts, 6)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -49,6 +49,7 @@ def post_create(request):
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
+            post.status = request.POST.get('status', 'draft')
             post.save()
             return redirect('timeline_redirect')
     else:
@@ -58,9 +59,12 @@ def post_create(request):
 def author_post_list(request, username, year=None):
     author = get_object_or_404(User, username=username)
     
-    posts = Post.objects.filter(author=author).order_by('-created_date')
+    posts_list = Post.objects.filter(author=author).order_by('-created_date')
     if year:
-        posts = posts.filter(created_date__year=year)
+        posts_list = posts_list.filter(created_date__year=year)
+        
+    drafts = posts_list.filter(status='draft')
+    published = posts_list.filter(status='published')
         
     presentations = Presentation.objects.filter(author=author)
     profile = Profile.objects.get_or_create(user=author)[0]
@@ -72,7 +76,8 @@ def author_post_list(request, username, year=None):
 
     context = {
         'author': author,
-        'posts': posts,
+        'drafts': drafts,
+        'published': published,
         'presentations': presentations,
         'profile': profile,
         'archive_years': archive_years,
@@ -90,7 +95,9 @@ def post_edit(request, pk):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
-            form.save()
+            post = form.save(commit=False)
+            post.status = request.POST.get('status', 'draft')
+            post.save()
             return redirect('author_post_list', username=request.user.username)
     else:
         form = PostForm(instance=post)
