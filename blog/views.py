@@ -6,15 +6,19 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User, Group
 from .models import Post, Presentation, Subject, PeerReviewRequest, Comment, Profile
 from .forms import PostForm, PresentationForm, CommentForm, PeerReviewRequestForm, ProfileForm
+from django.db.models import Q
 from django.utils import timezone
 from django.db.models.functions import ExtractYear
 
-def post_list(request):
+def timeline_redirect(request):
     # If the user is a student, redirect them to their personal timeline.
     if request.user.is_authenticated and request.user.groups.filter(name='Students').exists():
         return redirect('author_post_list', username=request.user.username)
 
     # Otherwise, show the public timeline for guests and teachers.
+    return redirect('public_timeline')
+
+def public_timeline(request):
     all_posts = Post.objects.order_by('-created_date')
     paginator = Paginator(all_posts, 6)
     page_number = request.GET.get('page')
@@ -33,7 +37,7 @@ def signup(request):
             students_group = Group.objects.get(name='Students')
             user.groups.add(students_group)
             login(request, user)
-            return redirect('post_list')
+            return redirect('timeline_redirect')
     else:
         form = UserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})
@@ -46,7 +50,7 @@ def post_create(request):
             post = form.save(commit=False)
             post.author = request.user
             post.save()
-            return redirect('post_list')
+            return redirect('timeline_redirect')
     else:
         form = PostForm()
     return render(request, 'blog/post_form.html', {'form': form})
@@ -82,7 +86,7 @@ def author_post_list(request, username, year=None):
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if post.author != request.user:
-        return redirect('post_list')
+        return redirect('timeline_redirect')
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
@@ -100,10 +104,17 @@ def is_teacher(user):
 def teacher_dashboard(request, username=None):
     student_posts = Post.objects.filter(author__groups__name='Students')
     selected_student = None
+    search_query = request.GET.get('q')
 
     if username:
         selected_student = get_object_or_404(User, username=username)
         student_posts = student_posts.filter(author=selected_student)
+
+    if search_query:
+        student_posts = student_posts.filter(
+            Q(title__icontains=search_query) |
+            Q(video_description__icontains=search_query)
+        )
 
     subjects = Subject.objects.filter(post__in=student_posts).distinct().prefetch_related('post_set')
     
@@ -111,10 +122,22 @@ def teacher_dashboard(request, username=None):
 
     students = User.objects.filter(groups__name='Students').order_by('username')
 
+    # Calculate subject distribution
+    total_posts = student_posts.count()
+    subject_distribution = {}
+    if total_posts > 0:
+        for subject in subjects:
+            post_count = subject_posts[subject].count()
+            percentage = (post_count / total_posts) * 100
+            subject_distribution[subject.name] = round(percentage, 1)
+
     context = {
         'subject_posts': subject_posts,
         'students': students,
-        'selected_student': selected_student
+        'selected_student': selected_student,
+        'search_query': search_query,
+        'subject_distribution': subject_distribution,
+        'total_posts': total_posts,
     }
     return render(request, 'blog/teacher_dashboard.html', context)
 
@@ -122,7 +145,7 @@ def teacher_dashboard(request, username=None):
 def post_delete(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if post.author != request.user:
-        return redirect('post_list')
+        return redirect('timeline_redirect')
     if request.method == 'POST':
         post.delete()
         return redirect('author_post_list', username=request.user.username)
@@ -162,7 +185,7 @@ def presentation_detail(request, pk):
 def request_peer_review(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if post.author != request.user:
-        return redirect('post_list')
+        return redirect('timeline_redirect')
 
     if request.method == 'POST':
         form = PeerReviewRequestForm(request.POST, user=request.user)
@@ -232,7 +255,7 @@ def edit_profile(request):
 def presentation_edit(request, pk):
     presentation = get_object_or_404(Presentation, pk=pk)
     if presentation.author != request.user:
-        return redirect('post_list')
+        return redirect('timeline_redirect')
     
     if request.method == 'POST':
         form = PresentationForm(request.POST, user=request.user, instance=presentation)
@@ -252,7 +275,7 @@ def presentation_edit(request, pk):
 def presentation_delete(request, pk):
     presentation = get_object_or_404(Presentation, pk=pk)
     if presentation.author != request.user:
-        return redirect('post_list')
+        return redirect('timeline_redirect')
     
     if request.method == 'POST':
         presentation.delete()

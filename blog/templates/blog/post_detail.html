@@ -85,7 +85,7 @@
 <body>
     <div class="container">
         <p>
-            <a href="{% url 'post_list' %}">&larr; Back to Timeline</a>
+            <a href="{% url 'public_timeline' %}">&larr; Back to Timeline</a>
             {% if user == post.author %}
                 <a href="{% url 'request_peer_review' pk=post.pk %}" class="action-button">Request Peer Review</a>
             {% endif %}
