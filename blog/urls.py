@@ -8,6 +8,7 @@ urlpatterns = [
         success_url=reverse_lazy('timeline_redirect')
     ), name='password_change'),
     path('', views.timeline_redirect, name='timeline_redirect'),
+    path('tag/<str:tag_name>/', views.posts_by_tag, name='posts_by_tag'),
     path('public-timeline/', views.public_timeline, name='public_timeline'),
     path('notifications/mark-as-read/', views.mark_notifications_as_read, name='mark_notifications_as_read'),
     path('archive/<int:year>/', views.public_timeline, name='post_list_archive'),
@@ -26,4 +27,5 @@ urlpatterns = [
     path('presentation/<int:pk>/edit/', views.presentation_edit, name='presentation_edit'),
     path('presentation/<int:pk>/delete/', views.presentation_delete, name='presentation_delete'),
     path('profile/edit/', views.edit_profile, name='edit_profile'),
+    path('tag/<str:tag_name>/', views.posts_by_tag, name='posts_by_tag'),
 ]

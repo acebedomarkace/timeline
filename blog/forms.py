@@ -9,9 +9,11 @@ class ProfileForm(forms.ModelForm):
 from django.contrib.auth.models import User
 
 class PostForm(forms.ModelForm):
+    tags = forms.CharField(max_length=200, required=False, help_text='Enter comma-separated tags.')
+
     class Meta:
         model = Post
-        fields = ['subject', 'title', 'content', 'photo', 'annotation', 'audio_file', 'audio_description', 'youtube_url', 'video_file', 'video_description']
+        fields = ['subject', 'title', 'content', 'photo', 'annotation', 'audio_file', 'audio_description', 'youtube_url', 'video_file', 'video_description', 'tags']
 
 class PresentationForm(forms.ModelForm):
     class Meta:

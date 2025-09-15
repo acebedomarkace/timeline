@@ -159,6 +159,11 @@
                     <label for="{{ form.video_description.id_for_label }}">{{ form.video_description.label }}</label>
                     {{ form.video_description }}
                 </div>
+                <div class="form-field">
+                    <label for="{{ form.tags.id_for_label }}">{{ form.tags.label }}</label>
+                    {{ form.tags }}
+                    <p style="font-size: 0.9em; color: #666;">{{ form.tags.help_text }}</p>
+                </div>
 
                 <div class="button-group">
                     <a href="{% url 'author_post_list' username=user.username %}" class="btn btn-secondary">Cancel</a>

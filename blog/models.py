@@ -11,6 +11,12 @@ class Subject(models.Model):
     def __str__(self):
         return self.name
 
+class Tag(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.name
+
 class Post(models.Model):
     STATUS_CHOICES = (
         ('draft', 'Draft'),
@@ -37,6 +43,7 @@ class Post(models.Model):
     updated_date = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
     review_status = models.CharField(max_length=20, choices=REVIEW_STATUS_CHOICES, default='needs_review')
+    tags = models.ManyToManyField(Tag, blank=True)
 
     def get_youtube_embed_url(self):
         if not self.youtube_url:

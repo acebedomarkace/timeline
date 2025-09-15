@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User, Group
-from .models import Post, Presentation, Subject, PeerReviewRequest, Comment, Profile, Notification
+from .models import Post, Presentation, Subject, PeerReviewRequest, Comment, Profile, Notification, Tag
 from .forms import PostForm, PresentationForm, CommentForm, PeerReviewRequestForm, ProfileForm, PrivateFeedbackForm, PostReviewStatusForm
 from django.db.models import Q
 from django.utils import timezone
@@ -51,6 +51,12 @@ def post_create(request):
             post.author = request.user
             post.status = request.POST.get('status', 'draft')
             post.save()
+
+            tag_names = form.cleaned_data['tags'].split(',')
+            for tag_name in tag_names:
+                tag, created = Tag.objects.get_or_create(name=tag_name.strip())
+                post.tags.add(tag)
+
             return redirect('timeline_redirect')
     else:
         form = PostForm()
@@ -98,9 +104,16 @@ def post_edit(request, pk):
             post = form.save(commit=False)
             post.status = request.POST.get('status', 'draft')
             post.save()
+
+            post.tags.clear()
+            tag_names = form.cleaned_data['tags'].split(',')
+            for tag_name in tag_names:
+                tag, created = Tag.objects.get_or_create(name=tag_name.strip())
+                post.tags.add(tag)
+
             return redirect('author_post_list', username=request.user.username)
     else:
-        form = PostForm(instance=post)
+        form = PostForm(instance=post, initial={'tags': ', '.join([t.name for t in post.tags.all()])})
     return render(request, 'blog/post_form.html', {'form': form})
 
 def is_teacher(user):
@@ -362,3 +375,15 @@ def mark_notifications_as_read(request):
     if request.method == 'POST':
         Notification.objects.filter(recipient=request.user, read=False).update(read=True)
     return redirect(request.META.get('HTTP_REFERER', 'timeline_redirect'))
+
+def posts_by_tag(request, tag_name):
+    tag = get_object_or_404(Tag, name=tag_name)
+    posts = Post.objects.filter(tags=tag, status='published').order_by('-created_date')
+    paginator = Paginator(posts, 6)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {
+        'page_obj': page_obj,
+        'tag': tag,
+    }
+    return render(request, 'blog/post_list.html', context)
