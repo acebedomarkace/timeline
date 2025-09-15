@@ -129,3 +129,14 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
 
+class Notification(models.Model):
+    recipient = models.ForeignKey(User, related_name='notifications', on_delete=models.CASCADE)
+    sender = models.ForeignKey(User, related_name='sent_notifications', on_delete=models.CASCADE, null=True)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True, blank=True)
+    message = models.TextField()
+    read = models.BooleanField(default=False)
+    created_date = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f'Notification for {self.recipient.username}'
+

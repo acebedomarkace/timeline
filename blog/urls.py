@@ -9,6 +9,7 @@ urlpatterns = [
     ), name='password_change'),
     path('', views.timeline_redirect, name='timeline_redirect'),
     path('public-timeline/', views.public_timeline, name='public_timeline'),
+    path('notifications/mark-as-read/', views.mark_notifications_as_read, name='mark_notifications_as_read'),
     path('archive/<int:year>/', views.public_timeline, name='post_list_archive'),
     path('signup/', views.signup, name='signup'),
     path('post/new/', views.post_create, name='post_create'),

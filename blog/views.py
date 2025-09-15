@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User, Group
-from .models import Post, Presentation, Subject, PeerReviewRequest, Comment, Profile
+from .models import Post, Presentation, Subject, PeerReviewRequest, Comment, Profile, Notification
 from .forms import PostForm, PresentationForm, CommentForm, PeerReviewRequestForm, ProfileForm, PrivateFeedbackForm, PostReviewStatusForm
 from django.db.models import Q
 from django.utils import timezone
@@ -204,6 +204,13 @@ def request_peer_review(request, pk):
                     requester=request.user,
                     reviewer=reviewer
                 )
+                # Create a notification for the reviewer
+                Notification.objects.create(
+                    recipient=reviewer,
+                    sender=request.user,
+                    post=post,
+                    message=f'{request.user.username} requested you to review their post "{post.title}".'
+                )
             return redirect('post_detail', pk=post.pk)
     else:
         form = PeerReviewRequestForm(user=request.user)
@@ -252,6 +259,15 @@ def post_detail(request, pk):
                     new_feedback.post = post
                     new_feedback.author = request.user
                     new_feedback.save()
+
+                    # Create a notification for the post author
+                    Notification.objects.create(
+                        recipient=post.author,
+                        sender=request.user,
+                        post=post,
+                        message=f'{request.user.username} left private feedback on your post "{post.title}".'
+                    )
+
                     return redirect('post_detail', pk=post.pk)
 
             # Review status form submission for teachers
@@ -259,6 +275,15 @@ def post_detail(request, pk):
                 review_status_form = PostReviewStatusForm(request.POST, instance=post)
                 if review_status_form.is_valid():
                     review_status_form.save()
+
+                    # Create a notification for the post author
+                    Notification.objects.create(
+                        recipient=post.author,
+                        sender=request.user,
+                        post=post,
+                        message=f'The status of your post "{post.title}" has been changed to "{post.get_review_status_display()}".'
+                    )
+
                     return redirect('post_detail', pk=post.pk)
 
         comment_form = CommentForm()
@@ -326,3 +351,9 @@ def presentation_delete(request, pk):
         return redirect('author_post_list', username=request.user.username)
         
     return render(request, 'blog/presentation_confirm_delete.html', {'presentation': presentation})
+
+@login_required
+def mark_notifications_as_read(request):
+    if request.method == 'POST':
+        Notification.objects.filter(recipient=request.user, read=False).update(read=True)
+    return redirect(request.META.get('HTTP_REFERER', 'timeline_redirect'))
