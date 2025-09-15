@@ -87,7 +87,14 @@
                     <ul class="item-list">
                         {% for post in posts %}
                             <li>
-                                <div><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></div>
+                                <div>
+                                    <a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a>
+                                    {% if post.status == 'published' %}
+                                        <span style="background-color: #28a745; color: white; font-size: 0.8em; padding: 3px 8px; border-radius: 10px; font-weight: 500; margin-left: 8px;">Published</span>
+                                    {% else %}
+                                        <span style="background-color: #6c757d; color: white; font-size: 0.8em; padding: 3px 8px; border-radius: 10px; font-weight: 500; margin-left: 8px;">Draft</span>
+                                    {% endif %}
+                                </div>
                                 <div class="meta-info">
                                     {% if not selected_student %}
                                         by {{ post.author.username }} |
@@ -120,6 +127,23 @@
                     {% empty %}
                         <li>No students have signed up yet.</li>
                     {% endfor %}
+                </ul>
+            </div>
+            <div class="info-card">
+                <h2>Filter by Review Status</h2>
+                <ul class="item-list">
+                    <li>
+                        <a href="{% url 'teacher_dashboard' %}" class="{% if not selected_status %}active{% endif %}">All Statuses</a>
+                    </li>
+                    <li>
+                        <a href="?status=needs_review" class="{% if selected_status == 'needs_review' %}active{% endif %}">Needs Review</a>
+                    </li>
+                    <li>
+                        <a href="?status=revision_requested" class="{% if selected_status == 'revision_requested' %}active{% endif %}">Revision Requested</a>
+                    </li>
+                    <li>
+                        <a href="?status=approved" class="{% if selected_status == 'approved' %}active{% endif %}">Approved</a>
+                    </li>
                 </ul>
             </div>
             <div class="info-card">

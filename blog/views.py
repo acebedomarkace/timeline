@@ -112,6 +112,7 @@ def teacher_dashboard(request, username=None):
     student_posts = Post.objects.filter(author__groups__name='Students')
     selected_student = None
     search_query = request.GET.get('q')
+    selected_status = request.GET.get('status')
 
     if username:
         selected_student = get_object_or_404(User, username=username)
@@ -122,6 +123,9 @@ def teacher_dashboard(request, username=None):
             Q(title__icontains=search_query) |
             Q(video_description__icontains=search_query)
         )
+
+    if selected_status:
+        student_posts = student_posts.filter(review_status=selected_status)
 
     subjects = Subject.objects.filter(post__in=student_posts).distinct().prefetch_related('post_set')
     
@@ -143,6 +147,7 @@ def teacher_dashboard(request, username=None):
         'students': students,
         'selected_student': selected_student,
         'search_query': search_query,
+        'selected_status': selected_status,
         'subject_distribution': subject_distribution,
         'total_posts': total_posts,
     }
