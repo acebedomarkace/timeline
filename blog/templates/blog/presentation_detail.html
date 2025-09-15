@@ -83,7 +83,7 @@
     <div class="main-content">
         <div style="padding: 40px;">
             <h1>{{ presentation.title }}</h1>
-            <p>By {{ presentation.author.username }}</p>
+            <p>By {{ presentation.author.username }} | Type: {{ presentation.get_type_display }}</p>
         </div>
 
         {% for post in presentation.posts.all %}

@@ -80,9 +80,15 @@ class PrivateFeedback(models.Model):
         return f'Feedback by {self.author} on {self.post}'
 
 class Presentation(models.Model):
+    TYPE_CHOICES = [
+        ('assignment', 'Assignment'),
+        ('project', 'Project'),
+        ('showcase', 'Showcase'),
+    ]
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     posts = models.ManyToManyField(Post)
+    type = models.CharField(max_length=20, choices=TYPE_CHOICES, default='project')
     created_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):

@@ -18,7 +18,7 @@ class PostForm(forms.ModelForm):
 class PresentationForm(forms.ModelForm):
     class Meta:
         model = Presentation
-        fields = ['title', 'posts']
+        fields = ['title', 'posts', 'type']
         widgets = {
             'posts': forms.CheckboxSelectMultiple,
         }
