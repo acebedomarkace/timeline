@@ -4,6 +4,9 @@
 
 {% block content %}
   <h2>{{ portfolio.title }}</h2>
+  {% if portfolio.description %}
+    <p>{{ portfolio.description }}</p>
+  {% endif %}
   <p>By: {{ portfolio.author.username }}</p>
   {% if portfolio.is_public %}
     <p><a href="{% url 'public_portfolio_detail' pk=portfolio.pk %}">View Public Portfolio</a></p>

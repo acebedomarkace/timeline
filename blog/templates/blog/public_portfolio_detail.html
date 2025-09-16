@@ -4,6 +4,9 @@
 
 {% block content %}
   <h2>{{ portfolio.title }}</h2>
+  {% if portfolio.description %}
+    <p>{{ portfolio.description }}</p>
+  {% endif %}
   <p>By: {{ portfolio.author.username }}</p>
 
   <hr>

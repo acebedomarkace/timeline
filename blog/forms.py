@@ -14,7 +14,7 @@ class AnnouncementForm(forms.ModelForm):
 class PortfolioForm(forms.ModelForm):
     class Meta:
         model = Portfolio
-        fields = ['title', 'posts', 'presentations', 'is_public']
+        fields = ['title', 'description', 'posts', 'presentations', 'is_public']
         widgets = {
             'posts': forms.CheckboxSelectMultiple,
             'presentations': forms.CheckboxSelectMultiple,

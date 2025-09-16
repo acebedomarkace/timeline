@@ -166,8 +166,10 @@ class Announcement(models.Model):
         return self.title
 
 class Portfolio(models.Model):
+    # Temporary change to force migration
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
+    description = models.TextField(blank=True, null=True)
     posts = models.ManyToManyField(Post, blank=True)
     presentations = models.ManyToManyField(Presentation, blank=True)
     is_public = models.BooleanField(default=False)
