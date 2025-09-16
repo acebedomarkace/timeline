@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User, Group
-from .models import Post, Presentation, Subject, PeerReviewRequest, Comment, Profile, Notification, Tag
+from .models import Post, Presentation, Subject, PeerReviewRequest, Comment, Profile, Notification, Tag, Announcement
 from .forms import PostForm, PresentationForm, CommentForm, PeerReviewRequestForm, ProfileForm, PrivateFeedbackForm, PostReviewStatusForm
 from django.db.models import Q
 from django.utils import timezone
@@ -73,6 +73,7 @@ def author_post_list(request, username, year=None):
     published = posts_list.filter(status='published')
         
     presentations = Presentation.objects.filter(author=author)
+    portfolios = Portfolio.objects.filter(author=author)
     profile = Profile.objects.get_or_create(user=author)[0]
     
     archive_years = Post.objects.filter(author=author).annotate(year=ExtractYear('created_date')).values_list('year', flat=True).distinct().order_by('-year')
@@ -85,6 +86,7 @@ def author_post_list(request, username, year=None):
         'drafts': drafts,
         'published': published,
         'presentations': presentations,
+        'portfolios': portfolios,
         'profile': profile,
         'archive_years': archive_years,
         'selected_year': year,
@@ -239,7 +241,7 @@ def request_peer_review(request, pk):
     }
     return render(request, 'blog/request_peer_review.html', context)
 
-from .forms import PostForm, PresentationForm, CommentForm, PeerReviewRequestForm, ProfileForm, PrivateFeedbackForm, PostReviewStatusForm
+from .forms import PostForm, PresentationForm, CommentForm, PeerReviewRequestForm, ProfileForm, PrivateFeedbackForm, PostReviewStatusForm, AnnouncementForm
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -371,6 +373,39 @@ def presentation_delete(request, pk):
     return render(request, 'blog/presentation_confirm_delete.html', {'presentation': presentation})
 
 @login_required
+@user_passes_test(is_teacher)
+def announcement_create(request):
+    if request.method == 'POST':
+        form = AnnouncementForm(request.POST)
+        if form.is_valid():
+            announcement = form.save(commit=False)
+            announcement.author = request.user
+            announcement.save()
+
+            # Create notifications for all students
+            students_group = Group.objects.get(name='Students')
+            for student in students_group.user_set.all():
+                Notification.objects.create(
+                    recipient=student,
+                    sender=request.user,
+                    message=f'New Announcement: {announcement.title}'
+                )
+
+            return redirect('announcement_list')
+    else:
+        form = AnnouncementForm()
+    return render(request, 'blog/announcement_form.html', {'form': form})
+
+@login_required
+@user_passes_test(is_teacher)
+def announcement_list(request):
+    announcements = Announcement.objects.all().order_by('-created_date')
+    context = {
+        'announcements': announcements
+    }
+    return render(request, 'blog/announcement_list.html', context)
+
+@login_required
 def mark_notifications_as_read(request):
     if request.method == 'POST':
         Notification.objects.filter(recipient=request.user, read=False).update(read=True)
@@ -387,3 +422,84 @@ def posts_by_tag(request, tag_name):
         'tag': tag,
     }
     return render(request, 'blog/post_list.html', context)
+
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from .models import Portfolio
+from .forms import PortfolioForm
+from django.urls import reverse_lazy
+
+class PortfolioListView(LoginRequiredMixin, ListView):
+    model = Portfolio
+    template_name = 'blog/portfolio_list.html'
+    context_object_name = 'portfolios'
+
+    def get_queryset(self):
+        return Portfolio.objects.filter(author=self.request.user)
+
+class PortfolioDetailView(DetailView):
+    model = Portfolio
+    template_name = 'blog/portfolio_detail.html'
+    context_object_name = 'portfolio'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        portfolio = self.get_object()
+        context['published_posts'] = portfolio.posts.filter(status='published')
+        context['draft_posts'] = portfolio.posts.filter(status='draft')
+        context['presentations'] = portfolio.presentations.all()
+        return context
+
+class PortfolioCreateView(LoginRequiredMixin, CreateView):
+    model = Portfolio
+    form_class = PortfolioForm
+    template_name = 'blog/portfolio_form.html'
+    success_url = reverse_lazy('portfolio_list')
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+class PortfolioUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Portfolio
+    form_class = PortfolioForm
+    template_name = 'blog/portfolio_form.html'
+    success_url = reverse_lazy('portfolio_list')
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def test_func(self):
+        portfolio = self.get_object()
+        return self.request.user == portfolio.author
+
+class PortfolioDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Portfolio
+    template_name = 'blog/portfolio_confirm_delete.html'
+    success_url = reverse_lazy('portfolio_list')
+
+    def test_func(self):
+        portfolio = self.get_object()
+        return self.request.user == portfolio.author
+
+class PublicPortfolioDetailView(DetailView):
+    model = Portfolio
+    template_name = 'blog/public_portfolio_detail.html'
+    context_object_name = 'portfolio'
+
+    def get_queryset(self):
+        return Portfolio.objects.filter(is_public=True)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        portfolio = self.get_object()
+        context['posts'] = portfolio.posts.filter(status='published')
+        context['presentations'] = portfolio.presentations.all()
+        return context

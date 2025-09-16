@@ -25,10 +25,17 @@
                         </div>
                         <div class="notification-body">
                             {% for notification in notifications %}
-                                <a href="{% url 'post_detail' pk=notification.post.pk %}" class="notification-item">
-                                    <div class="message">{{ notification.message }}</div>
-                                    <div class="timestamp">{{ notification.created_date|timesince }} ago</div>
-                                </a>
+                                {% if notification.post %}
+                                    <a href="{% url 'post_detail' pk=notification.post.pk %}" class="notification-item">
+                                        <div class="message">{{ notification.message }}</div>
+                                        <div class="timestamp">{{ notification.created_date|timesince }} ago</div>
+                                    </a>
+                                {% else %}
+                                    <div class="notification-item">
+                                        <div class="message">{{ notification.message }}</div>
+                                        <div class="timestamp">{{ notification.created_date|timesince }} ago</div>
+                                    </div>
+                                {% endif %}
                             {% empty %}
                                 <div class="no-notifications">You have no new notifications.</div>
                             {% endfor %}

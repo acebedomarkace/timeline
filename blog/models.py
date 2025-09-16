@@ -153,3 +153,27 @@ class Notification(models.Model):
     def __str__(self):
         return f'Notification for {self.recipient.username}'
 
+class Announcement(models.Model):
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_date = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        ordering = ['-created_date']
+
+    def __str__(self):
+        return self.title
+
+class Portfolio(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    posts = models.ManyToManyField(Post, blank=True)
+    presentations = models.ManyToManyField(Presentation, blank=True)
+    is_public = models.BooleanField(default=False)
+    created_date = models.DateTimeField(default=timezone.now)
+    updated_date = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+

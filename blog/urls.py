@@ -21,6 +21,8 @@ urlpatterns = [
     path('author/<str:username>/', views.author_post_list, name='author_post_list'),
     path('teacher/dashboard/', views.teacher_dashboard, name='teacher_dashboard'),
     path('teacher/dashboard/<str:username>/', views.teacher_dashboard, name='teacher_dashboard_filtered'),
+    path('announcements/new/', views.announcement_create, name='announcement_create'),
+    path('announcements/', views.announcement_list, name='announcement_list'),
     path('post/<int:pk>/delete/', views.post_delete, name='post_delete'),
     path('presentation/new/', views.presentation_create, name='presentation_create'),
     path('presentation/<int:pk>/', views.presentation_detail, name='presentation_detail'),
@@ -28,4 +30,12 @@ urlpatterns = [
     path('presentation/<int:pk>/delete/', views.presentation_delete, name='presentation_delete'),
     path('profile/edit/', views.edit_profile, name='edit_profile'),
     path('tag/<str:tag_name>/', views.posts_by_tag, name='posts_by_tag'),
+
+    # Portfolio URLs
+    path('portfolio/', views.PortfolioListView.as_view(), name='portfolio_list'),
+    path('portfolio/new/', views.PortfolioCreateView.as_view(), name='portfolio_create'),
+    path('portfolio/<int:pk>/', views.PortfolioDetailView.as_view(), name='portfolio_detail'),
+    path('portfolio/<int:pk>/edit/', views.PortfolioUpdateView.as_view(), name='portfolio_edit'),
+    path('portfolio/<int:pk>/delete/', views.PortfolioDeleteView.as_view(), name='portfolio_delete'),
+    path('portfolio/public/<int:pk>/', views.PublicPortfolioDetailView.as_view(), name='public_portfolio_detail'),
 ]

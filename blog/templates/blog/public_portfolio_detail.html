@@ -1,0 +1,31 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}{{ portfolio.title }}{% endblock %}
+
+{% block content %}
+  <h2>{{ portfolio.title }}</h2>
+  <p>By: {{ portfolio.author.username }}</p>
+
+  <hr>
+
+  <h3>Posts</h3>
+  {% for post in posts %}
+    <div class="post-item">
+      <h4><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h4>
+    </div>
+  {% empty %}
+    <p>This portfolio has no published posts yet.</p>
+  {% endfor %}
+
+  <hr>
+
+  <h3>Presentations</h3>
+  {% for presentation in portfolio.presentations.all %}
+    <div class="presentation-item">
+      <h4><a href="{% url 'presentation_detail' pk=presentation.pk %}">{{ presentation.title }}</a></h4>
+    </div>
+  {% empty %}
+    <p>This portfolio has no presentations yet.</p>
+  {% endfor %}
+
+{% endblock %}

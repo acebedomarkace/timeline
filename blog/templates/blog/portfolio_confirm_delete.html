@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Confirm Delete{% endblock %}
+
+{% block content %}
+  <h2>Are you sure you want to delete "{{ portfolio.title }}"?</h2>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Confirm Delete</button>
+    <a href="{% url 'portfolio_detail' pk=portfolio.pk %}">Cancel</a>
+  </form>
+{% endblock %}

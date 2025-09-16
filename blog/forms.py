@@ -1,10 +1,30 @@
 from django import forms
-from .models import Post, Presentation, Comment, PeerReviewRequest, Profile, PrivateFeedback
+from .models import Post, Presentation, Comment, PeerReviewRequest, Profile, PrivateFeedback, Announcement, Portfolio
 
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['theme', 'image']
+
+class AnnouncementForm(forms.ModelForm):
+    class Meta:
+        model = Announcement
+        fields = ['title', 'content']
+
+class PortfolioForm(forms.ModelForm):
+    class Meta:
+        model = Portfolio
+        fields = ['title', 'posts', 'presentations', 'is_public']
+        widgets = {
+            'posts': forms.CheckboxSelectMultiple,
+            'presentations': forms.CheckboxSelectMultiple,
+        }
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user')
+        super().__init__(*args, **kwargs)
+        self.fields['posts'].queryset = Post.objects.filter(author=user)
+        self.fields['presentations'].queryset = Presentation.objects.filter(author=user)
 
 from django.contrib.auth.models import User
 

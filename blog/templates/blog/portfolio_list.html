@@ -1,0 +1,18 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}My Portfolios{% endblock %}
+
+{% block content %}
+  <h2>My Portfolios</h2>
+  <a href="{% url 'portfolio_create' %}">Create New Portfolio</a>
+  <hr>
+  {% for portfolio in portfolios %}
+    <div class="portfolio-item">
+      <h3><a href="{% url 'portfolio_detail' pk=portfolio.pk %}">{{ portfolio.title }}</a></h3>
+      <a href="{% url 'portfolio_edit' pk=portfolio.pk %}">Edit</a>
+      <a href="{% url 'portfolio_delete' pk=portfolio.pk %}">Delete</a>
+    </div>
+  {% empty %}
+    <p>You have no portfolios yet.</p>
+  {% endfor %}
+{% endblock %}
