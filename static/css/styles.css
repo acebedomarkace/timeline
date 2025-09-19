@@ -194,3 +194,62 @@ header {
     margin-left: 10px;
     object-fit: cover;
 }
+
+/* Contribution Graph Styles */
+.contrib-graph {
+    padding: 15px;
+}
+.graph-body {
+    display: flex;
+}
+.graph-squares {
+    display: flex;
+    flex-direction: column; /* Changed from row */
+    gap: 3px;
+}
+.day-row {
+    display: flex;
+    flex-direction: row; /* New class for rows of days */
+    gap: 3px;
+}
+.contrib-day {
+    width: 12px;
+    height: 12px;
+    background-color: #ebedf0;
+    border: 1px solid rgba(27, 31, 35, 0.06);
+    border-radius: 2px;
+    outline: none;
+}
+.contrib-day.future-day {
+    background-color: #f6f8fa;
+    border-color: rgba(27, 31, 35, 0.04);
+}
+.contrib-day[data-level="1"] { background-color: #9be9a8; }
+.contrib-day[data-level="2"] { background-color: #40c463; }
+.contrib-day[data-level="3"] { background-color: #30a14e; }
+.contrib-day[data-level="4"] { background-color: #216e39; }
+
+.graph-days-labels {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin-right: 5px;
+    font-size: 10px;
+    color: #586069;
+}
+.day-label {
+    height: 12px;
+    display: flex;
+    align-items: center;
+}
+.graph-months {
+    display: flex;
+    font-size: 10px;
+    color: #586069;
+    margin-bottom: 5px;
+    padding-left: 25px; /* Align with squares */
+}
+.month {
+    width: calc(4 * 15px); /* Approx 4 weeks per month */
+    text-align: left;
+}

@@ -9,6 +9,7 @@ from .forms import PostForm, PresentationForm, CommentForm, PeerReviewRequestFor
 from django.db.models import Q
 from django.utils import timezone
 from django.db.models.functions import ExtractYear
+from datetime import date, timedelta
 
 def timeline_redirect(request):
     # If the user is a student, redirect them to their personal timeline.
@@ -157,6 +158,72 @@ def teacher_dashboard(request, username=None):
             percentage = (post_count / total_posts) * 100
             subject_distribution[subject.name] = round(percentage, 1)
 
+    # Contribution graph data
+    today = date.today()
+    start_date = today - timedelta(days=365)
+    
+    posts_last_year = student_posts.filter(created_date__date__gte=start_date)
+    total_posts_last_year = posts_last_year.count()
+
+    is_current_year = True
+    for post in posts_last_year:
+        if post.created_date.year != today.year:
+            is_current_year = False
+            break
+
+    posts_by_date = {}
+    for post in posts_last_year:
+        day = post.created_date.date()
+        posts_by_date[day] = posts_by_date.get(day, 0) + 1
+
+    # Find the busiest day
+    busiest_day = None
+    if posts_by_date:
+        busiest_day = max(posts_by_date, key=posts_by_date.get)
+
+    # Generate heatmap structure
+    heatmap = []
+    current_date = start_date - timedelta(days=start_date.weekday())
+    if start_date.weekday() == 6: # Start on Sunday
+        current_date = start_date
+
+    for _ in range(53): # 53 weeks to be safe
+        week = []
+        for i in range(7):
+            day_count = posts_by_date.get(current_date, 0)
+            
+            level = 0
+            if day_count > 0:
+                level = 1
+            if day_count > 2:
+                level = 2
+            if day_count > 5:
+                level = 3
+            if day_count > 8:
+                level = 4
+
+            week.append({
+                'date': current_date,
+                'count': day_count,
+                'level': level,
+                'is_future': current_date > today
+            })
+            current_date += timedelta(days=1)
+        heatmap.append(week)
+
+    # Generate month labels
+    month_labels = []
+    last_month_num = -1
+    for week in heatmap:
+        # Get the month from the first day of the week that is not in the future
+        for day in week:
+            if not day['is_future']:
+                current_month_num = day['date'].month
+                if current_month_num != last_month_num:
+                    month_labels.append(day['date'].strftime('%b'))
+                    last_month_num = current_month_num
+                break # Move to the next week
+
     context = {
         'subject_posts': subject_posts,
         'students': students,
@@ -165,6 +232,14 @@ def teacher_dashboard(request, username=None):
         'selected_status': selected_status,
         'subject_distribution': subject_distribution,
         'total_posts': total_posts,
+        'heatmap': heatmap,
+        'total_posts_last_year': total_posts_last_year,
+        'start_date': start_date,
+        'today': today,
+        'month_labels': month_labels,
+        'busiest_day': busiest_day,
+        'busiest_day_count': posts_by_date.get(busiest_day, 0),
+        'is_current_year': is_current_year,
     }
     return render(request, 'blog/teacher_dashboard.html', context)
 

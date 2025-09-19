@@ -11,10 +11,10 @@
             padding: 20px;
         }
         .container {
-            max-width: 1200px; /* Widen container for two columns */
+            max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 1fr 300px; /* Main content and a sidebar */
+            grid-template-columns: 1fr 300px;
             gap: 30px;
         }
         .main-content {
@@ -59,6 +59,73 @@
         .item-list a.active {
             font-weight: bold;
         }
+
+        /* Contribution Graph Styles */
+        .contrib-graph {
+            margin-top: 20px;
+        }
+        .graph-body {
+            display: flex;
+        }
+        .graph-squares {
+            display: flex;
+            flex-direction: row; /* Changed from column */
+        }
+        .week {
+            display: flex;
+            flex-direction: column;
+        }
+        .contrib-day {
+            width: 12px;
+            height: 12px;
+            background-color: #ebedf0;
+            margin: 2px;
+            border-radius: 2px;
+        }
+        .contrib-day[data-level="1"] { background-color: #9be9a8; }
+        .contrib-day[data-level="2"] { background-color: #40c463; }
+        .contrib-day[data-level="3"] { background-color: #30a14e; }
+        .contrib-day[data-level="4"] { background-color: #216e39; }
+        .future-day {
+            background-color: #f6f8fa;
+            border: 1px dashed #e1e4e8;
+        }
+        .graph-months {
+            display: flex;
+            justify-content: space-around;
+            padding-left: 30px; /* Align with squares */
+            margin-bottom: 5px;
+            font-size: 0.8em;
+            color: #586069;
+        }
+        .graph-days-labels {
+            font-size: 0.8em;
+            color: #586069;
+            margin-right: 5px;
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+        .contrib-legend {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            font-size: 0.8em;
+            color: #586069;
+            margin-top: 10px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+        }
+        .legend-square {
+            width: 12px;
+            height: 12px;
+            margin-right: 5px;
+            border-radius: 2px;
+        }
     </style>
 </head>
 <body>
@@ -66,6 +133,75 @@
         <div class="main-content">
             <p><a href="{% url 'public_timeline' %}">&larr; Back to Main Timeline</a></p>
             <h1>Teacher Dashboard</h1>
+
+            <div class="info-card">
+                <h2>Contribution Activity</h2>
+                <div class="contrib-summary">
+                    <p>
+                        <strong>{{ total_posts_last_year }} post{{ total_posts_last_year|pluralize }}</strong> 
+                        {% if is_current_year %}
+                            this year
+                        {% else %}
+                            in the last year
+                        {% endif %}
+                        .
+                    </p>
+                    {% if busiest_day %}
+                        <p>
+                            Busiest day was <strong>{{ busiest_day|date:"M j, Y" }}</strong> with <strong>{{ busiest_day_count }} post{{ busiest_day_count|pluralize }}</strong>.
+                        </p>
+                    {% endif %}
+                </div>
+                <div class="contrib-graph">
+                    <div class="graph-months">
+                        {% for month in month_labels %}
+                            <div class="month">{{ month }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="graph-body">
+                        <div class="graph-days-labels">
+                            <div class="day-label">Mon</div>
+                            <div class="day-label"></div>
+                            <div class="day-label">Wed</div>
+                            <div class="day-label"></div>
+                            <div class="day-label">Fri</div>
+                            <div class="day-label"></div>
+                            <div class="day-label"></div>
+                        </div>
+                        <div class="graph-squares">
+                            {% for week in heatmap %}
+                                <div class="week">
+                                    {% for day in week %}
+                                        <div class="contrib-day {% if day.is_future %}future-day{% endif %}" 
+                                             data-level="{{ day.level }}" 
+                                             title="{{ day.count }} post{{ day.count|pluralize }} on {{ day.date|date:"M j, Y" }}">
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="contrib-legend">
+                        <span>Fewer</span>
+                        <div class="legend-item">
+                            <div class="legend-square" style="background-color: #ebedf0;"></div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-square" style="background-color: #9be9a8;"></div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-square" style="background-color: #40c463;"></div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-square" style="background-color: #30a14e;"></div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-square" style="background-color: #216e39;"></div>
+                        </div>
+                        <span>More</span>
+                    </div>
+                </div>
+            </div>
 
             <div class="info-card">
                 <form method="get" action="{% url 'teacher_dashboard' %}">
