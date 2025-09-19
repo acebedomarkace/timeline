@@ -54,7 +54,7 @@
     <div class="container">
         <p><a href="{% url 'post_detail' pk=post.pk %}">&larr; Back to Post</a></p>
         <div class="form-container">
-            <h2>Request Peer Review for "{{ post.title }}"</h2>
+            <h2>Request Peer/Teacher Review for "{{ post.title }}"</h2>
             <form method="post">
                 {% csrf_token %}
                 <div class="checkbox-list">

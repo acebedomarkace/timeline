@@ -69,14 +69,18 @@ class PostReviewStatusForm(forms.ModelForm):
         model = Post
         fields = ['review_status']
 
+from django.db.models import Q
+
 class PeerReviewRequestForm(forms.Form):
     reviewers = forms.ModelMultipleChoiceField(
         queryset=User.objects.none(),
         widget=forms.CheckboxSelectMultiple,
-        label="Select classmates to request a review from"
+        label="Select classmates or teachers to request a review from"
     )
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user')
         super().__init__(*args, **kwargs)
-        self.fields['reviewers'].queryset = User.objects.filter(groups__name='Students').exclude(id=user.id)
+        self.fields['reviewers'].queryset = User.objects.filter(
+            Q(groups__name='Students') | Q(groups__name='Teachers')
+        ).exclude(id=user.id)
