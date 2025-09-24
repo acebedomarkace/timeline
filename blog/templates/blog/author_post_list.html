@@ -14,14 +14,16 @@
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 250px 1fr; /* Sidebar and main content */
+            grid-template-columns: 1fr 250px; /* Main content and sidebar */
             gap: 30px;
         }
         .sidebar {
-            grid-column: 1 / 2;
+            grid-column: 2 / 3;
+            grid-row: 2;
         }
         .main-content {
-            grid-column: 2 / 3;
+            grid-column: 1 / 2;
+            grid-row: 2;
         }
         header {
             background-color: #fff;
@@ -100,12 +102,12 @@
             justify-content: space-between;
             align-items: center;
         }
-        .info-card h2::after {
+        .info-card h2.collapsible-heading::after {
             content: '−'; /* Minus sign */
             font-size: 1.2em;
             transition: transform 0.2s;
         }
-        .info-card h2.collapsed::after {
+        .info-card h2.collapsible-heading.collapsed::after {
             content: '+'; /* Plus sign */
         }
         .info-card ul {
@@ -369,6 +371,16 @@
             </div>
         </header>
         <div class="sidebar">
+            <div class="info-card">
+                <h2>Family</h2>
+                <ul>
+                    {% if author.profile.family %}
+                        <li>{{ author.profile.family.name }}</li>
+                    {% else %}
+                        <li><a href="{% url 'family_create' %}">Create or Join a Family</a></li>
+                    {% endif %}
+                </ul>
+            </div>
             <div class="info-card">
                 <h2 class="collapsible-heading">Archives</h2>
                 <ul class="collapsible-list">

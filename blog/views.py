@@ -4,12 +4,15 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User, Group
-from .models import Post, Presentation, Subject, PeerReviewRequest, Comment, Profile, Notification, Tag, Announcement
-from .forms import PostForm, PresentationForm, CommentForm, PeerReviewRequestForm, ProfileForm, PrivateFeedbackForm, PostReviewStatusForm
+from .models import Post, Presentation, Subject, PeerReviewRequest, Comment, Profile, Notification, Tag, Announcement, Family
+from .forms import PostForm, PresentationForm, CommentForm, PeerReviewRequestForm, ProfileForm, PrivateFeedbackForm, PostReviewStatusForm, FamilyForm, JoinFamilyForm
 from django.db.models import Q
 from django.utils import timezone
 from django.db.models.functions import ExtractYear
 from datetime import date, timedelta
+import secrets
+import string
+from django.contrib import messages
 
 def timeline_redirect(request):
     # If the user is a student, redirect them to their personal timeline.
@@ -38,7 +41,7 @@ def signup(request):
             students_group = Group.objects.get(name='Students')
             user.groups.add(students_group)
             login(request, user)
-            return redirect('timeline_redirect')
+            return redirect('join_or_create_family')
     else:
         form = UserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})
@@ -65,6 +68,19 @@ def post_create(request):
 
 def author_post_list(request, username, year=None):
     author = get_object_or_404(User, username=username)
+
+    # Defensively get or create profiles to prevent crashes for users made before profile signal.
+    requesting_user_profile, _ = Profile.objects.get_or_create(user=request.user)
+    author_profile, _ = Profile.objects.get_or_create(user=author)
+
+    # Multi-tenancy security check
+    # 1. If the requesting user has no family, they can't see any timelines. Guide them to create one.
+    if not requesting_user_profile.family:
+        return redirect('family_create')
+
+    # 2. If the user they are trying to view is not in their family, redirect.
+    if requesting_user_profile.family != author_profile.family:
+        return redirect('timeline_redirect')
     
     posts_list = Post.objects.filter(author=author).order_by('-created_date')
     if year:
@@ -75,7 +91,6 @@ def author_post_list(request, username, year=None):
         
     presentations = Presentation.objects.filter(author=author)
     portfolios = Portfolio.objects.filter(author=author)
-    profile = Profile.objects.get_or_create(user=author)[0]
     
     archive_years = Post.objects.filter(author=author).annotate(year=ExtractYear('created_date')).values_list('year', flat=True).distinct().order_by('-year')
 
@@ -88,7 +103,7 @@ def author_post_list(request, username, year=None):
         'published': published,
         'presentations': presentations,
         'portfolios': portfolios,
-        'profile': profile,
+        'profile': author_profile, # Use the safely fetched profile
         'archive_years': archive_years,
         'selected_year': year,
         'pending_reviews': pending_reviews,
@@ -125,13 +140,19 @@ def is_teacher(user):
 @login_required
 @user_passes_test(is_teacher)
 def teacher_dashboard(request, username=None):
-    student_posts = Post.objects.filter(author__groups__name='Students')
+    requesting_user_profile, _ = Profile.objects.get_or_create(user=request.user)
+    # Ensure the teacher has a family assigned
+    if not requesting_user_profile.family:
+        return redirect('family_create')
+
+    family = requesting_user_profile.family
+    student_posts = Post.objects.filter(author__groups__name='Students', author__profile__family=family)
     selected_student = None
     search_query = request.GET.get('q')
     selected_status = request.GET.get('status')
 
     if username:
-        selected_student = get_object_or_404(User, username=username)
+        selected_student = get_object_or_404(User, username=username, profile__family=family)
         student_posts = student_posts.filter(author=selected_student)
 
     if search_query:
@@ -147,7 +168,7 @@ def teacher_dashboard(request, username=None):
     
     subject_posts = {subject: subject.post_set.filter(id__in=student_posts).order_by('-created_date') for subject in subjects}
 
-    students = User.objects.filter(groups__name='Students').order_by('username')
+    students = User.objects.filter(groups__name='Students', profile__family=family).order_by('username')
 
     # Calculate subject distribution
     total_posts = student_posts.count()
@@ -267,8 +288,11 @@ def presentation_create(request):
         form = PresentationForm(user=request.user)
     return render(request, 'blog/presentation_form.html', {'form': form})
 
+@login_required
 def presentation_detail(request, pk):
-    presentation = get_object_or_404(Presentation, pk=pk)
+    requesting_user_profile, _ = Profile.objects.get_or_create(user=request.user)
+    # Filter by family to ensure data isolation
+    presentation = get_object_or_404(Presentation, pk=pk, author__profile__family=requesting_user_profile.family)
     
     # Group posts by subject
     subject_posts = {}
@@ -320,6 +344,17 @@ from .forms import PostForm, PresentationForm, CommentForm, PeerReviewRequestFor
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
+
+    # Multi-tenancy and privacy security check
+    if request.user.is_authenticated:
+        requesting_user_profile, _ = Profile.objects.get_or_create(user=request.user)
+        author_profile, _ = Profile.objects.get_or_create(user=post.author)
+        if not requesting_user_profile.family or requesting_user_profile.family != author_profile.family:
+            return redirect('timeline_redirect')
+    elif post.status != 'published':
+        # Anonymous users can only see published posts.
+        return redirect('timeline_redirect')
+
     post.view_count += 1
     post.save(update_fields=['view_count'])
 
@@ -450,6 +485,7 @@ def presentation_delete(request, pk):
 @login_required
 @user_passes_test(is_teacher)
 def announcement_create(request):
+    requesting_user_profile, _ = Profile.objects.get_or_create(user=request.user)
     if request.method == 'POST':
         form = AnnouncementForm(request.POST)
         if form.is_valid():
@@ -457,14 +493,16 @@ def announcement_create(request):
             announcement.author = request.user
             announcement.save()
 
-            # Create notifications for all students
-            students_group = Group.objects.get(name='Students')
-            for student in students_group.user_set.all():
-                Notification.objects.create(
-                    recipient=student,
-                    sender=request.user,
-                    message=f'New Announcement: {announcement.title}'
-                )
+            # Create notifications only for students in the same family
+            if requesting_user_profile.family:
+                students_group = Group.objects.get(name='Students')
+                students_in_family = students_group.user_set.filter(profile__family=requesting_user_profile.family)
+                for student in students_in_family:
+                    Notification.objects.create(
+                        recipient=student,
+                        sender=request.user,
+                        message=f'New Announcement: {announcement.title}'
+                    )
 
             return redirect('announcement_list')
     else:
@@ -474,7 +512,11 @@ def announcement_create(request):
 @login_required
 @user_passes_test(is_teacher)
 def announcement_list(request):
-    announcements = Announcement.objects.all().order_by('-created_date')
+    requesting_user_profile, _ = Profile.objects.get_or_create(user=request.user)
+    if not requesting_user_profile.family:
+        return render(request, 'blog/announcement_list.html', {'announcements': []})
+
+    announcements = Announcement.objects.filter(author__profile__family=requesting_user_profile.family).order_by('-created_date')
     context = {
         'announcements': announcements
     }
@@ -578,3 +620,84 @@ class PublicPortfolioDetailView(DetailView):
         context['posts'] = portfolio.posts.filter(status='published')
         context['presentations'] = portfolio.presentations.all()
         return context
+
+@login_required
+def family_create(request):
+    profile, _ = Profile.objects.get_or_create(user=request.user)
+    # Users who are already in a family should not be able to create a new one.
+    if profile.family:
+        return redirect('timeline_redirect')
+
+    if request.method == 'POST':
+        form = FamilyForm(request.POST)
+        if form.is_valid():
+            family = form.save()
+            # Assign the current user to this new family
+            profile.family = family
+            profile.save()
+            return redirect('timeline_redirect')
+    else:
+        form = FamilyForm()
+    
+    return render(request, 'blog/family_form.html', {'form': form})
+
+@login_required
+def family_management(request):
+    profile, _ = Profile.objects.get_or_create(user=request.user)
+    if not profile.family:
+        return redirect('family_create')
+
+    family = profile.family
+
+    if request.method == 'POST':
+        # Generate a new unique invite code
+        while True:
+            # Generate a random code (e.g., ABC-123)
+            code = ''.join(secrets.choice(string.ascii_uppercase) for _ in range(3)) + '-' + ''.join(secrets.choice(string.digits) for _ in range(3))
+            # Check if it's unique
+            if not Family.objects.filter(invite_code=code).exists():
+                family.invite_code = code
+                family.save()
+                break
+        return redirect('family_management')
+
+    return render(request, 'blog/family_management.html', {'family': family})
+
+@login_required
+def join_or_create_family(request):
+    profile, _ = Profile.objects.get_or_create(user=request.user)
+    # If the user is already in a family, redirect them away.
+    if profile.family:
+        return redirect('timeline_redirect')
+
+    context = {
+        'has_family': profile.family is not None
+    }
+    return render(request, 'blog/join_or_create_family.html', context)
+
+@login_required
+def join_family(request):
+    profile, _ = Profile.objects.get_or_create(user=request.user)
+    # If user is already in a family, they shouldn't be here.
+    if profile.family:
+        messages.info(request, "You are already part of a family.")
+        return redirect('timeline_redirect')
+
+    if request.method == 'POST':
+        form = JoinFamilyForm(request.POST)
+        if form.is_valid():
+            invite_code = form.cleaned_data['invite_code']
+            try:
+                family = Family.objects.get(invite_code=invite_code)
+                profile.family = family
+                profile.save()
+                messages.success(request, f'Successfully joined family {family.name}!')
+                return redirect('timeline_redirect')
+            except Family.DoesNotExist:
+                messages.error(request, 'Invalid invite code.')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = JoinFamilyForm()
+    
+    return render(request, 'blog/join_family_form.html', {'form': form})

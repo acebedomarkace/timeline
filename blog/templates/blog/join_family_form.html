@@ -1,0 +1,15 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <h2>Join an Existing Family</h2>
+  <p>Enter the invite code provided by your family member.</p>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-primary">Join Family</button>
+  </form>
+
+  <p style="margin-top: 20px;">Don't have an invite code? <a href="{% url 'family_create' %}">Create a new family</a></p>
+{% endblock %}

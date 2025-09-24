@@ -5,6 +5,14 @@ from urllib.parse import urlparse, parse_qs
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+class Family(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    created_date = models.DateTimeField(default=timezone.now)
+    invite_code = models.CharField(max_length=20, unique=True, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
 class Subject(models.Model):
     name = models.CharField(max_length=100)
 
@@ -131,6 +139,7 @@ class Profile(models.Model):
         ('monochrome', 'Monochrome'),
     ]
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    family = models.ForeignKey(Family, on_delete=models.SET_NULL, related_name='members', null=True, blank=True)
     theme = models.CharField(max_length=10, choices=THEME_CHOICES, default='light')
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
 

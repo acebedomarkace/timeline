@@ -1,10 +1,15 @@
 from django import forms
-from .models import Post, Presentation, Comment, PeerReviewRequest, Profile, PrivateFeedback, Announcement, Portfolio
+from .models import Post, Presentation, Comment, PeerReviewRequest, Profile, PrivateFeedback, Announcement, Portfolio, Family
 
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['theme', 'image']
+
+class FamilyForm(forms.ModelForm):
+    class Meta:
+        model = Family
+        fields = ['name']
 
 class AnnouncementForm(forms.ModelForm):
     class Meta:
@@ -68,6 +73,9 @@ class PostReviewStatusForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['review_status']
+
+class JoinFamilyForm(forms.Form):
+    invite_code = forms.CharField(label='Invite Code', max_length=20)
 
 from django.db.models import Q
 
