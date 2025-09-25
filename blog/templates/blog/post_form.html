@@ -97,6 +97,32 @@
             border-radius: 4px;
             background-color: #000;
         }
+        .media-section {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .media-section legend {
+            font-weight: 500;
+            padding: 0 10px;
+        }
+        .collapsible-section .collapsible-trigger {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: 500;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .collapsible-section .collapsible-content {
+            display: none;
+        }
+        .wizard-step {
+            display: none;
+        }
+        .wizard-step.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -105,70 +131,68 @@
             <h2>Create a New Post</h2>
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                
-                <div class="form-field">
-                    <label for="{{ form.subject.id_for_label }}">{{ form.subject.label }}</label>
-                    {{ form.subject }}
-                </div>
-                <div class="form-field">
-                    <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
-                    {{ form.title }}
-                </div>
-                <div class="form-field">
-                    <label for="{{ form.content.id_for_label }}">{{ form.content.label }}</label>
-                    {{ form.content }}
-                </div>
-                <div class="form-field">
-                    <label for="{{ form.photo.id_for_label }}">{{ form.photo.label }}</label>
-                    {{ form.photo }}
-                </div>
-                <div class="form-field">
-                    <label for="{{ form.annotation.id_for_label }}">{{ form.annotation.label }}</label>
-                    {{ form.annotation }}
-                </div>
-                <div class="form-field">
-                    <label for="{{ form.audio_file.id_for_label }}">{{ form.audio_file.label }}</label>
-                    <p style="font-size: 0.9em; color: #666;">You can upload a file or record audio directly.</p>
-                    <div class="recorder-controls">
-                        <button type="button" id="startAudioRecordingBtn">Start Audio Recording</button>
-                        <button type="button" id="stopAudioRecordingBtn" disabled>Stop</button>
-                        <span id="recordingStatus"></span>
+
+                <div id="step1" class="wizard-step active">
+                    <h3>Step 1: Core Content</h3>
+                    <div class="form-field" data-type="journal photo video">
+                        <label for="{{ form.subject.id_for_label }}">{{ form.subject.label }}</label>
+                        {{ form.subject }}
                     </div>
-                    {{ form.audio_file }}
-                </div>
-                <div class="form-field">
-                    <label for="{{ form.audio_description.id_for_label }}">{{ form.audio_description.label }}</label>
-                    {{ form.audio_description }}
-                </div>
-                <div class="form-field">
-                    <label for="{{ form.youtube_url.id_for_label }}">{{ form.youtube_url.label }}</label>
-                    {{ form.youtube_url }}
-                </div>
-                <div class="form-field">
-                    <label for="{{ form.video_file.id_for_label }}">{{ form.video_file.label }}</label>
-                    <p style="font-size: 0.9em; color: #666;">You can upload a file or record a video directly.</p>
-                    <div class="recorder-controls">
-                        <button type="button" id="startVideoRecordingBtn">Start Video Recording</button>
-                        <button type="button" id="stopVideoRecordingBtn" disabled>Stop</button>
-                        <span id="videoRecordingStatus"></span>
+                    <div class="form-field" data-type="journal photo video">
+                        <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
+                        {{ form.title }}
                     </div>
-                    <video id="videoPreview" muted autoplay playsinline></video>
-                    {{ form.video_file }}
-                </div>
-                <div class="form-field">
-                    <label for="{{ form.video_description.id_for_label }}">{{ form.video_description.label }}</label>
-                    {{ form.video_description }}
-                </div>
-                <div class="form-field">
-                    <label for="{{ form.tags.id_for_label }}">{{ form.tags.label }}</label>
-                    {{ form.tags }}
-                    <p style="font-size: 0.9em; color: #666;">{{ form.tags.help_text }}</p>
+                    <div class="form-field" data-type="journal">
+                        <label for="{{ form.content.id_for_label }}">{{ form.content.label }}</label>
+                        {{ form.content }}
+                    </div>
+                    <div class="form-field" data-type="photo">
+                        <label for="{{ form.photo.id_for_label }}">{{ form.photo.label }}</label>
+                        {{ form.photo }}
+                    </div>
+                    <div class="form-field" data-type="video">
+                        <label for="{{ form.video_file.id_for_label }}">{{ form.video_file.label }}</label>
+                        <div class="recorder-controls">
+                            <button type="button" id="startVideoRecordingBtn">Start Video Recording</button>
+                            <button type="button" id="stopVideoRecordingBtn" disabled>Stop</button>
+                            <span id="videoRecordingStatus"></span>
+                        </div>
+                        <video id="videoPreview" muted autoplay playsinline></video>
+                        {{ form.video_file }}
+                    </div>
+                    <div class="form-field" data-type="video">
+                        <label for="{{ form.youtube_url.id_for_label }}">{{ form.youtube_url.label }}</label>
+                        {{ form.youtube_url }}
+                    </div>
+                    <div class="form-field" data-type="journal photo video">
+                        <label for="{{ form.audio_file.id_for_label }}">{{ form.audio_file.label }}</label>
+                        <div class="recorder-controls">
+                            <button type="button" id="startAudioRecordingBtn">Start Audio Recording</button>
+                            <button type="button" id="stopAudioRecordingBtn" disabled>Stop</button>
+                            <span id="recordingStatus"></span>
+                        </div>
+                        {{ form.audio_file }}
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="nextStep()">Next</button>
                 </div>
 
-                <div class="button-group">
-                    <a href="{% url 'author_post_list' username=user.username %}" class="btn btn-secondary">Cancel</a>
-                    <button type="submit" name="status" value="draft" class="btn btn-secondary">Save as Draft</button>
-                    <button type="submit" name="status" value="published" class="btn btn-primary">Publish</button>
+                <div id="step2" class="wizard-step">
+                    <h3>Step 2: Final Details</h3>
+                    <div class="form-field">
+                        <label for="{{ form.media_description.id_for_label }}">{{ form.media_description.label }}</label>
+                        {{ form.media_description }}
+                    </div>
+                    <div class="form-field">
+                        <label for="{{ form.tags.id_for_label }}">{{ form.tags.label }}</label>
+                        {{ form.tags }}
+                        <p style="font-size: 0.9em; color: #666;">{{ form.tags.help_text }}</p>
+                    </div>
+                    <button type="button" class="btn btn-secondary" onclick="prevStep()">Back</button>
+                    <div class="button-group">
+                        <a href="{% url 'author_post_list' username=user.username %}" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" name="status" value="draft" class="btn btn-secondary">Save as Draft</button>
+                        <button type="submit" name="status" value="published" class="btn btn-primary">Publish</button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -251,6 +275,107 @@
             }
         });
         stopVideoBtn.addEventListener('click', () => videoMediaRecorder.stop());
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const postType = '{{ post_type }}';
+            const step1Fields = document.querySelectorAll('#step1 .form-field');
+
+            step1Fields.forEach(function(field) {
+                const types = field.getAttribute('data-type').split(' ');
+                if (types.includes(postType)) {
+                    field.style.display = 'block';
+                } else {
+                    field.style.display = 'none';
+                }
+            });
+
+            // Audio Recording Logic
+            const startAudioBtn = document.getElementById('startAudioRecordingBtn');
+            const stopAudioBtn = document.getElementById('stopAudioRecordingBtn');
+            const audioStatus = document.getElementById('recordingStatus');
+            const audioFileInput = document.getElementById('{{ form.audio_file.id_for_label }}');
+            let audioMediaRecorder;
+            let audioChunks = [];
+
+            startAudioBtn.addEventListener('click', async () => {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    audioMediaRecorder = new MediaRecorder(stream);
+                    audioMediaRecorder.ondataavailable = event => audioChunks.push(event.data);
+                    audioMediaRecorder.onstop = () => {
+                        const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                        const audioFile = new File([audioBlob], 'audio_recording.webm', { type: 'audio/webm' });
+                        const dataTransfer = new DataTransfer();
+                        dataTransfer.items.add(audioFile);
+                        audioFileInput.files = dataTransfer.files;
+                        audioStatus.textContent = 'Recording ready!';
+                        startAudioBtn.disabled = false;
+                        stopAudioBtn.disabled = true;
+                        audioChunks = [];
+                    };
+                    audioMediaRecorder.start();
+                    audioStatus.textContent = 'Recording...';
+                    startAudioBtn.disabled = true;
+                    stopAudioBtn.disabled = false;
+                } catch (err) {
+                    console.error("Error accessing microphone:", err);
+                    audioStatus.textContent = 'Microphone access denied.';
+                }
+            });
+            stopAudioBtn.addEventListener('click', () => audioMediaRecorder.stop());
+
+            // Video Recording Logic
+            const startVideoBtn = document.getElementById('startVideoRecordingBtn');
+            const stopVideoBtn = document.getElementById('stopVideoRecordingBtn');
+            const videoStatus = document.getElementById('videoRecordingStatus');
+            const videoFileInput = document.getElementById('{{ form.video_file.id_for_label }}');
+            const videoPreview = document.getElementById('videoPreview');
+            let videoMediaRecorder;
+            let videoChunks = [];
+            let videoStream;
+
+            startVideoBtn.addEventListener('click', async () => {
+                try {
+                    videoStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                    videoPreview.srcObject = videoStream;
+                    videoPreview.style.display = 'block';
+                    videoMediaRecorder = new MediaRecorder(videoStream);
+                    videoMediaRecorder.ondataavailable = event => videoChunks.push(event.data);
+                    videoMediaRecorder.onstop = () => {
+                        const videoBlob = new Blob(videoChunks, { type: 'video/webm' });
+                        const videoFile = new File([videoBlob], 'video_recording.webm', { type: 'video/webm' });
+                        const dataTransfer = new DataTransfer();
+                        dataTransfer.items.add(videoFile);
+                        videoFileInput.files = dataTransfer.files;
+                        videoStatus.textContent = 'Video ready!';
+                        startVideoBtn.disabled = false;
+                        stopVideoBtn.disabled = true;
+                        videoChunks = [];
+                        videoPreview.style.display = 'none';
+                        // Stop the camera track
+                        videoStream.getTracks().forEach(track => track.stop());
+                    };
+                    videoMediaRecorder.start();
+                    videoStatus.textContent = 'Recording...';
+                    startVideoBtn.disabled = true;
+                    stopVideoBtn.disabled = false;
+                } catch (err) {
+                    console.error("Error accessing camera/microphone:", err);
+                    videoStatus.textContent = 'Camera/Mic access denied.';
+                }
+            });
+            stopVideoBtn.addEventListener('click', () => videoMediaRecorder.stop());
+        });
+
+        function nextStep() {
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+        }
+
+        function prevStep() {
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step1').classList.add('active');
+        }
     </script>
 </body>
 </html>

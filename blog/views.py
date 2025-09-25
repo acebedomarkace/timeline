@@ -48,6 +48,7 @@ def signup(request):
 
 @login_required
 def post_create(request):
+    post_type = request.GET.get('type', 'journal') # Default to journal
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
@@ -64,7 +65,7 @@ def post_create(request):
             return redirect('timeline_redirect')
     else:
         form = PostForm()
-    return render(request, 'blog/post_form.html', {'form': form})
+    return render(request, 'blog/post_form.html', {'form': form, 'post_type': post_type})
 
 def author_post_list(request, username, year=None):
     author = get_object_or_404(User, username=username)
