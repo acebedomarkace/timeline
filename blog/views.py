@@ -86,8 +86,21 @@ def author_post_list(request, username, year=None):
     if year:
         posts_list = posts_list.filter(created_date__year=year)
         
-    drafts = posts_list.filter(status='draft')
-    published = posts_list.filter(status='published')
+    status_filter = request.GET.get('status')
+    if status_filter in ['published', 'draft']:
+        posts_list = posts_list.filter(status=status_filter)
+        
+    presentations = Presentation.objects.filter(author=author)
+    portfolios = Portfolio.objects.filter(author=author)
+    
+    archive_years = Post.objects.filter(author=author).annotate(year=ExtractYear('created_date')).values_list('year', flat=True).distinct().order_by('-year')
+
+    # Fetch pending peer review requests
+    pending_reviews = PeerReviewRequest.objects.filter(reviewer=author, status='pending')
+
+    status_filter = request.GET.get('status')
+    if status_filter in ['published', 'draft']:
+        posts_list = posts_list.filter(status=status_filter)
         
     presentations = Presentation.objects.filter(author=author)
     portfolios = Portfolio.objects.filter(author=author)
@@ -99,15 +112,15 @@ def author_post_list(request, username, year=None):
 
     context = {
         'author': author,
-        'drafts': drafts,
-        'published': published,
+        'posts': posts_list,
         'presentations': presentations,
         'portfolios': portfolios,
         'profile': author_profile, # Use the safely fetched profile
         'archive_years': archive_years,
         'selected_year': year,
         'pending_reviews': pending_reviews,
-        'current_year': timezone.now().year
+        'current_year': timezone.now().year,
+        'status_filter': status_filter
     }
     return render(request, 'blog/author_post_list.html', context)
 

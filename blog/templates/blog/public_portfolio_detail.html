@@ -17,7 +17,7 @@
       <h4><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h4>
     </div>
   {% empty %}
-    <p>This portfolio has no published posts yet.</p>
+    <p>This portfolio is empty.</p>
   {% endfor %}
 
   <hr>
