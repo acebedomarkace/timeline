@@ -136,8 +136,10 @@
                 </span>
             </div>
             {% if post.photo %}
-                <img src="{{ post.photo.url }}" alt="{{ post.annotation }}">
-                <p><em>{{ post.annotation }}</em></p>
+                <img src="{{ post.photo.url }}" alt="{{ post.title }}">
+                {% if post.media_description %}
+                    <p><em>{{ post.media_description }}</em></p>
+                {% endif %}
             {% endif %}
             <p>{{ post.content|linebreaksbr }}</p>
 
@@ -162,12 +164,17 @@
                             allowfullscreen>
                         </iframe>
                     </div>
+                    {% if post.media_description %}
+                        <p><em>{{ post.media_description }}</em></p>
+                    {% endif %}
                 {% endif %}
             {% endwith %}
 
             {% if post.audio_file %}
                 <audio controls controlsList="nodownload" src="{{ post.audio_file.url }}"></audio>
-                <p><em>{{ post.audio_description }}</em></p>
+                {% if post.media_description %}
+                    <p><em>{{ post.media_description }}</em></p>
+                {% endif %}
             {% endif %}
 
             {% if post.video_file %}
@@ -176,7 +183,9 @@
                         <source src="{{ post.video_file.url }}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
-                    <p><em>{{ post.video_description }}</em></p>
+                    {% if post.media_description %}
+                        <p><em>{{ post.media_description }}</em></p>
+                    {% endif %}
                 </div>
             {% endif %}
         </div>

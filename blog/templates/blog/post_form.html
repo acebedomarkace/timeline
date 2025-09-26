@@ -76,6 +76,11 @@
             background-color: #dc3545;
             color: #fff;
         }
+        .error {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
@@ -84,43 +89,75 @@
             <h2>Create a New Post</h2>
             <form id="create-post-form" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
+                <input type="hidden" name="post_type" value="{{ post_type }}">
+
+                {% if form.non_field_errors %}
+                    <div class="error">{{ form.non_field_errors }}</div>
+                {% endif %}
 
                 <div class="form-field" data-type="journal photo video">
                     <label for="{{ form.subject.id_for_label }}">{{ form.subject.label }}</label>
                     {{ form.subject }}
+                    {% if form.subject.errors %}
+                        <div class="error">{{ form.subject.errors }}</div>
+                    {% endif %}
                 </div>
                 <div class="form-field" data-type="journal photo video">
                     <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
                     {{ form.title }}
+                    {% if form.title.errors %}
+                        <div class="error">{{ form.title.errors }}</div>
+                    {% endif %}
                 </div>
                 <div class="form-field" data-type="journal">
                     <label for="{{ form.content.id_for_label }}">{{ form.content.label }}</label>
                     {{ form.content }}
+                    {% if form.content.errors %}
+                        <div class="error">{{ form.content.errors }}</div>
+                    {% endif %}
                 </div>
                 <div class="form-field" data-type="photo">
                     <label for="{{ form.photo.id_for_label }}">{{ form.photo.label }}</label>
                     {{ form.photo }}
+                    {% if form.photo.errors %}
+                        <div class="error">{{ form.photo.errors }}</div>
+                    {% endif %}
                 </div>
                 <div class="form-field" data-type="video">
                     <label for="{{ form.video_file.id_for_label }}">{{ form.video_file.label }}</label>
                     {{ form.video_file }}
+                    {% if form.video_file.errors %}
+                        <div class="error">{{ form.video_file.errors }}</div>
+                    {% endif %}
                 </div>
                 <div class="form-field" data-type="video">
                     <label for="{{ form.youtube_url.id_for_label }}">{{ form.youtube_url.label }}</label>
                     {{ form.youtube_url }}
+                    {% if form.youtube_url.errors %}
+                        <div class="error">{{ form.youtube_url.errors }}</div>
+                    {% endif %}
                 </div>
                 <div class="form-field" data-type="journal photo video">
                     <label for="{{ form.audio_file.id_for_label }}">{{ form.audio_file.label }}</label>
                     {{ form.audio_file }}
+                    {% if form.audio_file.errors %}
+                        <div class="error">{{ form.audio_file.errors }}</div>
+                    {% endif %}
                 </div>
                 <div class="form-field">
                     <label for="{{ form.media_description.id_for_label }}">{{ form.media_description.label }}</label>
                     {{ form.media_description }}
+                    {% if form.media_description.errors %}
+                        <div class="error">{{ form.media_description.errors }}</div>
+                    {% endif %}
                 </div>
                 <div class="form-field">
                     <label for="{{ form.tags.id_for_label }}">{{ form.tags.label }}</label>
                     {{ form.tags }}
                     <p style="font-size: 0.9em; color: #666;">{{ form.tags.help_text }}</p>
+                    {% if form.tags.errors %}
+                        <div class="error">{{ form.tags.errors }}</div>
+                    {% endif %}
                 </div>
 
                 <div class="button-group">
@@ -135,11 +172,21 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const postType = '{{ post_type }}';
-            const formFields = document.querySelectorAll('.form-field');
+            const form = document.getElementById('create-post-form');
+            if (!form) return;
+
+            const formFields = form.querySelectorAll('.form-field');
 
             formFields.forEach(function(field) {
-                const types = field.getAttribute('data-type').split(' ');
-                if (types.includes(postType) || !field.hasAttribute('data-type')) {
+                const dataType = field.getAttribute('data-type');
+
+                if (!dataType) {
+                    field.style.display = 'block';
+                    return;
+                }
+
+                const types = dataType.split(' ');
+                if (types.includes(postType)) {
                     field.style.display = 'block';
                 } else {
                     field.style.display = 'none';

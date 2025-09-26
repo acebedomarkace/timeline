@@ -48,36 +48,39 @@ def signup(request):
 
 @login_required
 def post_create(request):
-    post_type = request.GET.get('type', 'journal')  # Default to journal
+    post_type = request.GET.get('type', 'journal')
+    
     if request.method == 'POST':
+        print(f"POST data: {request.POST}")  # Debug
         form = PostForm(request.POST, request.FILES, post_type=post_type)
+        
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
             post.post_type = post_type
-
-            # Check which button was pressed
+            
+            # Handle action buttons
             action = request.POST.get('action')
-            if action == 'publish':
-                post.status = 'published'
-                messages.success(request, "Post published successfully!")
-            else:
-                post.status = 'draft'
-                messages.success(request, "Draft saved successfully!")
-
+            post.status = 'published' if action == 'publish' else 'draft'
             post.save()
-
-            # Handle tags
-            tag_names = form.cleaned_data.get('tags', '').split(',')
-            post.tags.clear()
-            for tag_name in tag_names:
-                if tag_name:
-                    tag, created = Tag.objects.get_or_create(name=tag_name.strip())
+            
+            # Handle tags safely
+            tags_data = form.cleaned_data.get('tags', '')
+            if tags_data:
+                post.tags.clear()
+                tag_names = [t.strip() for t in str(tags_data).split(',') if t.strip()]
+                for tag_name in tag_names:
+                    tag, _ = Tag.objects.get_or_create(name=tag_name)
                     post.tags.add(tag)
-
-            return redirect('timeline_redirect')
+            
+            messages.success(request, f"Post {'published' if action == 'publish' else 'saved as draft'}!")
+            return redirect('author_post_list', username=request.user.username)
+        else:
+            print(f"Form errors: {form.errors}")  # Debug
+            messages.error(request, "Please fix form errors.")
     else:
         form = PostForm(post_type=post_type)
+    
     return render(request, 'blog/post_form.html', {'form': form, 'post_type': post_type})
 
 def author_post_list(request, username, year=None):
@@ -143,33 +146,33 @@ def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if post.author != request.user:
         return redirect('timeline_redirect')
-    
+
     post_type = post.post_type
 
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES, instance=post, post_type=post_type)
         if form.is_valid():
             post = form.save(commit=False)
-            
-            # Check which button was pressed
             action = request.POST.get('action')
             if action == 'publish':
                 post.status = 'published'
-                messages.success(request, "Post published successfully!")
             else:
                 post.status = 'draft'
-                messages.success(request, "Draft saved successfully!")
-
             post.save()
-
-            post.tags.clear()
-            tag_names = form.cleaned_data['tags'].split(',')
-            for tag_name in tag_names:
-                if tag_name:
-                    tag, created = Tag.objects.get_or_create(name=tag_name.strip())
+            
+            # Handle tags safely
+            tags_data = form.cleaned_data.get('tags', '')
+            if tags_data:
+                post.tags.clear()
+                tag_names = [t.strip() for t in str(tags_data).split(',') if t.strip()]
+                for tag_name in tag_names:
+                    tag, _ = Tag.objects.get_or_create(name=tag_name)
                     post.tags.add(tag)
-
-            return redirect('author_post_list', username=request.user.username)
+            
+            messages.success(request, f'Post successfully updated as {post.status}.')
+            return redirect('author_post_list', username=request.user.username) # Redirect after success
+        else:
+            messages.error(request, f'Please correct the errors below: {form.errors}')
     else:
         form = PostForm(instance=post, post_type=post_type, initial={'tags': ', '.join([t.name for t in post.tags.all()])})
     return render(request, 'blog/post_form.html', {'form': form, 'post_type': post_type})

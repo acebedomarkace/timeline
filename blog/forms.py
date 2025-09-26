@@ -33,24 +33,42 @@ class PortfolioForm(forms.ModelForm):
 
 from django.contrib.auth.models import User
 
+class CustomClearableFileInput(forms.ClearableFileInput):
+    template_with_initial = (
+        '%(initial_text)s: <a href="%(initial_url)s">%(initial)s</a> '
+        '<br />%(input_text)s: %(input)s'
+    )
+
 class PostForm(forms.ModelForm):
     tags = forms.CharField(max_length=200, required=False, help_text='Enter comma-separated tags.')
 
     class Meta:
         model = Post
         fields = ['subject', 'title', 'content', 'photo', 'audio_file', 'youtube_url', 'video_file', 'media_description', 'tags']
+        widgets = {
+            'photo': CustomClearableFileInput,
+            'audio_file': CustomClearableFileInput,
+            'video_file': CustomClearableFileInput,
+        }
 
     def __init__(self, *args, **kwargs):
         self.post_type = kwargs.pop('post_type', None)
         super().__init__(*args, **kwargs)
 
+        if self.data:
+            self.post_type = self.data.get('post_type')
+
+        # Un-require fields that are dynamically shown/hidden
+        self.fields['content'].required = False
+        self.fields['photo'].required = False
+        self.fields['video_file'].required = False
+        self.fields['youtube_url'].required = False
+
+        # Require the correct field based on post_type
         if self.post_type == 'journal':
             self.fields['content'].required = True
         elif self.post_type == 'photo':
             self.fields['photo'].required = True
-        elif self.post_type == 'video':
-            self.fields['video_file'].required = False
-            self.fields['youtube_url'].required = False
 
     def clean(self):
         cleaned_data = super().clean()

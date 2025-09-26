@@ -26,6 +26,11 @@ class Tag(models.Model):
         return self.name
 
 class Post(models.Model):
+    POST_TYPE_CHOICES = (
+        ('journal', 'Journal'),
+        ('photo', 'Photo'),
+        ('video', 'Video'),
+    )
     STATUS_CHOICES = (
         ('draft', 'Draft'),
         ('published', 'Published'),
@@ -35,6 +40,7 @@ class Post(models.Model):
         ('revision_requested', 'Revision Requested'),
         ('approved', 'Approved'),
     )
+    post_type = models.CharField(max_length=10, choices=POST_TYPE_CHOICES, default='journal')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject, on_delete=models.PROTECT)
     title = models.CharField(max_length=200)
