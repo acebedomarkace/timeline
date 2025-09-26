@@ -48,23 +48,36 @@ def signup(request):
 
 @login_required
 def post_create(request):
-    post_type = request.GET.get('type', 'journal') # Default to journal
+    post_type = request.GET.get('type', 'journal')  # Default to journal
     if request.method == 'POST':
-        form = PostForm(request.POST, request.FILES)
+        form = PostForm(request.POST, request.FILES, post_type=post_type)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
-            post.status = request.POST.get('status', 'draft')
+            post.post_type = post_type
+
+            # Check which button was pressed
+            action = request.POST.get('action')
+            if action == 'publish':
+                post.status = 'published'
+                messages.success(request, "Post published successfully!")
+            else:
+                post.status = 'draft'
+                messages.success(request, "Draft saved successfully!")
+
             post.save()
 
-            tag_names = form.cleaned_data['tags'].split(',')
+            # Handle tags
+            tag_names = form.cleaned_data.get('tags', '').split(',')
+            post.tags.clear()
             for tag_name in tag_names:
-                tag, created = Tag.objects.get_or_create(name=tag_name.strip())
-                post.tags.add(tag)
+                if tag_name:
+                    tag, created = Tag.objects.get_or_create(name=tag_name.strip())
+                    post.tags.add(tag)
 
             return redirect('timeline_redirect')
     else:
-        form = PostForm()
+        form = PostForm(post_type=post_type)
     return render(request, 'blog/post_form.html', {'form': form, 'post_type': post_type})
 
 def author_post_list(request, username, year=None):
@@ -130,23 +143,36 @@ def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if post.author != request.user:
         return redirect('timeline_redirect')
+    
+    post_type = post.post_type
+
     if request.method == 'POST':
-        form = PostForm(request.POST, request.FILES, instance=post)
+        form = PostForm(request.POST, request.FILES, instance=post, post_type=post_type)
         if form.is_valid():
             post = form.save(commit=False)
-            post.status = request.POST.get('status', 'draft')
+            
+            # Check which button was pressed
+            action = request.POST.get('action')
+            if action == 'publish':
+                post.status = 'published'
+                messages.success(request, "Post published successfully!")
+            else:
+                post.status = 'draft'
+                messages.success(request, "Draft saved successfully!")
+
             post.save()
 
             post.tags.clear()
             tag_names = form.cleaned_data['tags'].split(',')
             for tag_name in tag_names:
-                tag, created = Tag.objects.get_or_create(name=tag_name.strip())
-                post.tags.add(tag)
+                if tag_name:
+                    tag, created = Tag.objects.get_or_create(name=tag_name.strip())
+                    post.tags.add(tag)
 
             return redirect('author_post_list', username=request.user.username)
     else:
-        form = PostForm(instance=post, initial={'tags': ', '.join([t.name for t in post.tags.all()])})
-    return render(request, 'blog/post_form.html', {'form': form})
+        form = PostForm(instance=post, post_type=post_type, initial={'tags': ', '.join([t.name for t in post.tags.all()])})
+    return render(request, 'blog/post_form.html', {'form': form, 'post_type': post_type})
 
 def is_teacher(user):
     return user.groups.filter(name='Teachers').exists()

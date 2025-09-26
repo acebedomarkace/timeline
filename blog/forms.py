@@ -40,6 +40,25 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ['subject', 'title', 'content', 'photo', 'audio_file', 'youtube_url', 'video_file', 'media_description', 'tags']
 
+    def __init__(self, *args, **kwargs):
+        self.post_type = kwargs.pop('post_type', None)
+        super().__init__(*args, **kwargs)
+
+        if self.post_type == 'journal':
+            self.fields['content'].required = True
+        elif self.post_type == 'photo':
+            self.fields['photo'].required = True
+        elif self.post_type == 'video':
+            self.fields['video_file'].required = False
+            self.fields['youtube_url'].required = False
+
+    def clean(self):
+        cleaned_data = super().clean()
+        if self.post_type == 'video':
+            if not cleaned_data.get('video_file') and not cleaned_data.get('youtube_url'):
+                raise forms.ValidationError("For a video post, you must provide either a video file or a YouTube URL.")
+        return cleaned_data
+
 class PresentationForm(forms.ModelForm):
     class Meta:
         model = Presentation

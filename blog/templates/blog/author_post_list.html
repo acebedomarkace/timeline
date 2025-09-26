@@ -4,7 +4,7 @@
     <title>{{ author.username }}'s Timeline</title>
     <style>
         .filter-controls {
-            margin-bottom: 24px;
+            margin-bottom: 32px;
         }
         .filter-controls .btn {
             text-decoration: none;
@@ -45,7 +45,7 @@
             background-color: #f0f2f5;
             color: #333;
             margin: 0;
-            padding: 24px;
+            padding: 32px;
             font-size: 16px;
         }
         .container {
@@ -53,7 +53,7 @@
             margin: 0 auto;
             display: grid;
             grid-template-columns: 1fr 250px; /* Main content and sidebar */
-            gap: 32px;
+            gap: 24px;
         }
         .sidebar {
             grid-column: 2 / 3;
@@ -63,15 +63,15 @@
             grid-column: 1 / 2;
             grid-row: 2;
         }
-        .main-content h2 {
-            font-size: 2em;
-            margin-bottom: 24px;
+        .main-content h1 {
+            font-size: 2.2em;
+            margin-bottom: 32px;
         }
         header {
             background-color: #fff;
-            padding: 16px 24px;
+            padding: 16px 32px;
             border-radius: 8px;
-            margin-bottom: 24px;
+            margin-bottom: 32px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -129,14 +129,14 @@
         }
         .info-card {
             background-color: #fff;
-            padding: 24px;
+            padding: 32px;
             border-radius: 8px;
-            margin-bottom: 24px;
+            margin-bottom: 32px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
-        .info-card h2 {
+        .info-card h3 {
             margin-top: 0;
-            font-size: 1.1em;
+            font-size: 1.2em;
             font-weight: 600;
             border-bottom: 1px solid #eee;
             padding-bottom: 16px;
@@ -145,12 +145,12 @@
             justify-content: space-between;
             align-items: center;
         }
-        .info-card h2.collapsible-heading::after {
+        .info-card h3.collapsible-heading::after {
             content: '−'; /* Minus sign */
             font-size: 1.2em;
             transition: transform 0.2s;
         }
-        .info-card h2.collapsible-heading.collapsed::after {
+        .info-card h3.collapsible-heading.collapsed::after {
             content: '+'; /* Plus sign */
         }
         .info-card ul {
@@ -175,7 +175,7 @@
         .card-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 24px;
+            gap: 32px;
         }
         .card {
             height: 250px;
@@ -211,7 +211,7 @@
         }
         .card-title {
             color: #fff;
-            font-size: 1.2em;
+            font-size: 1.3em;
             font-weight: 600;
         }
         .actions {
@@ -466,12 +466,12 @@
         </header>
         <div class="sidebar">
             <div class="info-card">
-                <h2>
+                <h3>
                     <div style="display: flex; align-items: center;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                         <span style="margin-left: 8px;">Family</span>
                     </div>
-                </h2>
+                </h3>
                 <ul>
                     {% if author.profile.family %}
                         <li>{{ author.profile.family.name }}</li>
@@ -481,12 +481,12 @@
                 </ul>
             </div>
             <div class="info-card">
-                <h2 class="collapsible-heading">
+                <h3 class="collapsible-heading">
                     <div style="display: flex; align-items: center;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-archive"><path d="M21 8v13H3V8"></path><rect x="1" y="3" width="22" height="5"></rect><line x1="10" y1="12" x2="14" y2="12"></line></svg>
                         <span style="margin-left: 8px;">Archives</span>
                     </div>
-                </h2>
+                </h3>
                 <ul class="collapsible-list">
                     <li><a href="{% url 'author_post_list' username=author.username %}" class="archive-link {% if not selected_year %}active{% endif %}">All Posts</a></li>
                     {% for year in archive_years %}
@@ -497,12 +497,12 @@
                 </ul>
             </div>
             <div class="info-card">
-                <h2 class="collapsible-heading">
+                <h3 class="collapsible-heading">
                     <div style="display: flex; align-items: center;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-film"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>
                         <span style="margin-left: 8px;">Presentations</span>
                     </div>
-                </h2>
+                </h3>
                 <ul class="collapsible-list">
                     {% for presentation in presentations %}
                         <li>
@@ -519,17 +519,17 @@
                             {% endif %}
                         </li>
                     {% empty %}
-                        <li>No presentations yet.</li>
+                        <li>Ready to create a presentation? Click the <strong>+</strong> button to start.</li>
                     {% endfor %}
                 </ul>
             </div>
             <div class="info-card">
-                <h2 class="collapsible-heading">
+                <h3 class="collapsible-heading">
                     <div style="display: flex; align-items: center;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
                         <span style="margin-left: 8px;">Portfolios</span>
                     </div>
-                </h2>
+                </h3>
                 <ul class="collapsible-list">
                     {% for portfolio in portfolios %}
                         <li>
@@ -546,17 +546,17 @@
                             {% endif %}
                         </li>
                     {% empty %}
-                        <li>No portfolios yet.</li>
+                        <li>Ready to create a portfolio? Click the <strong>+</strong> button to start.</li>
                     {% endfor %}
                 </ul>
             </div>
             <div class="info-card">
-                <h2 class="collapsible-heading">
+                <h3 class="collapsible-heading">
                     <div style="display: flex; align-items: center;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-git-pull-request"><circle cx="18" cy="18" r="3"></circle><circle cx="6" cy="6" r="3"></circle><path d="M13 6h3a2 2 0 0 1 2 2v7"></path><line x1="6" y1="9" x2="6" y2="21"></line></svg>
                         <span style="margin-left: 8px;">Peer Review Requests</span>
                     </div>
-                </h2>
+                </h3>
                 <ul class="collapsible-list">
                     {% for review in pending_reviews %}
                         <li>
@@ -565,7 +565,7 @@
                             <small>From: {{ review.requester.username }}</small>
                         </li>
                     {% empty %}
-                        <li>No pending requests.</li>
+                        <li>You have no pending peer review requests.</li>
                     {% endfor %}
                 </ul>
             </div>
@@ -576,14 +576,14 @@
                 <a href="?status=published" class="btn {% if status_filter == 'published' %}active{% endif %}">Published</a>
                 <a href="?status=draft" class="btn {% if status_filter == 'draft' %}active{% endif %}">Drafts</a>
             </div>
-            <h2>Posts</h2>
+            <h1>Posts</h1>
             <div class="card-container">
                 {% for post in posts %}
                     <div class="card {% if not post.photo %}placeholder-card{% endif %}" data-year="{{ post.created_date.year }}" {% if post.photo %}style="background-image: url('{{ post.photo.url }}');"{% endif %}>
                         <div class="card-status-badge">{{ post.status|title }}</div>
                         <a href="{% url 'post_detail' pk=post.pk %}" class="card-main-link">
                             <div class="card-overlay">
-                                <h2 class="card-title">{{ post.title }}</h2>
+                                <h3 class="card-title">{{ post.title }}</h3>
                                 <p class="card-snippet">{{ post.video_description|truncatewords:10 }}</p>
                                 <p class="card-date">{{ post.created_date|date:"F j, Y" }}</p>
                             </div>
@@ -606,8 +606,9 @@
                         {% endif %}
                     </div>
                 {% empty %}
-                    <div class="info-card" style="grid-column: 1 / -1;">
-                        <p>No posts found for the selected filter.</p>
+                    <div class="info-card" style="grid-column: 1 / -1; text-align: center;">
+                        <h3>Your timeline is ready!</h3>
+                        <p>Click the <strong>+</strong> button to add your first entry.</p>
                     </div>
                 {% endfor %}
             </div>
