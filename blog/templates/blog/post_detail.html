@@ -146,7 +146,11 @@
             <div class="tags">
                 {% for tag in post.tags.all %}
                     {% if tag.name %}
-                        <a href="{% url 'posts_by_tag' tag_name=tag.name %}" class="tag">{{ tag.name }}</a>
+                        {% if post.status == 'published' %}
+                            <a href="{% url 'posts_by_tag' tag_name=tag.name %}" class="tag">{{ tag.name }}</a>
+                        {% else %}
+                            <span class="tag disabled">{{ tag.name }}</span>
+                        {% endif %}
                     {% endif %}
                 {% endfor %}
             </div>
