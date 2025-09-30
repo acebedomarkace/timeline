@@ -74,6 +74,61 @@
             margin-bottom: 8px;
             font-weight: normal;
         }
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        .checkbox-item .thumbnail {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            margin-right: 10px;
+            border-radius: 4px;
+        }
+        .checkbox-item .thumbnail-placeholder {
+            width: 50px;
+            height: 50px;
+            background-color: #eee;
+            margin-right: 10px;
+            border-radius: 4px;
+        }
+        .checkbox-item label {
+            display: flex;
+            align-items: center;
+            font-weight: normal;
+            cursor: pointer;
+        }
+        .presentation-preview {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 10px;
+            min-height: 100px;
+            background-color: #f9f9f9;
+        }
+        .preview-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .preview-item .thumbnail {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            margin-right: 10px;
+            border-radius: 4px;
+        }
+        .preview-item .thumbnail-placeholder {
+            width: 50px;
+            height: 50px;
+            background-color: #eee;
+            margin-right: 10px;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
@@ -90,8 +145,26 @@
 
                 <label for="{{ form.posts.id_for_label }}">{{ form.posts.label }}</label>
                 <div class="checkbox-list">
-                    {{ form.posts }}
+                    {% for choice in form.posts %}
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="{{ form.posts.name }}" id="{{ choice.id_for_label }}" value="{{ choice.data.value }}"
+                            data-title="{{ choice.choice_label }}"
+                            data-thumbnail-url="{% if choice.instance.photo %}{{ choice.instance.photo.url }}{% endif %}"
+                            {% if choice.data.selected %}checked{% endif %}>
+                        <label for="{{ choice.id_for_label }}">
+                            {% if choice.instance.photo %}
+                                <img src="{{ choice.instance.photo.url }}" alt="{{ choice.instance.title }}" class="thumbnail">
+                            {% else %}
+                                <div class="thumbnail-placeholder"></div>
+                            {% endif %}
+                            <span>{{ choice.choice_label }}</span>
+                        </label>
+                    </div>
+                    {% endfor %}
                 </div>
+
+                <label for="presentation-preview" style="margin-top: 20px; display: block;">Presentation Preview</label>
+                <div id="presentation-preview" class="presentation-preview"></div>
                 
                 <div class="button-group">
                     <a href="{% url 'author_post_list' username=user.username %}" class="btn btn-secondary">Cancel</a>
@@ -100,5 +173,41 @@
             </form>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkboxes = document.querySelectorAll('.checkbox-list input[type="checkbox"]');
+            const previewContainer = document.getElementById('presentation-preview');
+
+            function updatePreview() {
+                previewContainer.innerHTML = '';
+                const selectedCheckboxes = Array.from(checkboxes).filter(i => i.checked);
+                
+                selectedCheckboxes.forEach(checkbox => {
+                    const title = checkbox.dataset.title;
+                    const thumbnailUrl = checkbox.dataset.thumbnailUrl;
+
+                    const previewItem = document.createElement('div');
+                    previewItem.classList.add('preview-item');
+
+                    let thumbnailHtml = '';
+                    if (thumbnailUrl) {
+                        thumbnailHtml = `<img src="${thumbnailUrl}" alt="${title}" class="thumbnail">`;
+                    } else {
+                        thumbnailHtml = '<div class="thumbnail-placeholder"></div>';
+                    }
+
+                    previewItem.innerHTML = `${thumbnailHtml}<span>${title}</span>`;
+                    previewContainer.appendChild(previewItem);
+                });
+            }
+
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updatePreview);
+            });
+
+            // Initial preview update on page load for pre-selected items
+            updatePreview();
+        });
+    </script>
 </body>
 </html>

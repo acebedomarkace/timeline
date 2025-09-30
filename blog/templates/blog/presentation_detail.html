@@ -63,6 +63,17 @@
         .slide audio { margin-top: 20px; }
         .slide h2 { margin-bottom: 10px; }
         .slide p { color: #555; }
+        .post-content {
+            max-width: 80ch;
+            text-align: left;
+            margin-top: 20px;
+            width: 100%;
+        }
+        .post-content p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #333;
+        }
         .exit-link {
             position: fixed;
             top: 20px;
@@ -89,12 +100,13 @@
         {% for post in presentation.posts.all %}
             <div class="slide" id="post-{{ post.pk }}">
                 <h2>{{ forloop.counter }}. {{ post.title }}</h2>
-                <p><small>Subject: {{ post.subject.name }}</small></p>
                 {% if post.photo %}
-                    <img src="{{ post.photo.url }}" alt="{{ post.annotation }}">
-                    <p><em>{{ post.annotation }}</em></p>
+                    <img src="{{ post.photo.url }}" alt="{{ post.media_description }}">
+                    <p><em>{{ post.media_description }}</em></p>
                 {% endif %}
-                <p>{{ post.content }}</p>
+                <div class="post-content">
+                    {{ post.content|linebreaks }}
+                </div>
 
                 {% with embed_url=post.get_youtube_embed_url %}
                     {% if embed_url %}
@@ -114,7 +126,7 @@
 
                 {% if post.audio_file %}
                     <audio controls controlsList="nodownload" src="{{ post.audio_file.url }}"></audio>
-                    <p><em>{{ post.audio_description }}</em></p>
+                    <p><em>{{ post.media_description }}</em></p>
                 {% endif %}
 
                 {% if post.video_file %}
@@ -123,7 +135,7 @@
                             <source src="{{ post.video_file.url }}" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
-                        <p><em>{{ post.video_description }}</em></p>
+                        <p><em>{{ post.media_description }}</em></p>
                     </div>
                 {% endif %}
             </div>
