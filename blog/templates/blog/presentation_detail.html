@@ -1,118 +1,50 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>{{ presentation.title }}</title>
-    <style>
-        body { font-family: sans-serif; margin: 0; display: flex; }
-        .main-content {
-            flex-grow: 1;
-            padding-right: 320px; /* Space for the TOC pane */
-        }
-        .toc-pane {
-            width: 320px;
-            position: fixed;
-            top: 0;
-            right: 0;
-            height: 100vh;
-            background-color: #f9f9f9;
-            border-left: 1px solid #eee;
-            padding: 20px;
-            box-sizing: border-box;
-            overflow-y: auto;
-        }
-        .toc-pane h3 { margin-top: 0; }
-        .toc-pane .subject-heading {
-            cursor: pointer;
-            font-weight: bold;
-            margin-bottom: 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .toc-pane .subject-heading::after {
-            content: '−'; /* Minus sign */
-            font-size: 1.2em;
-            transition: transform 0.2s;
-        }
-        .toc-pane .subject-heading.collapsed::after {
-            content: '+'; /* Plus sign */
-        }
-        .toc-pane ul {
-            list-style-type: decimal;
-            padding-left: 20px;
-            overflow: hidden;
-            max-height: 1000px; /* Large value to allow animation */
-            transition: max-height 0.3s ease-in-out;
-        }
-        .toc-pane ul.collapsed {
-            max-height: 0;
-        }
-        .toc-pane li a { text-decoration: none; color: #333; display: block; padding: 5px 0; }
-        .toc-pane li a:hover { background-color: #eee; }
-        .slide {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 40px;
-            box-sizing: border-box;
-            border-bottom: 1px solid #eee;
-        }
-        .slide img { max-width: 60%; max-height: 50vh; }
-        .slide audio { margin-top: 20px; }
-        .slide h2 { margin-bottom: 10px; }
-        .slide p { color: #555; }
-        .post-content {
-            max-width: 80ch;
-            text-align: left;
-            margin-top: 20px;
-            width: 100%;
-        }
-        .post-content p {
-            font-size: 1.1rem;
-            line-height: 1.7;
-            color: #333;
-        }
-        .exit-link {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 100;
-            background: rgba(0,0,0,0.5);
-            color: white;
-            padding: 10px 15px;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/presentation_styles.css' %}">
 </head>
 <body>
 
-    <a href="{% url 'author_post_list' username=presentation.author.username %}" class="exit-link">&larr; Back to Timeline</a>
+<a href="{% url 'author_post_list' username=presentation.author.username %}" class="exit-link">&larr; Back to Timeline</a>
 
-    <div class="main-content">
-        <div style="padding: 40px;">
-            <h1>{{ presentation.title }}</h1>
-            <p>By {{ presentation.author.username }} | Type: {{ presentation.get_type_display }}</p>
-        </div>
+<div class="main-content">
+    <div class="presentation-header">
+        <h1>{{ presentation.title }}</h1>
+        <p>By {{ presentation.author.username }} | Type: {{ presentation.get_type_display }}</p>
+    </div>
 
-        {% for post in presentation.posts.all %}
-            <div class="slide" id="post-{{ post.pk }}">
-                <h2>{{ forloop.counter }}. {{ post.title }}</h2>
-                {% if post.photo %}
-                    <img src="{{ post.photo.url }}" alt="{{ post.media_description }}">
-                    <p><em>{{ post.media_description }}</em></p>
-                {% endif %}
-                <div class="post-content">
-                    {{ post.content|linebreaks }}
-                </div>
+    {% for post in presentation.posts.all %}
+        <div class="slide" id="post-{{ post.pk }}">
+            <h2>{{ forloop.counter }}. {{ post.title }}</h2>
+            
+            {% if post.photo %}
+                <figure>
+                    <img src="{{ post.photo.url }}" alt="{{ post.title }}">
+                    {% if post.photo_caption or post.media_description %}
+                    <figcaption>
+                        {% if post.photo_caption %}
+                            <p>{{ post.photo_caption }}</p>
+                        {% endif %}
+                        {% if post.media_description %}
+                            <p><em>{{ post.media_description }}</em></p>
+                        {% endif %}
+                    </figcaption>
+                    {% endif %}
+                </figure>
+            {% endif %}
 
-                {% with embed_url=post.get_youtube_embed_url %}
-                    {% if embed_url %}
-                        <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; width: 80%; background: #000; margin-top: 20px;">
+            <div class="post-content">
+                {{ post.content|linebreaks }}
+            </div>
+
+            {% with embed_url=post.get_youtube_embed_url %}
+                {% if embed_url %}
+                    <figure>
+                        <div class="video-container">
                             <iframe
-                                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
                                 src="{{ embed_url }}"
                                 title="YouTube video player"
                                 frameborder="0"
@@ -121,54 +53,72 @@
                                 allowfullscreen>
                             </iframe>
                         </div>
-                    {% endif %}
-                {% endwith %}
+                        {% if post.media_description %}
+                        <figcaption>
+                            <p><em>{{ post.media_description }}</em></p>
+                        </figcaption>
+                        {% endif %}
+                    </figure>
+                {% endif %}
+            {% endwith %}
 
-                {% if post.audio_file %}
+            {% if post.audio_file %}
+                <figure>
                     <audio controls controlsList="nodownload" src="{{ post.audio_file.url }}"></audio>
-                    <p><em>{{ post.media_description }}</em></p>
-                {% endif %}
-
-                {% if post.video_file %}
-                    <div style="margin-top: 20px; width: 80%;">
-                        <video controls controlsList="nodownload" style="width: 100%; max-width: 100%; border-radius: 4px;">
-                            <source src="{{ post.video_file.url }}" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
+                    {% if post.media_description %}
+                    <figcaption>
                         <p><em>{{ post.media_description }}</em></p>
+                    </figcaption>
+                    {% endif %}
+                </figure>
+            {% endif %}
+
+            {% if post.video_file %}
+                <figure>
+                    <div class="video-file-container">
+                        <video controls controlsList="nodownload">
+                            <source src="{{ post.video_file.url }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                        </video>
                     </div>
-                {% endif %}
-            </div>
-        {% endfor %}
-    </div>
+                    {% if post.media_description %}
+                    <figcaption>
+                        <p><em>{{ post.media_description }}</em></p>
+                    </figcaption>
+                    {% endif %}
+                </figure>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
 
-    <div class="toc-pane">
-        <h3>Table of Contents</h3>
-        {% for subject, posts in subject_posts.items %}
-            <h4 class="subject-heading">{{ subject.name }} ({{ posts|length }})</h4>
-            <ul>
-                {% for post in posts %}
-                    <li><a href="#post-{{ post.pk }}">{{ post.title }}</a></li>
-                {% endfor %}
-            </ul>
-        {% endfor %}
-    </div>
+<div class="toc-pane">
+    <h3>Table of Contents</h3>
+    {% for subject, posts in subject_posts.items %}
+        <h4 class="subject-heading">{{ subject.name }} ({{ posts|length }})</h4>
+        <ul>
+            {% for post in posts %}
+                <li><a href="#post-{{ post.pk }}">{{ post.title }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+</div>
 
-    <script>
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                window.location.href = "{% url 'author_post_list' username=presentation.author.username %}";
-            }
+<script>
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            window.location.href = "{% url 'author_post_list' username=presentation.author.username %}";
+        }
+    });
+
+    document.querySelectorAll('.subject-heading').forEach(heading => {
+        heading.addEventListener('click', () => {
+            heading.classList.toggle('collapsed');
+            const postList = heading.nextElementSibling;
+            postList.classList.toggle('collapsed');
         });
-
-        document.querySelectorAll('.subject-heading').forEach(heading => {
-            heading.addEventListener('click', () => {
-                heading.classList.toggle('collapsed');
-                const postList = heading.nextElementSibling;
-                postList.classList.toggle('collapsed');
-            });
-        });
-    </script>
+    });
+</script>
 
 </body>
 </html>

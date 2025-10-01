@@ -1,0 +1,187 @@
+body { 
+    font-family: sans-serif; 
+    margin: 0; 
+    display: flex; 
+}
+
+.main-content {
+    flex-grow: 1;
+    padding-right: 320px; /* Space for the TOC pane */
+}
+
+.presentation-header {
+    padding: 40px;
+}
+
+.toc-pane {
+    width: 320px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    background-color: #f9f9f9;
+    border-left: 1px solid #eee;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.toc-pane h3 { 
+    margin-top: 0; 
+}
+
+.toc-pane .subject-heading {
+    cursor: pointer;
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toc-pane .subject-heading::after {
+    content: '−'; /* Minus sign */
+    font-size: 1.2em;
+    transition: transform 0.2s;
+}
+
+.toc-pane .subject-heading.collapsed::after {
+    content: '+'; /* Plus sign */
+}
+
+.toc-pane ul {
+    list-style-type: decimal;
+    padding-left: 20px;
+    overflow: hidden;
+    max-height: 1000px; /* Large value to allow animation */
+    transition: max-height 0.3s ease-in-out;
+}
+
+.toc-pane ul.collapsed {
+    max-height: 0;
+}
+
+.toc-pane li a { 
+    text-decoration: none; 
+    color: #333; 
+    display: block; 
+    padding: 5px 0; 
+}
+
+.toc-pane li a:hover { 
+    background-color: #eee; 
+}
+
+.slide {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #eee;
+}
+
+.slide figure {
+    width: 80%;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.slide figure img { 
+    max-width: 100%; 
+    max-height: 60vh; 
+    display: block;
+    margin: 0 auto;
+    object-fit: contain;
+}
+
+.slide figcaption {
+    text-align: justify;
+}
+
+.slide audio { 
+    margin-top: 20px; 
+}
+
+.slide h2 { 
+    margin-bottom: 10px; 
+    width: 80%;
+    max-width: 80ch;
+    text-align: left;
+}
+
+.post-content {
+    max-width: 80ch;
+    text-align: left;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.post-content p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #333;
+}
+
+.exit-link {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+/* Caption styles from styles.css */
+figcaption {
+  text-align: left;
+  font-size: 0.85rem;   /* Smaller font */
+  font-style: italic;  /* Differentiates style */
+  color: #666;           /* Lighter color */
+  margin-top: 0.75rem;
+  margin-bottom: 2rem;  /* Adds crucial whitespace */
+}
+
+figcaption p {
+  margin: 0;
+  padding: 0;
+}
+
+figcaption p + p {
+  margin-top: 0.5rem;
+}
+
+/* Video container styles */
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    width: 100%;
+    background: #000;
+    margin-top: 20px;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.video-file-container {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.video-file-container video {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 4px;
+}
