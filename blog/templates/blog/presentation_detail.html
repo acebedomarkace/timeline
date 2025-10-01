@@ -16,7 +16,7 @@
         <p>By {{ presentation.author.username }} | Type: {{ presentation.get_type_display }}</p>
     </div>
 
-    {% for post in presentation.posts.all %}
+    {% for post in all_posts %}
         <div class="slide" id="post-{{ post.pk }}">
             <h2>{{ forloop.counter }}. {{ post.title }}</h2>
             
@@ -94,7 +94,7 @@
 
 <div class="toc-pane">
     <h3>Table of Contents</h3>
-    {% for subject, posts in subject_posts.items %}
+    {% for subject, posts in subject_posts %}
         <h4 class="subject-heading">{{ subject.name }} ({{ posts|length }})</h4>
         <ul>
             {% for post in posts %}

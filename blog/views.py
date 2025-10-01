@@ -334,19 +334,25 @@ def presentation_create(request):
 @login_required
 def presentation_detail(request, pk):
     requesting_user_profile, _ = Profile.objects.get_or_create(user=request.user)
-    # Filter by family to ensure data isolation
     presentation = get_object_or_404(Presentation, pk=pk, author__profile__family=requesting_user_profile.family)
-    
-    # Group posts by subject
-    subject_posts = {}
-    for post in presentation.posts.all().order_by('subject__name', '-created_date'):
-        if post.subject not in subject_posts:
-            subject_posts[post.subject] = []
-        subject_posts[post.subject].append(post)
+
+    # Get all posts in the presentation, ordered by creation date
+    all_posts = presentation.posts.all().order_by('-created_date')
+
+    # Group posts by subject, preserving the order of subjects based on the ordered posts
+    subject_posts_dict = {}
+    for post in all_posts:
+        if post.subject not in subject_posts_dict:
+            subject_posts_dict[post.subject] = []
+        subject_posts_dict[post.subject].append(post)
+
+    # Sort the subjects by name for consistent ordering in the table of contents
+    subject_posts = sorted(subject_posts_dict.items(), key=lambda item: item[0].name if item[0] else '')
 
     context = {
         'presentation': presentation,
-        'subject_posts': subject_posts
+        'subject_posts': subject_posts,
+        'all_posts': all_posts,  # Pass the ordered posts to the template
     }
     return render(request, 'blog/presentation_detail.html', context)
 
