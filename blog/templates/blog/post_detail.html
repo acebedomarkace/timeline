@@ -1,168 +1,63 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ post.title }}</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f0f2f5;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        .post-card {
-            background-color: #fff;
-            border-radius: 8px;
-            padding: 30px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        .post-card h1 {
-            margin-top: 0;
-            font-size: 2.5em;
-        }
-        .post-card .meta {
-            font-size: 1em;
-            color: #666;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        .post-card .meta a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        .meta-item {
-            display: flex;
-            align-items: center;
-            margin-right: 15px;
-        }
-        .meta-item svg {
-            margin-right: 5px;
-        }
-        .tags {
-            margin-top: 20px;
-        }
-        .tag {
-            display: inline-block;
-            background-color: #e9ecef;
-            color: #495057;
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 0.9em;
-            margin-right: 5px;
-            text-decoration: none;
-        }
-        .tag:hover {
-            background-color: #ced4da;
-        }
-        .post-card img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 4px;
-            margin-bottom: 10px;
-        }
-        .teacher-badge {
-            background-color: #007bff;
-            color: #fff;
-            font-size: 0.8em;
-            padding: 3px 8px;
-            border-radius: 10px;
-            font-weight: 500;
-            margin-left: 8px;
-        }
-        .action-button {
-            display: inline-block;
-            background-color: #6c757d;
-            color: white;
-            padding: 8px 15px;
-            border-radius: 5px;
-            text-decoration: none;
-            margin-left: 20px;
-        }
-        .comment-author-info {
-            display: flex;
-            align-items: center;
-            margin-bottom: 5px;
-        }
-        .comment-author-info img {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            margin-right: 10px;
-            object-fit: cover;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <p>
-            {% if user == post.author %}
-                <a href="{% url 'author_post_list' username=user.username %}">&larr; Back to Your Timeline</a>
-            {% else %}
-                <a href="{% url 'public_timeline' %}">&larr; Back to Public Timeline</a>
-            {% endif %}
-            {% if user == post.author %}
-                <a href="{% url 'request_peer_review' pk=post.pk %}" class="action-button">Request Peer Review</a>
-            {% endif %}
-        </p>
-        <div class="post-card">
-            {% if user == post.author %}
-                <div class="status-indicator" style="padding: 10px; border-radius: 5px; margin-bottom: 20px; background-color: 
-                    {% if post.review_status == 'approved' %}#d4edda{% elif post.review_status == 'revision_requested' %}#fff3cd{% else %}#f8d7da{% endif %}; color: 
-                    {% if post.review_status == 'approved' %}#155724{% elif post.review_status == 'revision_requested' %}#856404{% else %}#721c24{% endif %};">
-                    <strong>Status:</strong> {{ post.get_review_status_display }}
-                </div>
-            {% endif %}
-            <h1>{{ post.title }}</h1>
-            <div class="meta">
-                <span class="meta-item">
-                    By&nbsp;
-                    {% if user.is_authenticated %}
-                        <a href="{% url 'author_post_list' username=post.author.username %}">{{ post.author.username }}</a>
-                    {% else %}
-                        {{ post.author.username }}
-                    {% endif %}
-                </span>
-                <span class="meta-item">in {{ post.subject.name }}</span>
-                <span class="meta-item">on {{ post.created_date|date:"F j, Y" }}</span>
-                <span class="meta-item">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                    {{ post.view_count }} {% if post.view_count == 1 %}view{% else %}views{% endif %}
-                </span>
-            </div>
-            {% if post.photo %}
-                <img src="{{ post.photo.url }}" alt="{{ post.title }}">
-                {% if post.photo_caption %}
-                    <p><em>{{ post.photo_caption }}</em></p>
-                {% endif %}
-                {% if post.media_description %}
-                    <p><em>{{ post.media_description }}</em></p>
-                {% endif %}
-            {% endif %}
-            <p>{{ post.content|linebreaksbr }}</p>
+{% extends "blog/base.html" %}
+{% load static %}
 
-            <div class="tags">
-                {% for tag in post.tags.all %}
-                    {% if tag.name %}
-                        {% if post.status == 'published' %}
-                            <a href="{% url 'posts_by_tag' tag_name=tag.name %}" class="tag">{{ tag.name }}</a>
-                        {% else %}
-                            <span class="tag disabled">{{ tag.name }}</span>
-                        {% endif %}
-                    {% endif %}
-                {% endfor %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+<main class="article-container">
+    <p>
+        {% if user == post.author %}
+            <a href="{% url 'author_post_list' username=user.username %}" class="back-link">&larr; Back to Your Timeline</a>
+        {% else %}
+            <a href="{% url 'public_timeline' %}" class="back-link">&larr; Back to Public Timeline</a>
+        {% endif %}
+        {% if user == post.author %}
+            <a href="{% url 'request_peer_review' pk=post.pk %}" class="action-button">Request Peer Review</a>
+        {% endif %}
+    </p>
+    <article class="post-card">
+        {% if user == post.author %}
+            <div class="status-indicator 
+                {% if post.review_status == 'approved' %}status-approved
+                {% elif post.review_status == 'revision_requested' %}status-revision-requested
+                {% else %}status-draft{% endif %}">
+                <strong>Status:</strong> {{ post.get_review_status_display }}
             </div>
+        {% endif %}
+        <h1 class="article-title">{{ post.title }}</h1>
+        <div class="article-metadata">
+            By 
+            {% if user.is_authenticated %}
+                <a href="{% url 'author_post_list' username=post.author.username %}">{{ post.author.username }}</a>
+            {% else %}
+                {{ post.author.username }}
+            {% endif %}
+            in {{ post.subject.name }} on {{ post.created_date|date:"F j, Y" }}
+            <span>&bull; {{ post.view_count }} {% if post.view_count == 1 %}view{% else %}views{% endif %}</span>
+        </div>
+
+        <div class="article-body">
+            {% if post.photo %}
+                <figure>
+                    <img src="{{ post.photo.url }}" alt="{{ post.title }}">
+                    {% if post.photo_caption or post.media_description %}
+                    <figcaption>
+                        {% if post.photo_caption %}
+                            <p>{{ post.photo_caption }}</p>
+                        {% endif %}
+                        {% if post.media_description %}
+                            <p><em>{{ post.media_description }}</em></p>
+                        {% endif %}
+                    </figcaption>
+                    {% endif %}
+                </figure>
+            {% endif %}
+
+            <p>{{ post.content|linebreaksbr }}</p>
 
             {% with embed_url=post.get_youtube_embed_url %}
                 {% if embed_url %}
-                    <div class="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000; margin-bottom: 20px;">
+                    <div class="video-container">
                         <iframe
-                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
                             src="{{ embed_url }}"
                             title="YouTube video player"
                             frameborder="0"
@@ -185,8 +80,8 @@
             {% endif %}
 
             {% if post.video_file %}
-                <div style="margin-top: 20px;">
-                    <video controls controlsList="nodownload" style="width: 100%; max-width: 100%; border-radius: 4px;">
+                <div class="video-file-container">
+                    <video controls controlsList="nodownload">
                         <source src="{{ post.video_file.url }}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -197,79 +92,91 @@
             {% endif %}
         </div>
 
-        {% if user.is_authenticated and 'Teachers' in user.groups.all|join:", " %}
-        <div class="teacher-actions" style="background-color: #fff; border-radius: 8px; padding: 30px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-top: 20px;">
-            <h2>Teacher Actions</h2>
-            <div style="display: flex; gap: 20px;">
-                <div style="flex: 1;">
-                    <h3>Update Status</h3>
-                    <form method="post">
-                        {% csrf_token %}
-                        {{ review_status_form.as_p }}
-                        <button type="submit" name="status_submit" style="padding: 10px 15px; border: none; border-radius: 4px; background-color: #28a745; color: #fff; cursor: pointer;">Update Status</button>
-                    </form>
-                </div>
-                <div style="flex: 2;">
-                    <h3>Leave Private Feedback</h3>
-                    <form method="post">
-                        {% csrf_token %}
-                        {{ private_feedback_form.as_p }}
-                        <button type="submit" name="feedback_submit" style="padding: 10px 15px; border: none; border-radius: 4px; background-color: #007bff; color: #fff; cursor: pointer;">Submit Feedback</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        {% endif %}
-
-        {% if private_feedback %}
-        <div class="private-feedback-section" style="background-color: #fff3cd; border-radius: 8px; padding: 30px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-top: 20px;">
-            <h2>Private Feedback</h2>
-            {% for feedback in private_feedback %}
-                <div class="comment" style="border-bottom: 1px solid #eee; padding: 15px 0;">
-                    <div class="comment-author-info">
-                        <img src="{{ feedback.author.profile.image.url }}">
-                        <div>
-                            <strong>{{ feedback.author.username }}</strong>
-                            <span class="teacher-badge">Teacher</span>
-                            <div style="color: #666; font-size: 0.9em;">{{ feedback.created_date|date:"F j, Y" }}</div>
-                        </div>
-                    </div>
-                    <p>{{ feedback.text|linebreaksbr }}</p>
-                </div>
+        <div class="tags">
+            {% for tag in post.tags.all %}
+                {% if tag.name %}
+                    {% if post.status == 'published' %}
+                        <a href="{% url 'posts_by_tag' tag_name=tag.name %}" class="tag">{{ tag.name }}</a>
+                    {% else %}
+                        <span class="tag disabled">{{ tag.name }}</span>
+                    {% endif %}
+                {% endif %}
             {% endfor %}
         </div>
-        {% endif %}
+    </article>
 
-        <div class="comments-section" style="background-color: #fff; border-radius: 8px; padding: 30px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-top: 20px;">
-            <h2>Public Feedback & Peer Review</h2>
-            {% for comment in post.comments.all %}
-                <div class="comment" style="border-bottom: 1px solid #eee; padding: 15px 0;">
-                    <div class="comment-author-info">
-                        <img src="{{ comment.author.profile.image.url }}">
-                        <div>
-                            <strong>{{ comment.author.username }}</strong>
-                            {% if 'Teachers' in comment.author.groups.all|join:", " %}
-                                <span class="teacher-badge">Teacher</span>
-                            {% endif %}
-                            <div style="color: #666; font-size: 0.9em;">{{ comment.created_date|date:"F j, Y" }}</div>
-                        </div>
-                    </div>
-                    <p>{{ comment.text|linebreaksbr }}</p>
-                </div>
-            {% empty %}
-                <p>No public feedback has been given yet.</p>
-            {% endfor %}
-
-            {% if comment_form %}
-                <hr>
-                <h3>Leave Public Feedback</h3>
+    {% if user.is_authenticated and 'Teachers' in user.groups.all|join:", " %}
+    <div class="teacher-actions">
+        <h2>Teacher Actions</h2>
+        <div class="teacher-actions-forms">
+            <div class="teacher-actions-form-group">
+                <h3>Update Status</h3>
                 <form method="post">
                     {% csrf_token %}
-                    {{ comment_form.as_p }}
-                    <button type="submit" name="comment_submit" style="padding: 10px 15px; border: none; border-radius: 4px; background-color: #007bff; color: #fff; cursor: pointer;">Submit Comment</button>
+                    {{ review_status_form.as_p }}
+                    <button type="submit" name="status_submit" class="button-primary">Update Status</button>
                 </form>
-            {% endif %}
+            </div>
+            <div class="teacher-actions-form-group">
+                <h3>Leave Private Feedback</h3>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ private_feedback_form.as_p }}
+                    <button type="submit" name="feedback_submit" class="button-primary">Submit Feedback</button>
+                </form>
+            </div>
         </div>
     </div>
-</body>
-</html>
+    {% endif %}
+
+    {% if private_feedback %}
+    <div class="private-feedback-section">
+        <h2>Private Feedback</h2>
+        {% for feedback in private_feedback %}
+            <div class="comment">
+                <div class="comment-author-info">
+                    <img src="{{ feedback.author.profile.image.url }}">
+                    <div>
+                        <strong>{{ feedback.author.username }}</strong>
+                        <span class="teacher-badge">Teacher</span>
+                        <div class="comment-date">{{ feedback.created_date|date:"F j, Y" }}</div>
+                    </div>
+                </div>
+                <p>{{ feedback.text|linebreaksbr }}</p>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="comments-section">
+        <h2>Public Feedback & Peer Review</h2>
+        {% for comment in post.comments.all %}
+            <div class="comment">
+                <div class="comment-author-info">
+                    <img src="{{ comment.author.profile.image.url }}">
+                    <div>
+                        <strong>{{ comment.author.username }}</strong>
+                        {% if 'Teachers' in comment.author.groups.all|join:", " %}
+                            <span class="teacher-badge">Teacher</span>
+                        {% endif %}
+                        <div class="comment-date">{{ comment.created_date|date:"F j, Y" }}</div>
+                    </div>
+                </div>
+                <p>{{ comment.text|linebreaksbr }}</p>
+            </div>
+        {% empty %}
+            <p>No public feedback has been given yet.</p>
+        {% endfor %}
+
+        {% if comment_form %}
+            <hr>
+            <h3>Leave Public Feedback</h3>
+            <form method="post">
+                {% csrf_token %}
+                {{ comment_form.as_p }}
+                <button type="submit" name="comment_submit" class="button-primary">Submit Comment</button>
+            </form>
+        {% endif %}
+    </div>
+</main>
+{% endblock %}
