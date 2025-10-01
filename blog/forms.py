@@ -44,7 +44,7 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ['subject', 'title', 'content', 'photo', 'audio_file', 'youtube_url', 'video_file', 'media_description', 'tags']
+        fields = ['subject', 'title', 'content', 'photo', 'photo_caption', 'audio_file', 'youtube_url', 'video_file', 'media_description', 'tags']
         widgets = {
             'photo': CustomClearableFileInput,
             'audio_file': CustomClearableFileInput,
@@ -88,7 +88,7 @@ class PresentationForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user')
         super().__init__(*args, **kwargs)
-        self.fields['posts'].queryset = Post.objects.filter(author=user)
+        self.fields['posts'].queryset = Post.objects.filter(author=user, post_type='photo')
 
 class CommentForm(forms.ModelForm):
     class Meta:

@@ -46,6 +46,7 @@ class Post(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
     photo = models.ImageField(upload_to='photos/', blank=True, null=True)
+    photo_caption = models.CharField(max_length=255, blank=True, null=True)
     audio_file = models.FileField(upload_to='audio/', blank=True, null=True)
     youtube_url = models.URLField(blank=True, null=True)
     video_file = models.FileField(upload_to='videos/', blank=True, null=True)

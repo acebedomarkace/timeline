@@ -123,6 +123,13 @@
                         <div class="error">{{ form.photo.errors }}</div>
                     {% endif %}
                 </div>
+                <div class="form-field" data-type="photo">
+                    <label for="{{ form.photo_caption.id_for_label }}">{{ form.photo_caption.label }}</label>
+                    {{ form.photo_caption }}
+                    {% if form.photo_caption.errors %}
+                        <div class="error">{{ form.photo_caption.errors }}</div>
+                    {% endif %}
+                </div>
                 <div class="form-field" data-type="video">
                     <label for="{{ form.video_file.id_for_label }}">{{ form.video_file.label }}</label>
                     {{ form.video_file }}

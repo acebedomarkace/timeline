@@ -137,6 +137,9 @@
             </div>
             {% if post.photo %}
                 <img src="{{ post.photo.url }}" alt="{{ post.title }}">
+                {% if post.photo_caption %}
+                    <p><em>{{ post.photo_caption }}</em></p>
+                {% endif %}
                 {% if post.media_description %}
                     <p><em>{{ post.media_description }}</em></p>
                 {% endif %}
