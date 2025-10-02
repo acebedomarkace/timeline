@@ -528,18 +528,42 @@ def presentation_edit(request, pk):
     presentation = get_object_or_404(Presentation, pk=pk)
     if presentation.author != request.user:
         return redirect('timeline_redirect')
-    
+
+    all_subjects = Subject.objects.filter(post__author=request.user).distinct()
+
     if request.method == 'POST':
         form = PresentationForm(request.POST, user=request.user, instance=presentation)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Presentation updated successfully!')
             return redirect('author_post_list', username=request.user.username)
     else:
         form = PresentationForm(user=request.user, instance=presentation)
+
+    # Filtering logic for the Post Library
+    search_query = request.GET.get('q', '')
+    subject_id = request.GET.get('subject', '')
     
+    posts_queryset = Post.objects.filter(author=request.user, post_type='photo')
+    if search_query:
+        posts_queryset = posts_queryset.filter(
+            Q(title__icontains=search_query) | Q(content__icontains=search_query)
+        )
+    if subject_id:
+        posts_queryset = posts_queryset.filter(subject__id=subject_id)
+
+    form.photo_posts = posts_queryset
+    
+    # Get IDs of posts already in the presentation to pre-populate the storyboard
+    existing_post_ids = list(presentation.posts.values_list('id', flat=True))
+
     context = {
         'form': form,
-        'presentation': presentation
+        'presentation': presentation,
+        'all_subjects': all_subjects,
+        'search_query': search_query,
+        'selected_subject': subject_id,
+        'existing_post_ids': existing_post_ids
     }
     return render(request, 'blog/presentation_form.html', context)
 

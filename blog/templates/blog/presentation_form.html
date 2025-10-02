@@ -217,6 +217,20 @@
                 });
             }
 
+            // Initial population for the edit view
+            const existingPostIds = {{ existing_post_ids|safe }};
+            if (existingPostIds && existingPostIds.length > 0) {
+                existingPostIds.forEach(postId => {
+                    const postCard = document.querySelector(`.post-card[data-id="${postId}"]`);
+                    if (postCard) {
+                        storyboardList.appendChild(postCard); // Move the card
+                        // Manually trigger the onAdd logic to format the card
+                        storyboardSortable.options.onAdd({ item: postCard, from: postGrid });
+                    }
+                });
+                updateHiddenField(); // Update the hidden field with the initial posts
+            }
+
             // Ensure the hidden field is updated right before submission
             if (presentationForm) {
                 presentationForm.addEventListener('submit', updateHiddenField);
