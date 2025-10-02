@@ -329,6 +329,7 @@ def presentation_create(request):
             presentation.author = request.user
             presentation.save()
             form.save_m2m()
+            messages.success(request, 'Presentation created successfully!')
             return redirect('author_post_list', username=request.user.username)
         # If form is invalid, it falls through to render the page again,
         # now with the necessary context.
