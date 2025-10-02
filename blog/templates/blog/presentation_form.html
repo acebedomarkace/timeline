@@ -125,7 +125,7 @@
     </style>
 </head>
 <body>
-    <form method="post">
+    <form method="post" id="presentation-form">
         {% csrf_token %}
         <div class="presentation-builder">
             <div class="panel post-library">
@@ -175,6 +175,7 @@
             const postGrid = document.getElementById('post-grid');
             const storyboardList = document.getElementById('storyboard-list');
             const formPosts = document.querySelector('[name="{{ form.posts.name }}"]');
+            const presentationForm = document.getElementById('presentation-form');
 
             new Sortable(postGrid, {
                 group: 'shared',
@@ -213,6 +214,11 @@
                         option.selected = true;
                     }
                 });
+            }
+
+            // Ensure the hidden field is updated right before submission
+            if (presentationForm) {
+                presentationForm.addEventListener('submit', updateHiddenField);
             }
         });
     </script>
