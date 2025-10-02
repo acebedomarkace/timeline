@@ -319,17 +319,47 @@ def post_delete(request, pk):
 
 @login_required
 def presentation_create(request):
+    # This logic now runs for GET requests and failed POSTs.
+    all_subjects = Subject.objects.filter(post__author=request.user).distinct()
+
     if request.method == 'POST':
         form = PresentationForm(request.POST, user=request.user)
         if form.is_valid():
             presentation = form.save(commit=False)
             presentation.author = request.user
             presentation.save()
-            form.save_m2m() # Necessary for ManyToManyFields
+            form.save_m2m()
+            messages.success(request, 'Presentation created successfully!')
             return redirect('author_post_list', username=request.user.username)
+        # If form is invalid, it falls through to render the page again,
+        # now with the necessary context.
     else:
         form = PresentationForm(user=request.user)
-    return render(request, 'blog/presentation_form.html', {'form': form})
+
+    # Filter posts based on search and subject for display
+    search_query = request.GET.get('q', '')
+    subject_id = request.GET.get('subject', '')
+    
+    # Start with the base queryset from the form's initial definition
+    posts_queryset = Post.objects.filter(author=request.user, post_type='photo')
+    if search_query:
+        posts_queryset = posts_queryset.filter(
+            Q(title__icontains=search_query) | Q(content__icontains=search_query)
+        )
+    if subject_id:
+        posts_queryset = posts_queryset.filter(subject__id=subject_id)
+
+    # Update the form instance with the filtered posts for rendering
+    form.photo_posts = posts_queryset
+    form.fields['posts'].queryset = posts_queryset
+
+    context = {
+        'form': form,
+        'all_subjects': all_subjects,
+        'search_query': search_query,
+        'selected_subject': subject_id
+    }
+    return render(request, 'blog/presentation_form.html', context)
 
 @login_required
 def presentation_detail(request, pk):
@@ -498,18 +528,42 @@ def presentation_edit(request, pk):
     presentation = get_object_or_404(Presentation, pk=pk)
     if presentation.author != request.user:
         return redirect('timeline_redirect')
-    
+
+    all_subjects = Subject.objects.filter(post__author=request.user).distinct()
+
     if request.method == 'POST':
         form = PresentationForm(request.POST, user=request.user, instance=presentation)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Presentation updated successfully!')
             return redirect('author_post_list', username=request.user.username)
     else:
         form = PresentationForm(user=request.user, instance=presentation)
+
+    # Filtering logic for the Post Library
+    search_query = request.GET.get('q', '')
+    subject_id = request.GET.get('subject', '')
     
+    posts_queryset = Post.objects.filter(author=request.user, post_type='photo')
+    if search_query:
+        posts_queryset = posts_queryset.filter(
+            Q(title__icontains=search_query) | Q(content__icontains=search_query)
+        )
+    if subject_id:
+        posts_queryset = posts_queryset.filter(subject__id=subject_id)
+
+    form.photo_posts = posts_queryset
+    
+    # Get IDs of posts already in the presentation to pre-populate the storyboard
+    existing_post_ids = list(presentation.posts.values_list('id', flat=True))
+
     context = {
         'form': form,
-        'presentation': presentation
+        'presentation': presentation,
+        'all_subjects': all_subjects,
+        'search_query': search_query,
+        'selected_subject': subject_id,
+        'existing_post_ids': existing_post_ids
     }
     return render(request, 'blog/presentation_form.html', context)
 

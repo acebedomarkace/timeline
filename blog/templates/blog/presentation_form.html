@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>New Presentation</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -10,40 +11,99 @@
             margin: 0;
             padding: 20px;
         }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
+        .presentation-builder {
+            display: flex;
+            gap: 20px;
+            height: calc(100vh - 40px);
         }
-        .form-container {
+        .panel {
             background-color: #fff;
-            padding: 40px;
+            padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
-        .form-container h2 {
+        .post-library {
+            flex: 1;
+        }
+        .storyboard {
+            flex: 2;
+        }
+        .post-library h2, .storyboard h2 {
             margin-top: 0;
-            text-align: center;
-            font-size: 1.8em;
+            font-size: 1.5em;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
         }
-        .form-container label {
-            font-weight: 500;
-            display: block;
-            margin-bottom: 5px;
+        .post-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            overflow-y: auto;
+            flex-grow: 1;
         }
-        .form-container input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
+        .post-card {
+            border: 1px solid #ddd;
             border-radius: 4px;
-            box-sizing: border-box;
-            margin-bottom: 20px;
+            padding: 10px;
+            cursor: grab;
+            text-align: center;
+            background-color: #f9f9f9;
         }
-        .form-container .button-group {
-            margin-top: 30px;
+        .post-card img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .post-card-placeholder {
+            width: 100%;
+            height: 100px;
+            background-color: #eee;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .storyboard-list {
+            min-height: 200px;
+            flex-grow: 1;
+            overflow-y: auto;
+            border: 2px dashed #ccc;
+            border-radius: 4px;
+            padding: 10px;
+        }
+        .storyboard-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            background-color: #fff;
+        }
+        .storyboard-item img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            margin-right: 15px;
+            border-radius: 4px;
+        }
+        .storyboard-item-placeholder {
+            width: 70px;
+            height: 70px;
+            background-color: #eee;
+            margin-right: 15px;
+            border-radius: 4px;
+        }
+        .button-group {
+            margin-top: 20px;
             display: flex;
             gap: 10px;
         }
-        .form-container .btn, .form-container a.btn {
+        .btn, a.btn {
             flex-grow: 1;
             padding: 12px;
             border: none;
@@ -62,151 +122,119 @@
             background-color: #6c757d;
             color: #fff;
         }
-        .checkbox-list {
-            max-height: 300px;
-            overflow-y: auto;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            padding: 10px;
-        }
-        .checkbox-list label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: normal;
-        }
-        .checkbox-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .checkbox-item input[type="checkbox"] {
-            margin-right: 10px;
-        }
-        .checkbox-item .thumbnail {
-            width: 50px;
-            height: 50px;
-            object-fit: cover;
-            margin-right: 10px;
-            border-radius: 4px;
-        }
-        .checkbox-item .thumbnail-placeholder {
-            width: 50px;
-            height: 50px;
-            background-color: #eee;
-            margin-right: 10px;
-            border-radius: 4px;
-        }
-        .checkbox-item label {
-            display: flex;
-            align-items: center;
-            font-weight: normal;
-            cursor: pointer;
-        }
-        .presentation-preview {
-            margin-top: 20px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            padding: 10px;
-            min-height: 100px;
-            background-color: #f9f9f9;
-        }
-        .preview-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .preview-item .thumbnail {
-            width: 50px;
-            height: 50px;
-            object-fit: cover;
-            margin-right: 10px;
-            border-radius: 4px;
-        }
-        .preview-item .thumbnail-placeholder {
-            width: 50px;
-            height: 50px;
-            background-color: #eee;
-            margin-right: 10px;
-            border-radius: 4px;
-        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="form-container">
-            <h2>Create a New Presentation</h2>
-            <form method="post">
-                {% csrf_token %}
-                <label for="{{ form.title.id_for_label }}">{{ form.title.label }}</label>
-                {{ form.title }}
-
-                <label for="{{ form.type.id_for_label }}">{{ form.type.label }}</label>
-                {{ form.type }}
-
-                <label for="{{ form.posts.id_for_label }}">{{ form.posts.label }}</label>
-                <div class="checkbox-list">
+    <form id="filter-form-proxy" method="GET" action=""></form>
+    <form method="post" id="presentation-form">
+        {% csrf_token %}
+        <div class="presentation-builder">
+            <div class="panel post-library">
+                <h2>Post Library</h2>
+                <div class="filter-controls">
+                    <input type="text" name="q" placeholder="Search posts..." value="{{ search_query }}" class="search-input" form="filter-form-proxy">
+                    <select name="subject" onchange="document.getElementById('filter-form-proxy').submit()" form="filter-form-proxy">
+                        <option value="">All Subjects</option>
+                        {% for subject in all_subjects %}
+                        <option value="{{ subject.id }}" {% if selected_subject == subject.id|stringformat:"s" %}selected{% endif %}>
+                            {{ subject.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="btn-search" form="filter-form-proxy">Search</button>
+                </div>
+                <div id="post-grid" class="post-grid">
                     {% for post in form.photo_posts %}
-                    <div class="checkbox-item">
-                        <input type="checkbox" name="{{ form.posts.name }}" id="post_{{ post.pk }}" value="{{ post.pk }}"
-                            data-title="{{ post.title }}"
-                            data-thumbnail-url="{% if post.photo %}{{ post.photo.url }}{% endif %}"
-                            {% if post.pk|stringformat:"s" in form.posts.value %}checked{% endif %}>
-                        <label for="post_{{ post.pk }}">
-                            {% if post.photo %}
-                                <img src="{{ post.photo.url }}" alt="{{ post.title }}" class="thumbnail">
-                            {% else %}
-                                <div class="thumbnail-placeholder"></div>
-                            {% endif %}
-                            <span>{{ post.title }}</span>
-                        </label>
+                    <div class="post-card" data-id="{{ post.pk }}" data-title="{{ post.title }}" data-thumbnail-url="{% if post.photo %}{{ post.photo.url }}{% endif %}">
+                        {% if post.photo %}
+                            <img src="{{ post.photo.url }}" alt="{{ post.title }}">
+                        {% else %}
+                            <div class="post-card-placeholder"></div>
+                        {% endif %}
+                        <span>{{ post.title }}</span>
                     </div>
                     {% endfor %}
                 </div>
-
-                <label for="presentation-preview" style="margin-top: 20px; display: block;">Presentation Preview</label>
-                <div id="presentation-preview" class="presentation-preview"></div>
-                
+            </div>
+            <div class="panel storyboard">
+                <h2>Storyboard</h2>
+                {{ form.title.label_tag }}
+                {{ form.title }}
+                {{ form.type.label_tag }}
+                {{ form.type }}
+                <div id="storyboard-list" class="storyboard-list"></div>
                 <div class="button-group">
                     <a href="{% url 'author_post_list' username=user.username %}" class="btn btn-secondary">Cancel</a>
                     <button type="submit" class="btn btn-primary">Save Presentation</button>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
+        {{ form.posts }}
+    </form>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const checkboxes = document.querySelectorAll('.checkbox-list input[type="checkbox"]');
-            const previewContainer = document.getElementById('presentation-preview');
+        document.addEventListener('DOMContentLoaded', function () {
+            const postGrid = document.getElementById('post-grid');
+            const storyboardList = document.getElementById('storyboard-list');
+            const formPosts = document.querySelector('[name="{{ form.posts.name }}"]');
+            const presentationForm = document.getElementById('presentation-form');
 
-            function updatePreview() {
-                previewContainer.innerHTML = '';
-                const selectedCheckboxes = Array.from(checkboxes).filter(i => i.checked);
-                
-                selectedCheckboxes.forEach(checkbox => {
-                    const title = checkbox.dataset.title;
-                    const thumbnailUrl = checkbox.dataset.thumbnailUrl;
+            new Sortable(postGrid, {
+                group: 'shared',
+                animation: 150,
+                sort: false, 
+            });
 
-                    const previewItem = document.createElement('div');
-                    previewItem.classList.add('preview-item');
+            const storyboardSortable = new Sortable(storyboardList, {
+                group: 'shared',
+                animation: 150,
+                onAdd: function (evt) {
+                    const item = evt.item;
+                    const title = item.dataset.title;
+                    const thumbnailUrl = item.dataset.thumbnailUrl;
+                    
+                    item.innerHTML = ''; // Clear the card content
+                    item.classList.remove('post-card');
+                    item.classList.add('storyboard-item');
 
-                    let thumbnailHtml = '';
-                    if (thumbnailUrl) {
-                        thumbnailHtml = `<img src="${thumbnailUrl}" alt="${title}" class="thumbnail">`;
-                    } else {
-                        thumbnailHtml = '<div class="thumbnail-placeholder"></div>';
+                    let thumbnailHtml = thumbnailUrl ? `<img src="${thumbnailUrl}" alt="${title}">` : '<div class="storyboard-item-placeholder"></div>';
+                    item.innerHTML = `${thumbnailHtml}<span>${title}</span>`;
+                    updateHiddenField();
+                },
+                onUpdate: updateHiddenField,
+                onRemove: updateHiddenField
+            });
+
+            function updateHiddenField() {
+                const postIds = Array.from(storyboardList.children).map(item => item.dataset.id);
+                // Clear existing selections
+                Array.from(formPosts.options).forEach(option => option.selected = false);
+                // Select the posts in the storyboard
+                postIds.forEach(id => {
+                    const option = Array.from(formPosts.options).find(opt => opt.value === id);
+                    if (option) {
+                        option.selected = true;
                     }
-
-                    previewItem.innerHTML = `${thumbnailHtml}<span>${title}</span>`;
-                    previewContainer.appendChild(previewItem);
                 });
             }
 
-            checkboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', updatePreview);
-            });
+            // Initial population for the edit view
+            const existingPostIds = {{ existing_post_ids|safe }};
+            if (existingPostIds && existingPostIds.length > 0) {
+                existingPostIds.forEach(postId => {
+                    const postCard = document.querySelector(`.post-card[data-id="${postId}"]`);
+                    if (postCard) {
+                        storyboardList.appendChild(postCard); // Move the card
+                        // Manually trigger the onAdd logic to format the card
+                        storyboardSortable.options.onAdd({ item: postCard, from: postGrid });
+                    }
+                });
+                updateHiddenField(); // Update the hidden field with the initial posts
+            }
 
-            // Initial preview update on page load for pre-selected items
-            updatePreview();
+            // Ensure the hidden field is updated right before submission
+            if (presentationForm) {
+                presentationForm.addEventListener('submit', updateHiddenField);
+            }
         });
     </script>
 </body>
