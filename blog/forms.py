@@ -82,7 +82,7 @@ class PresentationForm(forms.ModelForm):
         model = Presentation
         fields = ['title', 'posts', 'type']
         widgets = {
-            'posts': forms.CheckboxSelectMultiple,
+            'posts': forms.SelectMultiple(attrs={'hidden': True}),
         }
 
     def __init__(self, *args, **kwargs):
