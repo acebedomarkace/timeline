@@ -319,6 +319,9 @@ def post_delete(request, pk):
 
 @login_required
 def presentation_create(request):
+    # This logic now runs for GET requests and failed POSTs.
+    all_subjects = Subject.objects.filter(post__author=request.user).distinct()
+
     if request.method == 'POST':
         form = PresentationForm(request.POST, user=request.user)
         if form.is_valid():
@@ -327,32 +330,33 @@ def presentation_create(request):
             presentation.save()
             form.save_m2m()
             return redirect('author_post_list', username=request.user.username)
+        # If form is invalid, it falls through to render the page again,
+        # now with the necessary context.
     else:
         form = PresentationForm(user=request.user)
-        
-        # Get all subjects for the current user to populate the filter dropdown
-        all_subjects = Subject.objects.filter(post__author=request.user).distinct()
 
-        # Filter posts based on search and subject
-        search_query = request.GET.get('q', '')
-        subject_id = request.GET.get('subject', '')
-        
-        posts_queryset = form.photo_posts
-        if search_query:
-            posts_queryset = posts_queryset.filter(
-                Q(title__icontains=search_query) | Q(content__icontains=search_query)
-            )
-        if subject_id:
-            posts_queryset = posts_queryset.filter(subject__id=subject_id)
+    # Filter posts based on search and subject for display
+    search_query = request.GET.get('q', '')
+    subject_id = request.GET.get('subject', '')
+    
+    # Start with the base queryset from the form's initial definition
+    posts_queryset = Post.objects.filter(author=request.user, post_type='photo')
+    if search_query:
+        posts_queryset = posts_queryset.filter(
+            Q(title__icontains=search_query) | Q(content__icontains=search_query)
+        )
+    if subject_id:
+        posts_queryset = posts_queryset.filter(subject__id=subject_id)
 
-        form.photo_posts = posts_queryset
-        form.fields['posts'].queryset = posts_queryset
+    # Update the form instance with the filtered posts for rendering
+    form.photo_posts = posts_queryset
+    form.fields['posts'].queryset = posts_queryset
 
     context = {
         'form': form,
         'all_subjects': all_subjects,
-        'search_query': request.GET.get('q', ''),
-        'selected_subject': request.GET.get('subject', '')
+        'search_query': search_query,
+        'selected_subject': subject_id
     }
     return render(request, 'blog/presentation_form.html', context)
 
