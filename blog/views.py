@@ -325,11 +325,36 @@ def presentation_create(request):
             presentation = form.save(commit=False)
             presentation.author = request.user
             presentation.save()
-            form.save_m2m() # Necessary for ManyToManyFields
+            form.save_m2m()
             return redirect('author_post_list', username=request.user.username)
     else:
         form = PresentationForm(user=request.user)
-    return render(request, 'blog/presentation_form.html', {'form': form})
+        
+        # Get all subjects for the current user to populate the filter dropdown
+        all_subjects = Subject.objects.filter(post__author=request.user).distinct()
+
+        # Filter posts based on search and subject
+        search_query = request.GET.get('q', '')
+        subject_id = request.GET.get('subject', '')
+        
+        posts_queryset = form.photo_posts
+        if search_query:
+            posts_queryset = posts_queryset.filter(
+                Q(title__icontains=search_query) | Q(content__icontains=search_query)
+            )
+        if subject_id:
+            posts_queryset = posts_queryset.filter(subject__id=subject_id)
+
+        form.photo_posts = posts_queryset
+        form.fields['posts'].queryset = posts_queryset
+
+    context = {
+        'form': form,
+        'all_subjects': all_subjects,
+        'search_query': request.GET.get('q', ''),
+        'selected_subject': request.GET.get('subject', '')
+    }
+    return render(request, 'blog/presentation_form.html', context)
 
 @login_required
 def presentation_detail(request, pk):

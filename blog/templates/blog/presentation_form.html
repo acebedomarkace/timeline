@@ -130,6 +130,18 @@
         <div class="presentation-builder">
             <div class="panel post-library">
                 <h2>Post Library</h2>
+                <form method="GET" action="" class="filter-form">
+                    <input type="text" name="q" placeholder="Search posts..." value="{{ search_query }}" class="search-input">
+                    <select name="subject" onchange="this.form.submit()">
+                        <option value="">All Subjects</option>
+                        {% for subject in all_subjects %}
+                        <option value="{{ subject.id }}" {% if selected_subject == subject.id|stringformat:"s" %}selected{% endif %}>
+                            {{ subject.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="btn-search">Search</button>
+                </form>
                 <div id="post-grid" class="post-grid">
                     {% for post in form.photo_posts %}
                     <div class="post-card" data-id="{{ post.pk }}" data-title="{{ post.title }}" data-thumbnail-url="{% if post.photo %}{{ post.photo.url }}{% endif %}">
