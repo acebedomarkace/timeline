@@ -145,19 +145,19 @@
 
                 <label for="{{ form.posts.id_for_label }}">{{ form.posts.label }}</label>
                 <div class="checkbox-list">
-                    {% for choice in form.posts %}
+                    {% for post in form.photo_posts %}
                     <div class="checkbox-item">
-                        <input type="checkbox" name="{{ form.posts.name }}" id="{{ choice.id_for_label }}" value="{{ choice.data.value }}"
-                            data-title="{{ choice.choice_label }}"
-                            data-thumbnail-url="{% if choice.instance.photo %}{{ choice.instance.photo.url }}{% endif %}"
-                            {% if choice.data.selected %}checked{% endif %}>
-                        <label for="{{ choice.id_for_label }}">
-                            {% if choice.instance.photo %}
-                                <img src="{{ choice.instance.photo.url }}" alt="{{ choice.instance.title }}" class="thumbnail">
+                        <input type="checkbox" name="{{ form.posts.name }}" id="post_{{ post.pk }}" value="{{ post.pk }}"
+                            data-title="{{ post.title }}"
+                            data-thumbnail-url="{% if post.photo %}{{ post.photo.url }}{% endif %}"
+                            {% if post.pk|stringformat:"s" in form.posts.value %}checked{% endif %}>
+                        <label for="post_{{ post.pk }}">
+                            {% if post.photo %}
+                                <img src="{{ post.photo.url }}" alt="{{ post.title }}" class="thumbnail">
                             {% else %}
                                 <div class="thumbnail-placeholder"></div>
                             {% endif %}
-                            <span>{{ choice.choice_label }}</span>
+                            <span>{{ post.title }}</span>
                         </label>
                     </div>
                     {% endfor %}
