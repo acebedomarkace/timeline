@@ -150,6 +150,13 @@
                     {% if form.audio_file.errors %}
                         <div class="error">{{ form.audio_file.errors }}</div>
                     {% endif %}
+                    <div id="audio-recorder" style="margin-top: 10px;">
+                        <p id="status">Click "Record" to start recording.</p>
+                        <button type="button" id="recordButton" class="btn btn-secondary">Record</button>
+                        <button type="button" id="stopButton" class="btn btn-danger" style="display:none;">Stop</button>
+                        <button type="button" id="deleteButton" class="btn btn-warning" style="display:none;">Delete Recording</button>
+                        <audio id="audioPlayback" controls style="display:none; margin-top:10px;"></audio>
+                    </div>
                 </div>
                 <div class="form-field">
                     <label for="{{ form.media_description.id_for_label }}">{{ form.media_description.label }}</label>
@@ -198,6 +205,72 @@
                 } else {
                     field.style.display = 'none';
                 }
+            });
+
+            // Audio Recorder Logic
+            const recordButton = document.getElementById('recordButton');
+            const stopButton = document.getElementById('stopButton');
+            const deleteButton = document.getElementById('deleteButton');
+            const audioPlayback = document.getElementById('audioPlayback');
+            const audioFileInput = document.querySelector('[name="audio_file"]');
+            const status = document.getElementById('status');
+            let mediaRecorder;
+            let audioChunks = [];
+
+            recordButton.addEventListener('click', async () => {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    mediaRecorder = new MediaRecorder(stream);
+                    mediaRecorder.start();
+
+                    status.textContent = 'Recording...';
+                    recordButton.style.display = 'none';
+                    stopButton.style.display = 'inline-block';
+                    deleteButton.style.display = 'none';
+                    audioPlayback.style.display = 'none';
+
+                    mediaRecorder.addEventListener('dataavailable', event => {
+                        audioChunks.push(event.data);
+                    });
+
+                    mediaRecorder.addEventListener('stop', () => {
+                        const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                        const audioUrl = URL.createObjectURL(audioBlob);
+                        audioPlayback.src = audioUrl;
+
+                        // Create a File object and assign it to the file input
+                        const audioFile = new File([audioBlob], "recording.wav", { type: "audio/wav" });
+                        const dataTransfer = new DataTransfer();
+                        dataTransfer.items.add(audioFile);
+                        audioFileInput.files = dataTransfer.files;
+
+                        status.textContent = 'Recording finished. Press Play to preview.';
+                        recordButton.style.display = 'none';
+                        stopButton.style.display = 'none';
+                        deleteButton.style.display = 'inline-block';
+                        audioPlayback.style.display = 'block';
+                        
+                        audioChunks = [];
+                    });
+
+                } catch (err) {
+                    status.textContent = 'Error accessing microphone: ' + err.message;
+                    console.error("Error accessing microphone:", err);
+                }
+            });
+
+            stopButton.addEventListener('click', () => {
+                mediaRecorder.stop();
+            });
+
+            deleteButton.addEventListener('click', () => {
+                audioFileInput.value = ''; // Clear the file input
+                audioPlayback.src = '';
+                status.textContent = 'Recording deleted. Click "Record" to start a new one.';
+                recordButton.style.display = 'inline-block';
+                stopButton.style.display = 'none';
+                deleteButton.style.display = 'none';
+                audioPlayback.style.display = 'none';
             });
         });
     </script>
