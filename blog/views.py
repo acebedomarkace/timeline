@@ -91,11 +91,9 @@ def author_post_list(request, username, year=None):
     author_profile, _ = Profile.objects.get_or_create(user=author)
 
     # Multi-tenancy security check
-    # 1. If the requesting user has no family, they can't see any timelines. Guide them to create one.
     if not requesting_user_profile.family:
         return redirect('family_create')
 
-    # 2. If the user they are trying to view is not in their family, redirect.
     if requesting_user_profile.family != author_profile.family:
         return redirect('timeline_redirect')
     
@@ -103,17 +101,13 @@ def author_post_list(request, username, year=None):
     if year:
         posts_list = posts_list.filter(created_date__year=year)
         
-    status_filter = request.GET.get('status')
-    if status_filter in ['published', 'draft']:
-        posts_list = posts_list.filter(status=status_filter)
-        
-    presentations = Presentation.objects.filter(author=author)
-    portfolios = Portfolio.objects.filter(author=author)
-    
-    archive_years = Post.objects.filter(author=author).annotate(year=ExtractYear('created_date')).values_list('year', flat=True).distinct().order_by('-year')
-
-    # Fetch pending peer review requests
-    pending_reviews = PeerReviewRequest.objects.filter(reviewer=author, status='pending')
+    # Tag filtering
+    all_tags = Tag.objects.filter(post__author=author).distinct()
+    active_tag_slug = request.GET.get('tag')
+    active_tag = None
+    if active_tag_slug:
+        active_tag = get_object_or_404(Tag, slug=active_tag_slug)
+        posts_list = posts_list.filter(tags=active_tag)
 
     status_filter = request.GET.get('status')
     if status_filter in ['published', 'draft']:
@@ -137,7 +131,9 @@ def author_post_list(request, username, year=None):
         'selected_year': year,
         'pending_reviews': pending_reviews,
         'current_year': timezone.now().year,
-        'status_filter': status_filter
+        'status_filter': status_filter,
+        'all_tags': all_tags,
+        'active_tag': active_tag
     }
     return render(request, 'blog/author_post_list.html', context)
 
@@ -422,6 +418,7 @@ def request_peer_review(request, pk):
 from .forms import PostForm, PresentationForm, CommentForm, PeerReviewRequestForm, ProfileForm, PrivateFeedbackForm, PostReviewStatusForm, AnnouncementForm
 
 def post_detail(request, pk):
+    print("--- DEBUG: post_detail VIEW IS RUNNING ---")
     post = get_object_or_404(Post, pk=pk)
 
     # Multi-tenancy and privacy security check

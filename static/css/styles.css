@@ -1,10 +1,3 @@
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background-color: #f0f2f5;
-    color: #333;
-    margin: 0;
-    padding: 20px;
-}
 .container {
     max-width: 900px;
     margin: 0 auto;
@@ -489,3 +482,150 @@ figcaption p + p {
 .button-primary[name="status_submit"] {
     background-color: #28a745;
 }
+/* --- Theme Styles --- */
+
+/* Dark Theme */
+.theme-dark {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+.theme-dark header,
+.theme-dark .post-card,
+.theme-dark .teacher-actions,
+.theme-dark .comments-section,
+.theme-dark .private-feedback-section,
+.theme-dark .notification-dropdown,
+.theme-dark .user-menu-dropdown {
+    background-color: #1e1e1e;
+    border-color: #333;
+    color: #e0e0e0;
+}
+
+.theme-dark .logo a,
+.theme-dark .user-menu-dropdown a,
+.theme-dark .user-menu-dropdown button {
+    color: #e0e0e0;
+}
+
+.theme-dark .user-menu-dropdown a:hover,
+.theme-dark .user-menu-dropdown button:hover {
+    background-color: #333;
+}
+
+.theme-dark .article-title {
+    color: #f5f5f5;
+}
+
+.theme-dark .article-body p,
+.theme-dark .article-metadata {
+    color: #b0b0b0;
+}
+
+.theme-dark .tag {
+    background-color: #333;
+    color: #e0e0e0;
+}
+
+/* Sepia Theme */
+.theme-sepia {
+    background-color: #f4ecd8;
+    color: #433421;
+}
+
+.theme-sepia header,
+.theme-sepia .post-card,
+.theme-sepia .teacher-actions,
+.theme-sepia .comments-section,
+.theme-sepia .private-feedback-section,
+.theme-sepia .notification-dropdown,
+.theme-sepia .user-menu-dropdown {
+    background-color: #efe4cf;
+    border-color: #dcd0b8;
+    color: #433421;
+}
+
+.theme-sepia .logo a,
+.theme-sepia .user-menu-dropdown a,
+.theme-sepia .user-menu-dropdown button {
+    color: #433421;
+}
+
+.theme-sepia .user-menu-dropdown a:hover,
+.theme-sepia .user-menu-dropdown button:hover {
+    background-color: #dcd0b8;
+}
+
+.theme-sepia .article-title {
+    color: #5a4730;
+}
+
+.theme-sepia .article-body p,
+.theme-sepia .article-metadata {
+    color: #5a4730;
+}
+
+.theme-sepia .tag {
+    background-color: #dcd0b8;
+    color: #433421;
+}
+
+/* Ocean Theme */
+.theme-ocean {
+    background-color: #eaf6ff;
+    color: #0b3954;
+}
+.theme-ocean header, .theme-ocean .post-card, .theme-ocean .teacher-actions, .theme-ocean .comments-section, .theme-ocean .private-feedback-section, .theme-ocean .notification-dropdown, .theme-ocean .user-menu-dropdown {
+    background-color: #d6eefc;
+    border-color: #b8dcf4;
+}
+.theme-ocean .article-title { color: #082d42; }
+.theme-ocean .tag { background-color: #b8dcf4; color: #0b3954; }
+
+/* Forest Theme */
+.theme-forest {
+    background-color: #e8f5e9;
+    color: #1b5e20;
+}
+.theme-forest header, .theme-forest .post-card, .theme-forest .teacher-actions, .theme-forest .comments-section, .theme-forest .private-feedback-section, .theme-forest .notification-dropdown, .theme-forest .user-menu-dropdown {
+    background-color: #d9ead3;
+    border-color: #b6d7a8;
+}
+.theme-forest .article-title { color: #0d47a1; }
+.theme-forest .tag { background-color: #b6d7a8; color: #1b5e20; }
+
+/* Sunset Theme */
+.theme-sunset {
+    background-color: #fff3e0;
+    color: #e65100;
+}
+.theme-sunset header, .theme-sunset .post-card, .theme-sunset .teacher-actions, .theme-sunset .comments-section, .theme-sunset .private-feedback-section, .theme-sunset .notification-dropdown, .theme-sunset .user-menu-dropdown {
+    background-color: #ffe0b2;
+    border-color: #ffcc80;
+}
+.theme-sunset .article-title { color: #bf360c; }
+.theme-sunset .tag { background-color: #ffcc80; color: #e65100; }
+
+/* Monochrome Theme */
+.theme-monochrome {
+    background-color: #f5f5f5;
+    color: #212121;
+}
+.theme-monochrome header, .theme-monochrome .post-card, .theme-monochrome .teacher-actions, .theme-monochrome .comments-section, .theme-monochrome .private-feedback-section, .theme-monochrome .notification-dropdown, .theme-monochrome .user-menu-dropdown {
+    background-color: #e0e0e0;
+    border-color: #bdbdbd;
+}
+.theme-monochrome .article-title { color: #000; }
+.theme-monochrome .tag { background-color: #bdbdbd; color: #212121; }
+
+/* Vibrant Theme */
+.theme-vibrant {
+    background-color: #fce4ec;
+    color: #880e4f;
+}
+.theme-vibrant header, .theme-vibrant .post-card, .theme-vibrant .teacher-actions, .theme-vibrant .comments-section, .theme-vibrant .private-feedback-section, .theme-vibrant .notification-dropdown, .theme-vibrant .user-menu-dropdown {
+    background-color: #f8bbd0;
+    border-color: #f48fb1;
+}
+.theme-vibrant .article-title { color: #ad1457; }
+.theme-vibrant .tag { background-color: #f48fb1; color: #880e4f; }

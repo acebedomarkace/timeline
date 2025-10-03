@@ -19,8 +19,15 @@ class Subject(models.Model):
     def __str__(self):
         return self.name
 
+from django.utils.text import slugify
+
 class Tag(models.Model):
     name = models.CharField(max_length=100, unique=True)
+    slug = models.SlugField(max_length=100, unique=True, editable=False)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -142,6 +149,7 @@ class Profile(models.Model):
         ('forest', 'Forest'),
         ('sunset', 'Sunset'),
         ('monochrome', 'Monochrome'),
+        ('vibrant', 'Vibrant'),
     ]
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     family = models.ForeignKey(Family, on_delete=models.SET_NULL, related_name='members', null=True, blank=True)
