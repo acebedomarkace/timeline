@@ -82,16 +82,17 @@ class PresentationForm(forms.ModelForm):
         model = Presentation
         fields = ['title', 'posts', 'type']
         widgets = {
-            'posts': forms.SelectMultiple(attrs={'hidden': True}),
+            'posts': forms.CheckboxSelectMultiple,
         }
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user')
         super().__init__(*args, **kwargs)
         
-        # Get photo posts for the user and store them for custom rendering
+        # Get photo posts for the user and set up the choices for the field
         self.photo_posts = Post.objects.filter(author=user, post_type='photo')
         self.fields['posts'].queryset = self.photo_posts
+        self.fields['posts'].widget.attrs.update({'class': 'hidden-checkbox'})
 
 class CommentForm(forms.ModelForm):
     class Meta:

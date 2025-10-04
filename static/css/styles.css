@@ -484,13 +484,7 @@ figcaption p + p {
     color: #e0e0e0;
 }
 
-.theme-dark header,
-.theme-dark .post-card,
-.theme-dark .teacher-actions,
-.theme-dark .comments-section,
-.theme-dark .private-feedback-section,
-.theme-dark .notification-dropdown,
-.theme-dark .user-menu-dropdown {
+body.theme-dark header, body.theme-dark .post-card, body.theme-dark .teacher-actions, body.theme-dark .comments-section, body.theme-dark .private-feedback-section, body.theme-dark .notification-dropdown, body.theme-dark .user-menu-dropdown {
     background-color: #1e1e1e;
     border-color: #333;
     color: #e0e0e0;
@@ -527,13 +521,7 @@ figcaption p + p {
     color: #433421;
 }
 
-.theme-sepia header,
-.theme-sepia .post-card,
-.theme-sepia .teacher-actions,
-.theme-sepia .comments-section,
-.theme-sepia .private-feedback-section,
-.theme-sepia .notification-dropdown,
-.theme-sepia .user-menu-dropdown {
+body.theme-sepia header, body.theme-sepia .post-card, body.theme-sepia .teacher-actions, body.theme-sepia .comments-section, body.theme-sepia .private-feedback-section, body.theme-sepia .notification-dropdown, body.theme-sepia .user-menu-dropdown {
     background-color: #efe4cf;
     border-color: #dcd0b8;
     color: #433421;
@@ -569,7 +557,7 @@ figcaption p + p {
     background-color: #eaf6ff;
     color: #0b3954;
 }
-.theme-ocean header, .theme-ocean .post-card, .theme-ocean .teacher-actions, .theme-ocean .comments-section, .theme-ocean .private-feedback-section, .theme-ocean .notification-dropdown, .theme-ocean .user-menu-dropdown {
+body.theme-ocean header, body.theme-ocean .post-card, body.theme-ocean .teacher-actions, body.theme-ocean .comments-section, body.theme-ocean .private-feedback-section, body.theme-ocean .notification-dropdown, body.theme-ocean .user-menu-dropdown {
     background-color: #d6eefc;
     border-color: #b8dcf4;
 }
@@ -581,7 +569,7 @@ figcaption p + p {
     background-color: #e8f5e9;
     color: #1b5e20;
 }
-.theme-forest header, .theme-forest .post-card, .theme-forest .teacher-actions, .theme-forest .comments-section, .theme-forest .private-feedback-section, .theme-forest .notification-dropdown, .theme-forest .user-menu-dropdown {
+body.theme-forest header, body.theme-forest .post-card, body.theme-forest .teacher-actions, body.theme-forest .comments-section, body.theme-forest .private-feedback-section, body.theme-forest .notification-dropdown, body.theme-forest .user-menu-dropdown {
     background-color: #d9ead3;
     border-color: #b6d7a8;
 }
@@ -593,7 +581,7 @@ figcaption p + p {
     background-color: #fff3e0;
     color: #e65100;
 }
-.theme-sunset header, .theme-sunset .post-card, .theme-sunset .teacher-actions, .theme-sunset .comments-section, .theme-sunset .private-feedback-section, .theme-sunset .notification-dropdown, .theme-sunset .user-menu-dropdown {
+body.theme-sunset header, body.theme-sunset .post-card, body.theme-sunset .teacher-actions, body.theme-sunset .comments-section, body.theme-sunset .private-feedback-section, body.theme-sunset .notification-dropdown, body.theme-sunset .user-menu-dropdown {
     background-color: #ffe0b2;
     border-color: #ffcc80;
 }
@@ -605,7 +593,7 @@ figcaption p + p {
     background-color: #f5f5f5;
     color: #212121;
 }
-.theme-monochrome header, .theme-monochrome .post-card, .theme-monochrome .teacher-actions, .theme-monochrome .comments-section, .theme-monochrome .private-feedback-section, .theme-monochrome .notification-dropdown, .theme-monochrome .user-menu-dropdown {
+body.theme-monochrome header, body.theme-monochrome .post-card, body.theme-monochrome .teacher-actions, body.theme-monochrome .comments-section, body.theme-monochrome .private-feedback-section, body.theme-monochrome .notification-dropdown, body.theme-monochrome .user-menu-dropdown {
     background-color: #e0e0e0;
     border-color: #bdbdbd;
 }
@@ -617,7 +605,7 @@ figcaption p + p {
     background-color: #fce4ec;
     color: #880e4f;
 }
-.theme-vibrant header, .theme-vibrant .post-card, .theme-vibrant .teacher-actions, .theme-vibrant .comments-section, .theme-vibrant .private-feedback-section, .theme-vibrant .notification-dropdown, .theme-vibrant .user-menu-dropdown {
+body.theme-vibrant header, body.theme-vibrant .post-card, body.theme-vibrant .teacher-actions, body.theme-vibrant .comments-section, body.theme-vibrant .private-feedback-section, body.theme-vibrant .notification-dropdown, body.theme-vibrant .user-menu-dropdown {
     background-color: #f8bbd0;
     border-color: #f48fb1;
 }

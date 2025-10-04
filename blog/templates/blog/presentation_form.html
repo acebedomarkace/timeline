@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>New Presentation</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -122,6 +122,9 @@
             background-color: #6c757d;
             color: #fff;
         }
+        .hidden-checkbox {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -169,13 +172,13 @@
                 </div>
             </div>
         </div>
-        {{ form.posts }}
+        <div class="hidden-checkbox">{{ form.posts }}</div>
     </form>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const postGrid = document.getElementById('post-grid');
             const storyboardList = document.getElementById('storyboard-list');
-            const formPosts = document.querySelector('[name="{{ form.posts.name }}"]');
+            const formPostsContainer = document.querySelector('.hidden-checkbox');
             const presentationForm = document.getElementById('presentation-form');
 
             new Sortable(postGrid, {
@@ -206,14 +209,10 @@
 
             function updateHiddenField() {
                 const postIds = Array.from(storyboardList.children).map(item => item.dataset.id);
-                // Clear existing selections
-                Array.from(formPosts.options).forEach(option => option.selected = false);
-                // Select the posts in the storyboard
-                postIds.forEach(id => {
-                    const option = Array.from(formPosts.options).find(opt => opt.value === id);
-                    if (option) {
-                        option.selected = true;
-                    }
+                const checkboxes = formPostsContainer.querySelectorAll('input[type="checkbox"]');
+                
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = postIds.includes(checkbox.value);
                 });
             }
 
@@ -228,7 +227,7 @@
                         storyboardSortable.options.onAdd({ item: postCard, from: postGrid });
                     }
                 });
-                updateHiddenField(); // Update the hidden field with the initial posts
+                updateHiddenField(); // Update the ahidden field with the initial posts
             }
 
             // Ensure the hidden field is updated right before submission
