@@ -447,13 +447,7 @@ figcaption p + p {
     margin-bottom: 5px;
 }
 
-.comment-author-info img {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    margin-right: 10px;
-    object-fit: cover;
-}
+
 
 .comment-date {
     color: #666;
@@ -629,3 +623,11 @@ figcaption p + p {
 }
 .theme-vibrant .article-title { color: #ad1457; }
 .theme-vibrant .tag { background-color: #f48fb1; color: #880e4f; }
+
+.feedback-author-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}

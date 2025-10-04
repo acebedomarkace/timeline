@@ -135,7 +135,7 @@
         {% for feedback in private_feedback %}
             <div class="comment">
                 <div class="comment-author-info">
-                    <img src="{{ feedback.author.profile.image.url }}">
+                    <img src="{{ feedback.author.profile.image.url }}" class="feedback-author-img">
                     <div>
                         <strong>{{ feedback.author.username }}</strong>
                         <span class="teacher-badge">Teacher</span>
@@ -153,7 +153,7 @@
         {% for comment in post.comments.all %}
             <div class="comment">
                 <div class="comment-author-info">
-                    <img src="{{ comment.author.profile.image.url }}">
+                    <img src="{{ comment.author.profile.image.url }}" class="feedback-author-img">
                     <div>
                         <strong>{{ comment.author.username }}</strong>
                         {% if 'Teachers' in comment.author.groups.all|join:", " %}
