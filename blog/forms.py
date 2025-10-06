@@ -89,9 +89,9 @@ class PresentationForm(forms.ModelForm):
         user = kwargs.pop('user')
         super().__init__(*args, **kwargs)
         
-        # Get photo posts for the user and set up the choices for the field
-        self.photo_posts = Post.objects.filter(author=user, post_type='photo')
-        self.fields['posts'].queryset = self.photo_posts
+        # Get all posts for the user and set up the choices for the field
+        self.posts = Post.objects.filter(author=user)
+        self.fields['posts'].queryset = self.posts
         self.fields['posts'].widget.attrs.update({'class': 'hidden-checkbox'})
 
 class CommentForm(forms.ModelForm):

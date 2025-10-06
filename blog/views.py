@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User, Group
-from .models import Post, Presentation, Subject, PeerReviewRequest, Comment, Profile, Notification, Tag, Announcement, Family
+from .models import Post, Presentation, Subject, PeerReviewRequest, Comment, Profile, Notification, Tag, Announcement, Family, PresentationPost
 from .forms import PostForm, PresentationForm, CommentForm, PeerReviewRequestForm, ProfileForm, PrivateFeedbackForm, PostReviewStatusForm, FamilyForm, JoinFamilyForm
 from django.db.models import Q
 from django.utils import timezone
@@ -324,7 +324,10 @@ def presentation_create(request):
             presentation = form.save(commit=False)
             presentation.author = request.user
             presentation.save()
-            form.save_m2m()
+            
+            # Save posts with their order
+            for i, post_obj in enumerate(form.cleaned_data['posts']):
+                PresentationPost.objects.create(presentation=presentation, post_id=post_obj.id, order=i)
             messages.success(request, 'Presentation created successfully!')
             return redirect('author_post_list', username=request.user.username)
         # If form is invalid, it falls through to render the page again,
@@ -337,7 +340,7 @@ def presentation_create(request):
     subject_id = request.GET.get('subject', '')
     
     # Start with the base queryset from the form's initial definition
-    posts_queryset = Post.objects.filter(author=request.user, post_type='photo')
+    posts_queryset = Post.objects.filter(author=request.user)
     if search_query:
         posts_queryset = posts_queryset.filter(
             Q(title__icontains=search_query) | Q(content__icontains=search_query)
@@ -346,14 +349,14 @@ def presentation_create(request):
         posts_queryset = posts_queryset.filter(subject__id=subject_id)
 
     # Update the form instance with the filtered posts for rendering
-    form.photo_posts = posts_queryset
-    form.fields['posts'].queryset = posts_queryset
+
 
     context = {
         'form': form,
         'all_subjects': all_subjects,
         'search_query': search_query,
-        'selected_subject': subject_id
+        'selected_subject': subject_id,
+        'posts': posts_queryset
     }
     return render(request, 'blog/presentation_form.html', context)
 
@@ -362,22 +365,11 @@ def presentation_detail(request, pk):
     requesting_user_profile, _ = Profile.objects.get_or_create(user=request.user)
     presentation = get_object_or_404(Presentation, pk=pk, author__profile__family=requesting_user_profile.family)
 
-    # Get all posts in the presentation, ordered by creation date
-    all_posts = presentation.posts.all().order_by('-created_date')
-
-    # Group posts by subject, preserving the order of subjects based on the ordered posts
-    subject_posts_dict = {}
-    for post in all_posts:
-        if post.subject not in subject_posts_dict:
-            subject_posts_dict[post.subject] = []
-        subject_posts_dict[post.subject].append(post)
-
-    # Sort the subjects by name for consistent ordering in the table of contents
-    subject_posts = sorted(subject_posts_dict.items(), key=lambda item: item[0].name if item[0] else '')
+    # Get all posts in the presentation, ordered by their order in PresentationPost
+    all_posts = [pp.post for pp in presentation.presentationpost_set.all().order_by('order')]
 
     context = {
         'presentation': presentation,
-        'subject_posts': subject_posts,
         'all_posts': all_posts,  # Pass the ordered posts to the template
     }
     return render(request, 'blog/presentation_detail.html', context)
@@ -531,7 +523,13 @@ def presentation_edit(request, pk):
     if request.method == 'POST':
         form = PresentationForm(request.POST, user=request.user, instance=presentation)
         if form.is_valid():
-            form.save()
+            presentation = form.save(commit=False)
+            presentation.save()
+            
+            # Clear existing posts and save new ones with order
+            presentation.presentationpost_set.all().delete()
+            for i, post_obj in enumerate(form.cleaned_data['posts']):
+                PresentationPost.objects.create(presentation=presentation, post_id=post_obj.id, order=i)
             messages.success(request, 'Presentation updated successfully!')
             return redirect('author_post_list', username=request.user.username)
     else:
@@ -541,7 +539,7 @@ def presentation_edit(request, pk):
     search_query = request.GET.get('q', '')
     subject_id = request.GET.get('subject', '')
     
-    posts_queryset = Post.objects.filter(author=request.user, post_type='photo')
+    posts_queryset = Post.objects.filter(author=request.user)
     if search_query:
         posts_queryset = posts_queryset.filter(
             Q(title__icontains=search_query) | Q(content__icontains=search_query)
@@ -549,7 +547,7 @@ def presentation_edit(request, pk):
     if subject_id:
         posts_queryset = posts_queryset.filter(subject__id=subject_id)
 
-    form.photo_posts = posts_queryset
+
     
     # Get IDs of posts already in the presentation to pre-populate the storyboard
     existing_post_ids = list(presentation.posts.values_list('id', flat=True))
@@ -560,7 +558,7 @@ def presentation_edit(request, pk):
         'all_subjects': all_subjects,
         'search_query': search_query,
         'selected_subject': subject_id,
-        'existing_post_ids': existing_post_ids
+        'posts': posts_queryset
     }
     return render(request, 'blog/presentation_form.html', context)
 

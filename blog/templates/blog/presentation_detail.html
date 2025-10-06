@@ -17,7 +17,7 @@
     </div>
 
     {% for post in all_posts %}
-        <div class="slide" id="post-{{ post.pk }}">
+        <div class="slide article-container" id="post-{{ post.pk }}">
             <h2>{{ forloop.counter }}. {{ post.title }}</h2>
             
             {% if post.photo %}
@@ -94,14 +94,27 @@
 
 <div class="toc-pane">
     <h3>Table of Contents</h3>
-    {% for subject, posts in subject_posts %}
-        <h4 class="subject-heading">{{ subject.name }} ({{ posts|length }})</h4>
+    {% if all_posts %}
+        {% regroup all_posts by subject as posts_by_subject %}
         <ul>
-            {% for post in posts %}
-                <li><a href="#post-{{ post.pk }}">{{ post.title }}</a></li>
+            {% for subject_group in posts_by_subject %}
+                <li>
+                    {% if subject_group.grouper %}
+                        <h4 class="subject-heading">{{ subject_group.grouper.name }} ({{ subject_group.list|length }})</h4>
+                    {% else %}
+                        <h4 class="subject-heading">Uncategorized ({{ subject_group.list|length }})</h4>
+                    {% endif %}
+                    <ul class="post-list-toc">
+                        {% for post in subject_group.list %}
+                            <li><a href="#post-{{ post.pk }}">{{ post.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
             {% endfor %}
         </ul>
-    {% endfor %}
+    {% else %}
+        <p>This presentation is empty.</p>
+    {% endif %}
 </div>
 
 <script>

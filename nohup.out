@@ -1,0 +1,1380 @@
+Watching for file changes with StatReloader
+[17/Sep/2025 13:13:58] "GET /accounts/login/ HTTP/1.1" 200 2700
+[17/Sep/2025 13:15:02] "GET / HTTP/1.1" 302 0
+[17/Sep/2025 13:15:02] "GET /public-timeline/ HTTP/1.1" 200 1686
+[17/Sep/2025 13:15:02] "GET /static/css/styles.css HTTP/1.1" 304 0
+[17/Sep/2025 13:17:13] "GET / HTTP/1.1" 302 0
+[17/Sep/2025 13:17:14] "GET /public-timeline/ HTTP/1.1" 200 1686
+[17/Sep/2025 13:17:14] "GET /static/css/styles.css HTTP/1.1" 200 4043
+Not Found: /favicon.ico
+[17/Sep/2025 13:17:14] "GET /favicon.ico HTTP/1.1" 404 10977
+[17/Sep/2025 13:17:22] "GET /accounts/login/ HTTP/1.1" 200 2700
+[17/Sep/2025 13:20:43] "GET / HTTP/1.1" 302 0
+[17/Sep/2025 13:20:43] "GET /public-timeline/ HTTP/1.1" 200 1686
+[17/Sep/2025 13:20:43] "GET /static/css/styles.css HTTP/1.1" 200 4043
+Not Found: /favicon.ico
+[17/Sep/2025 13:20:43] "GET /favicon.ico HTTP/1.1" 404 10977
+[17/Sep/2025 13:22:45] "GET /accounts/login/ HTTP/1.1" 200 2700
+[17/Sep/2025 13:23:17] "POST /accounts/login/ HTTP/1.1" 302 0
+[17/Sep/2025 13:23:17] "GET /public-timeline/ HTTP/1.1" 200 3861
+Not Found: /media/default.jpg
+[17/Sep/2025 13:23:17] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:23:36] "GET /profile/edit/ HTTP/1.1" 200 2246
+[17/Sep/2025 13:23:44] "GET /author/Ammillia/ HTTP/1.1" 200 15753
+Not Found: /media/default.jpg
+[17/Sep/2025 13:23:44] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:23:48] "GET /public-timeline/ HTTP/1.1" 200 3861
+Not Found: /media/default.jpg
+[17/Sep/2025 13:23:48] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:24:18] "GET /profile/edit/ HTTP/1.1" 200 2246
+[17/Sep/2025 13:24:38] "POST /profile/edit/ HTTP/1.1" 302 0
+[17/Sep/2025 13:24:38] "GET /author/Ammillia/ HTTP/1.1" 200 15753
+Not Found: /media/default.jpg
+[17/Sep/2025 13:24:38] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:24:43] "GET /profile/edit/ HTTP/1.1" 200 2246
+[17/Sep/2025 13:24:49] "POST /profile/edit/ HTTP/1.1" 302 0
+[17/Sep/2025 13:24:49] "GET /author/Ammillia/ HTTP/1.1" 200 15754
+Not Found: /media/default.jpg
+[17/Sep/2025 13:24:49] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:25:07] "GET /post/new/ HTTP/1.1" 200 11473
+[17/Sep/2025 13:26:40] "POST /accounts/login/ HTTP/1.1" 302 0
+[17/Sep/2025 13:26:40] "GET /public-timeline/ HTTP/1.1" 200 3962
+[17/Sep/2025 13:26:40] "GET /static/css/styles.css HTTP/1.1" 304 0
+Not Found: /media/default.jpg
+[17/Sep/2025 13:26:40] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:26:50] "POST /accounts/logout/ HTTP/1.1" 302 0
+[17/Sep/2025 13:26:50] "GET / HTTP/1.1" 302 0
+[17/Sep/2025 13:26:50] "GET /public-timeline/ HTTP/1.1" 200 1686
+[17/Sep/2025 13:31:14] "POST /post/new/ HTTP/1.1" 302 0
+[17/Sep/2025 13:31:14] "GET / HTTP/1.1" 302 0
+[17/Sep/2025 13:31:14] "GET /public-timeline/ HTTP/1.1" 200 3861
+[17/Sep/2025 13:31:14] "GET /static/css/styles.css HTTP/1.1" 304 0
+Not Found: /media/default.jpg
+[17/Sep/2025 13:31:14] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:31:24] "GET /author/Ammillia/ HTTP/1.1" 200 18098
+Not Found: /media/default.jpg
+[17/Sep/2025 13:31:24] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:31:24] "GET /media/photos/LOTR_BookCover.jpg HTTP/1.1" 200 81745
+[17/Sep/2025 13:31:35] "GET /post/1/edit/ HTTP/1.1" 200 12187
+[17/Sep/2025 13:31:39] "POST /post/1/edit/ HTTP/1.1" 302 0
+[17/Sep/2025 13:31:39] "GET /author/Ammillia/ HTTP/1.1" 200 18085
+Not Found: /media/default.jpg
+[17/Sep/2025 13:31:39] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:31:39] "GET /media/photos/LOTR_BookCover.jpg HTTP/1.1" 304 0
+[17/Sep/2025 13:31:43] "GET /public-timeline/ HTTP/1.1" 200 4022
+Not Found: /media/default.jpg
+[17/Sep/2025 13:31:43] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:31:43] "GET /media/photos/LOTR_BookCover.jpg HTTP/1.1" 304 0
+[17/Sep/2025 13:31:53] "GET /public-timeline/ HTTP/1.1" 200 1847
+[17/Sep/2025 13:31:53] "GET /static/css/styles.css HTTP/1.1" 304 0
+[17/Sep/2025 13:31:53] "GET /media/photos/LOTR_BookCover.jpg HTTP/1.1" 200 81745
+[17/Sep/2025 13:31:56] "GET /post/1/ HTTP/1.1" 200 4797
+[17/Sep/2025 13:31:56] "GET /media/audio/The_battle_of_the_fields_of_Pellenor_mia.m4a HTTP/1.1" 200 9690669
+[17/Sep/2025 13:32:01] "GET /public-timeline/ HTTP/1.1" 200 1847
+[17/Sep/2025 13:32:01] "GET /media/photos/LOTR_BookCover.jpg HTTP/1.1" 304 0
+[17/Sep/2025 13:32:14] "GET /post/1/ HTTP/1.1" 200 4798
+[17/Sep/2025 13:32:14] "GET /media/photos/LOTR_BookCover.jpg HTTP/1.1" 304 0
+[17/Sep/2025 13:32:14] "GET /media/audio/The_battle_of_the_fields_of_Pellenor_mia.m4a HTTP/1.1" 304 0
+[17/Sep/2025 13:32:24] "GET /public-timeline/ HTTP/1.1" 200 1847
+[17/Sep/2025 13:32:24] "GET /media/photos/LOTR_BookCover.jpg HTTP/1.1" 304 0
+[17/Sep/2025 13:32:26] "GET /accounts/login/ HTTP/1.1" 200 2700
+[17/Sep/2025 13:32:36] "POST /accounts/login/ HTTP/1.1" 302 0
+[17/Sep/2025 13:32:36] "GET /public-timeline/ HTTP/1.1" 200 4123
+Not Found: /media/default.jpg
+[17/Sep/2025 13:32:36] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:32:36] "GET /media/photos/LOTR_BookCover.jpg HTTP/1.1" 304 0
+[17/Sep/2025 13:32:38] "GET /post/1/ HTTP/1.1" 200 7389
+[17/Sep/2025 13:32:38] "GET /media/audio/The_battle_of_the_fields_of_Pellenor_mia.m4a HTTP/1.1" 304 0
+[17/Sep/2025 13:33:06] "POST /post/1/ HTTP/1.1" 302 0
+[17/Sep/2025 13:33:06] "GET /post/1/ HTTP/1.1" 200 8255
+Not Found: /media/default.jpg
+[17/Sep/2025 13:33:06] "GET /media/photos/LOTR_BookCover.jpg HTTP/1.1" 304 0
+[17/Sep/2025 13:33:06] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:33:14] "GET /public-timeline/ HTTP/1.1" 200 4123
+Not Found: /media/default.jpg
+[17/Sep/2025 13:33:14] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:33:16] "GET /author/Ammillia/ HTTP/1.1" 200 18085
+Not Found: /media/default.jpg
+[17/Sep/2025 13:33:16] "GET /media/photos/LOTR_BookCover.jpg HTTP/1.1" 304 0
+[17/Sep/2025 13:33:16] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:33:23] "GET /post/1/ HTTP/1.1" 200 6756
+Not Found: /media/default.jpg
+[17/Sep/2025 13:33:23] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:33:23] "GET /media/audio/The_battle_of_the_fields_of_Pellenor_mia.m4a HTTP/1.1" 200 9690669
+[17/Sep/2025 13:34:02] "GET /post/1/ HTTP/1.1" 200 8255
+[17/Sep/2025 13:34:02] "GET /media/photos/LOTR_BookCover.jpg HTTP/1.1" 304 0
+Not Found: /media/default.jpg
+[17/Sep/2025 13:34:02] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:34:02] "GET /media/audio/The_battle_of_the_fields_of_Pellenor_mia.m4a HTTP/1.1" 304 0
+[17/Sep/2025 13:34:03] "GET /author/Ammillia/ HTTP/1.1" 200 18085
+[17/Sep/2025 13:34:03] "GET /media/photos/LOTR_BookCover.jpg HTTP/1.1" 304 0
+Not Found: /media/default.jpg
+[17/Sep/2025 13:34:03] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:34:12] "GET /public-timeline/ HTTP/1.1" 200 4123
+Not Found: /media/default.jpg
+[17/Sep/2025 13:34:12] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:34:22] "GET /post/1/edit/ HTTP/1.1" 200 12187
+[17/Sep/2025 13:34:28] "POST /post/1/edit/ HTTP/1.1" 302 0
+[17/Sep/2025 13:34:28] "GET /author/Ammillia/ HTTP/1.1" 200 18098
+Not Found: /media/default.jpg
+[17/Sep/2025 13:34:28] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:34:28] "GET /media/photos/LOTR_BookCover.jpg HTTP/1.1" 304 0
+[17/Sep/2025 13:34:38] "GET /public-timeline/ HTTP/1.1" 200 3962
+Not Found: /media/default.jpg
+[17/Sep/2025 13:34:38] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:35:28] "GET /post/new/ HTTP/1.1" 200 11473
+[17/Sep/2025 13:41:52] "POST /post/new/ HTTP/1.1" 302 0
+[17/Sep/2025 13:41:53] "GET / HTTP/1.1" 302 0
+[17/Sep/2025 13:41:53] "GET /public-timeline/ HTTP/1.1" 200 4409
+[17/Sep/2025 13:41:53] "GET /static/css/styles.css HTTP/1.1" 304 0
+Not Found: /media/default.jpg
+[17/Sep/2025 13:41:53] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:41:53] "GET /media/photos/moh.png HTTP/1.1" 200 260945
+[17/Sep/2025 13:42:03] "GET /post/1/ HTTP/1.1" 200 6756
+[17/Sep/2025 13:42:03] "GET /media/photos/LOTR_BookCover.jpg HTTP/1.1" 304 0
+Not Found: /media/default.jpg
+[17/Sep/2025 13:42:03] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:42:03] "GET /media/audio/The_battle_of_the_fields_of_Pellenor_mia.m4a HTTP/1.1" 304 0
+[17/Sep/2025 13:42:16] "GET /author/Ammillia/ HTTP/1.1" 200 20248
+Not Found: /media/default.jpg
+[17/Sep/2025 13:42:16] "GET /media/photos/moh.png HTTP/1.1" 304 0
+[17/Sep/2025 13:42:16] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:42:31] "GET /post/2/ HTTP/1.1" 200 5833
+[17/Sep/2025 13:42:32] "GET /media/photos/moh.png HTTP/1.1" 304 0
+[17/Sep/2025 13:42:32] "GET /media/audio/Alexander_the_Great_mia.m4a HTTP/1.1" 200 8831223
+Not Found: /favicon.ico
+[17/Sep/2025 13:42:41] "GET /favicon.ico HTTP/1.1" 404 10977
+[17/Sep/2025 13:42:58] "GET /author/Ammillia/ HTTP/1.1" 200 20248
+Not Found: /media/default.jpg
+[17/Sep/2025 13:42:58] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:42:58] "GET /media/photos/moh.png HTTP/1.1" 304 0
+[17/Sep/2025 13:43:22] "GET /post/new/ HTTP/1.1" 200 11473
+[17/Sep/2025 13:43:38] "GET /public-timeline/ HTTP/1.1" 200 4114
+[17/Sep/2025 13:43:38] "GET /static/css/styles.css HTTP/1.1" 304 0
+Not Found: /media/default.jpg
+[17/Sep/2025 13:43:38] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:43:39] "GET /media/photos/moh.png HTTP/1.1" 200 260945
+[17/Sep/2025 13:43:42] "GET /post/2/ HTTP/1.1" 200 7333
+[17/Sep/2025 13:43:42] "GET /media/audio/Alexander_the_Great_mia.m4a HTTP/1.1" 200 8831223
+Not Found: /favicon.ico
+[17/Sep/2025 13:43:45] "GET /favicon.ico HTTP/1.1" 404 10977
+[17/Sep/2025 13:44:54] "GET /public-timeline/ HTTP/1.1" 200 4114
+Not Found: /media/default.jpg
+[17/Sep/2025 13:44:54] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:44:54] "GET /media/photos/moh.png HTTP/1.1" 304 0
+[17/Sep/2025 13:45:13] "POST /accounts/logout/ HTTP/1.1" 302 0
+[17/Sep/2025 13:45:13] "GET / HTTP/1.1" 302 0
+[17/Sep/2025 13:45:13] "GET /public-timeline/ HTTP/1.1" 200 1838
+[17/Sep/2025 13:45:13] "GET /media/photos/moh.png HTTP/1.1" 304 0
+[17/Sep/2025 13:45:15] "GET /post/2/ HTTP/1.1" 200 4742
+[17/Sep/2025 13:45:15] "GET /media/audio/Alexander_the_Great_mia.m4a HTTP/1.1" 304 0
+Not Found: /favicon.ico
+[17/Sep/2025 13:45:21] "GET /favicon.ico HTTP/1.1" 404 10977
+[17/Sep/2025 13:46:38] "GET / HTTP/1.1" 302 0
+[17/Sep/2025 13:46:38] "GET /public-timeline/ HTTP/1.1" 200 1838
+[17/Sep/2025 13:46:38] "GET /static/css/styles.css HTTP/1.1" 200 4043
+[17/Sep/2025 13:46:38] "GET /media/photos/moh.png HTTP/1.1" 200 260945
+Not Found: /favicon.ico
+[17/Sep/2025 13:46:38] "GET /favicon.ico HTTP/1.1" 404 10977
+[17/Sep/2025 13:46:49] "GET /post/2/ HTTP/1.1" 200 4742
+[17/Sep/2025 13:46:50] "GET /media/audio/Alexander_the_Great_mia.m4a HTTP/1.1" 200 8831223
+[17/Sep/2025 13:47:20] "GET /public-timeline/ HTTP/1.1" 200 1838
+[17/Sep/2025 13:47:20] "GET /media/photos/moh.png HTTP/1.1" 304 0
+[17/Sep/2025 13:47:28,632] - Broken pipe from ('192.168.68.105', 60712)
+[17/Sep/2025 13:47:28,632] - Broken pipe from ('192.168.68.105', 60698)
+[17/Sep/2025 13:49:35] "POST /post/new/ HTTP/1.1" 302 0
+[17/Sep/2025 13:49:35] "GET / HTTP/1.1" 302 0
+[17/Sep/2025 13:49:35] "GET /public-timeline/ HTTP/1.1" 200 4762
+[17/Sep/2025 13:49:35] "GET /static/css/styles.css HTTP/1.1" 304 0
+Not Found: /media/default.jpg
+[17/Sep/2025 13:49:35] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:49:35] "GET /media/photos/moh.png HTTP/1.1" 304 0
+[17/Sep/2025 13:49:35] "GET /media/photos/mmm_cover.png HTTP/1.1" 200 176952
+[17/Sep/2025 13:49:46] "POST /notifications/mark-as-read/ HTTP/1.1" 302 0
+[17/Sep/2025 13:49:47] "GET /public-timeline/ HTTP/1.1" 200 4365
+Not Found: /media/default.jpg
+[17/Sep/2025 13:49:47] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:49:47] "GET /media/photos/mmm_cover.png HTTP/1.1" 304 0
+[17/Sep/2025 13:49:52] "GET /post/3/ HTTP/1.1" 200 5934
+[17/Sep/2025 13:49:52] "GET /media/photos/mmm_cover.png HTTP/1.1" 304 0
+[17/Sep/2025 13:49:52] "GET /media/audio/The_series_of_dutch_attacks_mia.m4a HTTP/1.1" 200 16096325
+[17/Sep/2025 13:50:18] "GET /author/Ammillia/ HTTP/1.1" 200 22618
+Not Found: /media/default.jpg
+[17/Sep/2025 13:50:18] "GET /media/photos/mmm_cover.png HTTP/1.1" 304 0
+[17/Sep/2025 13:50:18] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:50:18] "GET /media/photos/LOTR_BookCover.jpg HTTP/1.1" 304 0
+[17/Sep/2025 13:50:28] "GET /presentation/new/ HTTP/1.1" 200 3717
+[17/Sep/2025 13:51:04] "POST /presentation/new/ HTTP/1.1" 302 0
+[17/Sep/2025 13:51:04] "GET /author/Ammillia/ HTTP/1.1" 200 24052
+Not Found: /media/default.jpg
+[17/Sep/2025 13:51:04] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:51:04] "GET /media/photos/moh.png HTTP/1.1" 304 0
+[17/Sep/2025 13:51:04] "GET /media/photos/mmm_cover.png HTTP/1.1" 304 0
+[17/Sep/2025 13:51:09] "GET /presentation/1/ HTTP/1.1" 200 6680
+[17/Sep/2025 13:51:09] "GET /media/audio/Alexander_the_Great_mia.m4a HTTP/1.1" 304 0
+[17/Sep/2025 13:51:09] "GET /media/audio/The_battle_of_the_fields_of_Pellenor_mia.m4a HTTP/1.1" 304 0
+[17/Sep/2025 13:51:09] "GET /media/audio/The_series_of_dutch_attacks_mia.m4a HTTP/1.1" 304 0
+[17/Sep/2025 13:52:27] "GET /author/Ammillia/ HTTP/1.1" 200 24052
+Not Found: /media/default.jpg
+[17/Sep/2025 13:52:27] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:52:27] "GET /media/photos/mmm_cover.png HTTP/1.1" 304 0
+[17/Sep/2025 13:52:27] "GET /media/photos/moh.png HTTP/1.1" 304 0
+[17/Sep/2025 13:52:27] "GET /media/photos/LOTR_BookCover.jpg HTTP/1.1" 304 0
+[17/Sep/2025 13:52:36] "GET /portfolio/new/ HTTP/1.1" 200 5024
+Not Found: /media/default.jpg
+[17/Sep/2025 13:52:37] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:55:05] "GET /author/Ammillia/ HTTP/1.1" 200 24052
+Not Found: /media/default.jpg
+[17/Sep/2025 13:55:05] "GET /media/photos/moh.png HTTP/1.1" 304 0
+[17/Sep/2025 13:55:05] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:55:05] "GET /media/photos/mmm_cover.png HTTP/1.1" 304 0
+[17/Sep/2025 13:55:05] "GET /media/photos/LOTR_BookCover.jpg HTTP/1.1" 304 0
+[17/Sep/2025 13:55:14] "GET /profile/edit/ HTTP/1.1" 200 2246
+Not Found: /media/default.jpg
+[17/Sep/2025 13:55:18] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 13:55:49] "POST /profile/edit/ HTTP/1.1" 302 0
+[17/Sep/2025 13:55:49] "GET /author/Ammillia/ HTTP/1.1" 200 24071
+[17/Sep/2025 13:55:49] "GET /media/profile_pics/chibi_gandalf.jpg HTTP/1.1" 200 24804
+[17/Sep/2025 13:55:49] "GET /media/photos/mmm_cover.png HTTP/1.1" 304 0
+[17/Sep/2025 13:55:58] "GET /post/3/ HTTP/1.1" 200 5935
+[17/Sep/2025 13:55:58] "GET /media/audio/The_series_of_dutch_attacks_mia.m4a HTTP/1.1" 304 0
+[17/Sep/2025 13:56:44] "GET /post/3/request-review/ HTTP/1.1" 200 2030
+[17/Sep/2025 13:56:49] "POST /post/3/request-review/ HTTP/1.1" 200 2030
+[17/Sep/2025 13:56:53] "POST /post/3/request-review/ HTTP/1.1" 200 2030
+[17/Sep/2025 13:56:57] "POST /post/3/request-review/ HTTP/1.1" 200 2030
+[17/Sep/2025 13:56:59] "GET /post/3/ HTTP/1.1" 200 5935
+[17/Sep/2025 13:56:59] "GET /media/photos/mmm_cover.png HTTP/1.1" 304 0
+[17/Sep/2025 13:56:59] "GET /media/audio/The_series_of_dutch_attacks_mia.m4a HTTP/1.1" 304 0
+[17/Sep/2025 13:57:04] "GET /post/3/request-review/ HTTP/1.1" 200 2030
+[17/Sep/2025 13:57:08] "GET /post/3/ HTTP/1.1" 200 5935
+[17/Sep/2025 13:57:10] "GET /author/Ammillia/ HTTP/1.1" 200 24071
+[17/Sep/2025 13:57:10] "GET /media/profile_pics/chibi_gandalf.jpg HTTP/1.1" 304 0
+[17/Sep/2025 13:57:10] "GET /media/photos/moh.png HTTP/1.1" 304 0
+[17/Sep/2025 13:58:36] "GET /post/2/delete/ HTTP/1.1" 200 2118
+[17/Sep/2025 13:58:39] "GET /author/Ammillia/ HTTP/1.1" 200 24071
+[17/Sep/2025 13:58:39] "GET /media/profile_pics/chibi_gandalf.jpg HTTP/1.1" 304 0
+[17/Sep/2025 13:58:39] "GET /media/photos/mmm_cover.png HTTP/1.1" 304 0
+[17/Sep/2025 13:58:39] "GET /media/photos/LOTR_BookCover.jpg HTTP/1.1" 304 0
+[17/Sep/2025 14:01:43] "GET /public-timeline/ HTTP/1.1" 200 2190
+[17/Sep/2025 14:01:43] "GET /static/css/styles.css HTTP/1.1" 304 0
+[17/Sep/2025 14:01:43] "GET /media/photos/mmm_cover.png HTTP/1.1" 200 176952
+[17/Sep/2025 14:01:43] "GET /media/photos/moh.png HTTP/1.1" 304 0
+[17/Sep/2025 14:05:53] "POST /accounts/logout/ HTTP/1.1" 302 0
+[17/Sep/2025 14:05:53] "GET / HTTP/1.1" 302 0
+[17/Sep/2025 14:05:53] "GET /public-timeline/ HTTP/1.1" 200 2190
+[17/Sep/2025 14:05:53] "GET /static/css/styles.css HTTP/1.1" 304 0
+[17/Sep/2025 14:05:53] "GET /media/photos/mmm_cover.png HTTP/1.1" 304 0
+[17/Sep/2025 14:05:53] "GET /media/photos/moh.png HTTP/1.1" 304 0
+[17/Sep/2025 14:06:20] "GET /public-timeline/ HTTP/1.1" 200 2190
+[17/Sep/2025 14:06:45] "GET /public-timeline/ HTTP/1.1" 200 2190
+[17/Sep/2025 14:11:53] "GET / HTTP/1.1" 302 0
+[17/Sep/2025 14:11:53] "GET /public-timeline/ HTTP/1.1" 200 2190
+[17/Sep/2025 14:11:53] "GET /static/css/styles.css HTTP/1.1" 200 4043
+[17/Sep/2025 14:11:53] "GET /media/photos/mmm_cover.png HTTP/1.1" 200 176952
+[17/Sep/2025 14:11:53] "GET /media/photos/moh.png HTTP/1.1" 200 260945
+Not Found: /favicon.ico
+[17/Sep/2025 14:11:53] "GET /favicon.ico HTTP/1.1" 404 10977
+[17/Sep/2025 14:12:02] "GET /accounts/login/ HTTP/1.1" 200 2700
+[17/Sep/2025 14:12:42] "POST /accounts/login/ HTTP/1.1" 302 0
+[17/Sep/2025 14:12:42] "GET /public-timeline/ HTTP/1.1" 200 4359
+[17/Sep/2025 14:12:42] "GET /media/photos/mmm_cover.png HTTP/1.1" 304 0
+Not Found: /media/default.jpg
+[17/Sep/2025 14:12:42] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 14:12:42] "GET /media/photos/moh.png HTTP/1.1" 304 0
+[17/Sep/2025 14:13:04] "GET /author/Kyper/ HTTP/1.1" 200 15741
+Not Found: /media/default.jpg
+[17/Sep/2025 14:13:04] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 14:13:15] "GET /profile/edit/ HTTP/1.1" 200 2243
+[17/Sep/2025 14:13:22] "POST /profile/edit/ HTTP/1.1" 302 0
+[17/Sep/2025 14:13:22] "GET /author/Kyper/ HTTP/1.1" 200 15741
+Not Found: /media/default.jpg
+[17/Sep/2025 14:13:22] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 14:13:30] "GET /profile/edit/ HTTP/1.1" 200 2243
+[17/Sep/2025 14:13:42] "POST /profile/edit/ HTTP/1.1" 302 0
+[17/Sep/2025 14:13:42] "GET /author/Kyper/ HTTP/1.1" 200 15741
+Not Found: /media/default.jpg
+[17/Sep/2025 14:13:42] "GET /media/default.jpg HTTP/1.1" 404 11222
+[17/Sep/2025 14:13:47] "GET /profile/edit/ HTTP/1.1" 200 2243
+[17/Sep/2025 14:14:31] "POST /profile/edit/ HTTP/1.1" 302 0
+[17/Sep/2025 14:14:31] "GET /author/Kyper/ HTTP/1.1" 200 15757
+[17/Sep/2025 14:14:31] "GET /media/profile_pics/ProfilePic.jpg HTTP/1.1" 200 239154
+[17/Sep/2025 14:14:34] "GET /profile/edit/ HTTP/1.1" 200 2275
+[17/Sep/2025 14:14:39] "POST /profile/edit/ HTTP/1.1" 302 0
+[17/Sep/2025 14:14:39] "GET /author/Kyper/ HTTP/1.1" 200 15758
+[17/Sep/2025 14:14:39] "GET /media/profile_pics/ProfilePic.jpg HTTP/1.1" 304 0
+[17/Sep/2025 14:14:50] "GET /post/new/ HTTP/1.1" 200 11470
+[17/Sep/2025 14:16:03] "GET /post/3/ HTTP/1.1" 200 4843
+[17/Sep/2025 14:16:03] "GET /media/photos/mmm_cover.png HTTP/1.1" 304 0
+[17/Sep/2025 14:16:04] "GET /media/audio/The_series_of_dutch_attacks_mia.m4a HTTP/1.1" 200 16096325
+Not Found: /favicon.ico
+[17/Sep/2025 14:16:17] "GET /favicon.ico HTTP/1.1" 404 10977
+[17/Sep/2025 14:17:09] "GET /public-timeline/ HTTP/1.1" 200 2190
+[17/Sep/2025 14:17:09] "GET /static/css/styles.css HTTP/1.1" 304 0
+[17/Sep/2025 14:17:09] "GET /media/photos/moh.png HTTP/1.1" 304 0
+[17/Sep/2025 14:17:09] "GET /media/photos/mmm_cover.png HTTP/1.1" 200 176952
+[17/Sep/2025 14:17:10] "GET /post/2/ HTTP/1.1" 200 4742
+[17/Sep/2025 14:17:10] "GET /media/audio/Alexander_the_Great_mia.m4a HTTP/1.1" 304 0
+[17/Sep/2025 14:17:32] "GET /public-timeline/ HTTP/1.1" 200 2190
+[17/Sep/2025 14:18:00] "GET /public-timeline/ HTTP/1.1" 200 2190
+[17/Sep/2025 14:18:00] "GET /static/css/styles.css HTTP/1.1" 304 0
+[17/Sep/2025 14:18:00] "GET /media/photos/moh.png HTTP/1.1" 304 0
+[17/Sep/2025 14:20:13,778] - Broken pipe from ('192.168.68.105', 54972)
+[17/Sep/2025 14:20:13,778] - Broken pipe from ('192.168.68.105', 54960)
+[17/Sep/2025 14:31:49] "GET /public-timeline/ HTTP/1.1" 200 2190
+[17/Sep/2025 14:31:49] "GET /static/css/styles.css HTTP/1.1" 304 0
+[17/Sep/2025 14:31:49] "GET /media/photos/mmm_cover.png HTTP/1.1" 200 176952
+[17/Sep/2025 14:31:49] "GET /media/photos/moh.png HTTP/1.1" 200 260945
+[17/Sep/2025 14:41:43] "POST /post/new/ HTTP/1.1" 302 0
+[17/Sep/2025 14:41:43] "GET / HTTP/1.1" 302 0
+[17/Sep/2025 14:41:43] "GET /public-timeline/ HTTP/1.1" 200 4375
+[17/Sep/2025 14:41:43] "GET /static/css/styles.css HTTP/1.1" 200 4043
+[17/Sep/2025 14:41:43] "GET /media/profile_pics/ProfilePic.jpg HTTP/1.1" 304 0
+[17/Sep/2025 14:41:43] "GET /media/photos/moh.png HTTP/1.1" 304 0
+[17/Sep/2025 14:41:43] "GET /media/photos/mmm_cover.png HTTP/1.1" 200 176952
+Not Found: /favicon.ico
+[17/Sep/2025 14:41:43] "GET /favicon.ico HTTP/1.1" 404 10977
+[17/Sep/2025 14:41:51] "GET /author/Kyper/ HTTP/1.1" 200 18091
+[17/Sep/2025 14:41:51] "GET /media/profile_pics/ProfilePic.jpg HTTP/1.1" 304 0
+[17/Sep/2025 14:41:51] "GET /media/photos/violet.jpg HTTP/1.1" 200 229123
+[17/Sep/2025 14:41:53] "GET /post/4/ HTTP/1.1" 200 7351
+[17/Sep/2025 14:41:53] "GET /media/photos/violet.jpg HTTP/1.1" 304 0
+[17/Sep/2025 14:42:04] "GET /author/Kyper/ HTTP/1.1" 200 18091
+[17/Sep/2025 14:42:04] "GET /media/profile_pics/ProfilePic.jpg HTTP/1.1" 304 0
+[17/Sep/2025 14:42:04] "GET /media/photos/violet.jpg HTTP/1.1" 304 0
+[17/Sep/2025 14:42:09] "GET /post/4/edit/ HTTP/1.1" 200 12651
+[17/Sep/2025 14:42:49] "POST /post/4/edit/ HTTP/1.1" 302 0
+[17/Sep/2025 14:42:49] "GET /author/Kyper/ HTTP/1.1" 200 18091
+[17/Sep/2025 14:42:49] "GET /media/profile_pics/ProfilePic.jpg HTTP/1.1" 304 0
+[17/Sep/2025 14:42:49] "GET /media/photos/violet.jpg HTTP/1.1" 304 0
+[17/Sep/2025 14:42:53] "GET /post/4/edit/ HTTP/1.1" 200 12714
+[17/Sep/2025 14:43:38] "POST /post/4/edit/ HTTP/1.1" 302 0
+[17/Sep/2025 14:43:38] "GET /author/Kyper/ HTTP/1.1" 200 18078
+[17/Sep/2025 14:43:38] "GET /media/profile_pics/ProfilePic.jpg HTTP/1.1" 304 0
+[17/Sep/2025 14:43:38] "GET /media/photos/violet.jpg HTTP/1.1" 304 0
+[17/Sep/2025 14:43:57] "GET /post/new/ HTTP/1.1" 200 11470
+[17/Sep/2025 14:46:51] "GET /author/Kyper/ HTTP/1.1" 200 18078
+[17/Sep/2025 14:46:51] "GET /media/profile_pics/ProfilePic.jpg HTTP/1.1" 304 0
+[17/Sep/2025 14:46:51] "GET /media/photos/violet.jpg HTTP/1.1" 304 0
+[17/Sep/2025 14:47:48] "GET /post/new/ HTTP/1.1" 200 11470
+[17/Sep/2025 14:55:44] "GET /public-timeline/ HTTP/1.1" 200 2495
+[17/Sep/2025 14:55:44] "GET /media/photos/violet.jpg HTTP/1.1" 200 229123
+[17/Sep/2025 14:55:45] "GET /static/css/styles.css HTTP/1.1" 304 0
+[17/Sep/2025 14:55:45] "GET /media/photos/moh.png HTTP/1.1" 304 0
+[17/Sep/2025 14:55:45] "GET /media/photos/mmm_cover.png HTTP/1.1" 304 0
+[17/Sep/2025 14:55:48] "GET /post/4/ HTTP/1.1" 200 6334
+[17/Sep/2025 14:56:43] "GET /public-timeline/ HTTP/1.1" 200 2495
+[17/Sep/2025 14:56:45] "GET /post/4/ HTTP/1.1" 200 6334
+[17/Sep/2025 14:56:55,319] - Broken pipe from ('192.168.68.105', 49866)
+[17/Sep/2025 14:56:55,320] - Broken pipe from ('192.168.68.105', 49872)
+[17/Sep/2025 14:58:54] "GET /public-timeline/ HTTP/1.1" 200 2495
+[17/Sep/2025 14:58:54] "GET /static/css/styles.css HTTP/1.1" 304 0
+[17/Sep/2025 14:58:54] "GET /media/photos/mmm_cover.png HTTP/1.1" 304 0
+[17/Sep/2025 14:58:54] "GET /media/photos/moh.png HTTP/1.1" 304 0
+[17/Sep/2025 14:58:54] "GET /media/photos/violet.jpg HTTP/1.1" 200 229123
+[17/Sep/2025 14:59:00] "GET /post/4/ HTTP/1.1" 200 6334
+[17/Sep/2025 15:00:37] "GET /public-timeline/ HTTP/1.1" 200 2495
+[17/Sep/2025 15:00:38] "GET /media/photos/violet.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:00:40] "GET /post/3/ HTTP/1.1" 200 4843
+[17/Sep/2025 15:00:40] "GET /media/audio/The_series_of_dutch_attacks_mia.m4a HTTP/1.1" 304 0
+[17/Sep/2025 15:00:43] "GET /public-timeline/ HTTP/1.1" 200 2495
+[17/Sep/2025 15:00:44] "GET /post/4/ HTTP/1.1" 200 6334
+[17/Sep/2025 15:01:25] "GET /post/3/ HTTP/1.1" 200 4843
+[17/Sep/2025 15:04:12] "POST /post/new/ HTTP/1.1" 302 0
+[17/Sep/2025 15:04:12] "GET / HTTP/1.1" 302 0
+[17/Sep/2025 15:04:13] "GET /public-timeline/ HTTP/1.1" 200 5017
+[17/Sep/2025 15:04:13] "GET /static/css/styles.css HTTP/1.1" 200 4043
+[17/Sep/2025 15:04:13] "GET /media/profile_pics/ProfilePic.jpg HTTP/1.1" 200 239154
+[17/Sep/2025 15:04:13] "GET /media/photos/violet.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:04:13] "GET /media/photos/mmm_cover.png HTTP/1.1" 304 0
+[17/Sep/2025 15:04:13] "GET /media/photos/moh.png HTTP/1.1" 304 0
+[17/Sep/2025 15:04:13] "GET /media/photos/bon.png HTTP/1.1" 200 465899
+Not Found: /favicon.ico
+[17/Sep/2025 15:04:13] "GET /favicon.ico HTTP/1.1" 404 10977
+[17/Sep/2025 15:04:23] "GET /public-timeline/ HTTP/1.1" 200 2832
+[17/Sep/2025 15:04:23] "GET /media/photos/violet.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:04:23] "GET /media/photos/bon.png HTTP/1.1" 200 465899
+[17/Sep/2025 15:04:29] "GET /post/5/ HTTP/1.1" 200 6058
+[17/Sep/2025 15:04:29] "GET /media/photos/bon.png HTTP/1.1" 304 0
+[17/Sep/2025 15:04:29] "GET /media/audio/Puto_Lomi.m4a HTTP/1.1" 200 2187200
+[17/Sep/2025 15:04:32] "GET /post/5/ HTTP/1.1" 200 7145
+[17/Sep/2025 15:04:32] "GET /media/photos/bon.png HTTP/1.1" 304 0
+[17/Sep/2025 15:04:33] "GET /media/audio/Puto_Lomi.m4a HTTP/1.1" 200 2187200
+[17/Sep/2025 15:05:55] "GET /post/2/ HTTP/1.1" 200 5437
+[17/Sep/2025 15:05:55] "GET /media/photos/moh.png HTTP/1.1" 304 0
+[17/Sep/2025 15:05:55] "GET /media/audio/Alexander_the_Great_mia.m4a HTTP/1.1" 200 8831223
+[17/Sep/2025 15:06:06] "GET /post/3/ HTTP/1.1" 200 5538
+[17/Sep/2025 15:06:06] "GET /media/photos/mmm_cover.png HTTP/1.1" 304 0
+[17/Sep/2025 15:06:07] "GET /media/audio/The_series_of_dutch_attacks_mia.m4a HTTP/1.1" 200 16096325
+[17/Sep/2025 15:06:44] "GET /post/5/ HTTP/1.1" 200 7145
+[17/Sep/2025 15:06:44] "GET /media/photos/bon.png HTTP/1.1" 304 0
+[17/Sep/2025 15:06:46] "GET /post/4/ HTTP/1.1" 200 7420
+[17/Sep/2025 15:06:46] "GET /media/photos/violet.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:07:01] "GET /author/Kyper/ HTTP/1.1" 200 20433
+[17/Sep/2025 15:07:01] "GET /media/profile_pics/ProfilePic.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:07:01] "GET /media/photos/bon.png HTTP/1.1" 304 0
+[17/Sep/2025 15:07:01] "GET /media/photos/violet.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:07:06] "GET /presentation/new/ HTTP/1.1" 200 3572
+[17/Sep/2025 15:09:49] "POST /presentation/new/ HTTP/1.1" 200 3685
+[17/Sep/2025 15:09:53] "POST /presentation/new/ HTTP/1.1" 302 0
+[17/Sep/2025 15:09:53] "GET /author/Kyper/ HTTP/1.1" 200 21933
+[17/Sep/2025 15:09:53] "GET /media/profile_pics/ProfilePic.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:09:53] "GET /media/photos/bon.png HTTP/1.1" 304 0
+[17/Sep/2025 15:09:53] "GET /media/photos/violet.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:10:15] "GET /presentation/2/ HTTP/1.1" 200 8427
+[17/Sep/2025 15:10:15] "GET /media/photos/violet.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:10:15] "GET /media/photos/bon.png HTTP/1.1" 304 0
+[17/Sep/2025 15:10:41] "GET /presentation/2/delete/ HTTP/1.1" 200 2180
+[17/Sep/2025 15:10:43] "POST /presentation/2/delete/ HTTP/1.1" 302 0
+[17/Sep/2025 15:10:43] "GET /author/Kyper/ HTTP/1.1" 200 20433
+[17/Sep/2025 15:10:43] "GET /media/photos/violet.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:10:43] "GET /media/profile_pics/ProfilePic.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:10:43] "GET /media/photos/bon.png HTTP/1.1" 304 0
+[17/Sep/2025 15:11:04] "GET /author/Kyper/ HTTP/1.1" 200 20433
+[17/Sep/2025 15:11:04] "GET /media/photos/violet.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:11:04] "GET /media/photos/bon.png HTTP/1.1" 304 0
+[17/Sep/2025 15:11:04] "GET /media/profile_pics/ProfilePic.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:11:14] "GET /public-timeline/ HTTP/1.1" 200 5017
+[17/Sep/2025 15:11:14] "GET /static/css/styles.css HTTP/1.1" 304 0
+[17/Sep/2025 15:11:14] "GET /media/profile_pics/ProfilePic.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:11:14] "GET /media/photos/bon.png HTTP/1.1" 304 0
+[17/Sep/2025 15:11:14] "GET /media/photos/violet.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:11:14] "GET /media/photos/mmm_cover.png HTTP/1.1" 304 0
+[17/Sep/2025 15:11:14] "GET /media/photos/moh.png HTTP/1.1" 304 0
+[17/Sep/2025 15:11:15] "GET /post/5/ HTTP/1.1" 200 7145
+[17/Sep/2025 15:11:15] "GET /media/photos/bon.png HTTP/1.1" 304 0
+[17/Sep/2025 15:11:58] "GET /author/Kyper/ HTTP/1.1" 200 20433
+[17/Sep/2025 15:11:59] "GET /media/profile_pics/ProfilePic.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:11:59] "GET /media/photos/bon.png HTTP/1.1" 304 0
+[17/Sep/2025 15:11:59] "GET /media/photos/violet.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:12:02] "GET /post/new/ HTTP/1.1" 200 11470
+[17/Sep/2025 15:12:21] "GET /author/Kyper/ HTTP/1.1" 200 20433
+[17/Sep/2025 15:12:21] "GET /media/photos/bon.png HTTP/1.1" 304 0
+[17/Sep/2025 15:12:21] "GET /media/photos/violet.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:12:21] "GET /media/profile_pics/ProfilePic.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:13:21] "GET /post/4/ HTTP/1.1" 200 7420
+[17/Sep/2025 15:13:21] "GET /media/photos/violet.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:13:30] "GET /public-timeline/ HTTP/1.1" 200 5017
+[17/Sep/2025 15:13:30] "GET /media/profile_pics/ProfilePic.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:13:30] "GET /media/photos/violet.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:13:30] "GET /media/photos/bon.png HTTP/1.1" 304 0
+[17/Sep/2025 15:13:30] "GET /media/photos/mmm_cover.png HTTP/1.1" 304 0
+[17/Sep/2025 15:13:30] "GET /media/photos/moh.png HTTP/1.1" 304 0
+[17/Sep/2025 15:13:32] "GET /post/2/ HTTP/1.1" 200 5437
+[17/Sep/2025 15:13:48] "GET /post/3/ HTTP/1.1" 200 5538
+[17/Sep/2025 15:14:05] "GET /post/2/ HTTP/1.1" 200 5437
+[17/Sep/2025 15:14:30] "GET /profile/edit/ HTTP/1.1" 200 2275
+[17/Sep/2025 15:14:34] "POST /profile/edit/ HTTP/1.1" 302 0
+[17/Sep/2025 15:14:34] "GET /author/Kyper/ HTTP/1.1" 200 20433
+[17/Sep/2025 15:14:34] "GET /media/profile_pics/ProfilePic.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:14:34] "GET /media/photos/violet.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:14:34] "GET /media/photos/bon.png HTTP/1.1" 304 0
+[17/Sep/2025 15:14:39] "GET /profile/edit/ HTTP/1.1" 200 2275
+[17/Sep/2025 15:14:45] "POST /profile/edit/ HTTP/1.1" 302 0
+[17/Sep/2025 15:14:45] "GET /author/Kyper/ HTTP/1.1" 200 20437
+[17/Sep/2025 15:14:45] "GET /media/photos/violet.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:14:45] "GET /media/photos/bon.png HTTP/1.1" 304 0
+[17/Sep/2025 15:14:45] "GET /media/profile_pics/ProfilePic.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:14:49] "GET /profile/edit/ HTTP/1.1" 200 2275
+[17/Sep/2025 15:14:54] "POST /profile/edit/ HTTP/1.1" 302 0
+[17/Sep/2025 15:14:54] "GET /author/Kyper/ HTTP/1.1" 200 20431
+[17/Sep/2025 15:14:54] "GET /media/photos/violet.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:14:54] "GET /media/photos/bon.png HTTP/1.1" 304 0
+[17/Sep/2025 15:14:54] "GET /media/profile_pics/ProfilePic.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:15:12] "GET /profile/edit/ HTTP/1.1" 200 2275
+[17/Sep/2025 15:15:18] "POST /profile/edit/ HTTP/1.1" 302 0
+[17/Sep/2025 15:15:18] "GET /author/Kyper/ HTTP/1.1" 200 20433
+[17/Sep/2025 15:15:18] "GET /media/profile_pics/ProfilePic.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:15:18] "GET /media/photos/violet.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:15:18] "GET /media/photos/bon.png HTTP/1.1" 304 0
+[17/Sep/2025 15:15:23] "GET /profile/edit/ HTTP/1.1" 200 2275
+[17/Sep/2025 15:15:25] "POST /profile/edit/ HTTP/1.1" 302 0
+[17/Sep/2025 15:15:25] "GET /author/Kyper/ HTTP/1.1" 200 20431
+[17/Sep/2025 15:15:26] "GET /media/profile_pics/ProfilePic.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:15:26] "GET /media/photos/bon.png HTTP/1.1" 304 0
+[17/Sep/2025 15:15:26] "GET /media/photos/violet.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:15:29] "GET /public-timeline/ HTTP/1.1" 200 5017
+[17/Sep/2025 15:15:29] "GET /media/profile_pics/ProfilePic.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:15:29] "GET /media/photos/moh.png HTTP/1.1" 304 0
+[17/Sep/2025 15:15:29] "GET /media/photos/bon.png HTTP/1.1" 304 0
+[17/Sep/2025 15:15:29] "GET /media/photos/violet.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:15:29] "GET /media/photos/mmm_cover.png HTTP/1.1" 304 0
+[17/Sep/2025 15:15:32] "GET /profile/edit/ HTTP/1.1" 200 2275
+[17/Sep/2025 15:15:34] "POST /profile/edit/ HTTP/1.1" 302 0
+[17/Sep/2025 15:15:34] "GET /author/Kyper/ HTTP/1.1" 200 20431
+[17/Sep/2025 15:15:34] "GET /media/profile_pics/ProfilePic.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:15:34] "GET /media/photos/bon.png HTTP/1.1" 304 0
+[17/Sep/2025 15:15:34] "GET /media/photos/violet.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:16:37] "GET /author/Kyper/ HTTP/1.1" 200 20431
+[17/Sep/2025 15:16:37] "GET /media/profile_pics/ProfilePic.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:16:37] "GET /media/photos/violet.jpg HTTP/1.1" 304 0
+[17/Sep/2025 15:16:37] "GET /media/photos/bon.png HTTP/1.1" 304 0
+/Users/chelle/Zone/01_Projects/hs-portfolio-app/blog/forms.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 17, 2025 - 13:13:52
+Django version 5.2.6, using settings 'timeline_project.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+WARNING: This is a development server. Do not use it in a production setting. Use a production WSGI or ASGI server instead.
+For more information on production servers see: https://docs.djangoproject.com/en/5.2/howto/deployment/
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+Error: That port is already in use.
+[19/Sep/2025 03:08:36] "GET / HTTP/1.1" 302 0
+[19/Sep/2025 03:08:36] "GET /public-timeline/ HTTP/1.1" 200 2832
+[19/Sep/2025 03:08:36] "GET /static/css/styles.css HTTP/1.1" 200 4043
+[19/Sep/2025 03:08:36] "GET /media/photos/mmm_cover.png HTTP/1.1" 200 176952
+[19/Sep/2025 03:08:36] "GET /media/photos/moh.png HTTP/1.1" 200 260945
+[19/Sep/2025 03:08:36] "GET /media/photos/violet.jpg HTTP/1.1" 200 229123
+[19/Sep/2025 03:08:36] "GET /media/photos/bon.png HTTP/1.1" 200 465899
+Not Found: /favicon.ico
+[19/Sep/2025 03:08:36] "GET /favicon.ico HTTP/1.1" 404 10977
+[19/Sep/2025 03:08:44] "GET /accounts/login/ HTTP/1.1" 200 2700
+[19/Sep/2025 03:08:51] "POST /accounts/login/ HTTP/1.1" 200 2855
+[19/Sep/2025 03:09:01] "POST /accounts/login/ HTTP/1.1" 302 0
+[19/Sep/2025 03:09:01] "GET /public-timeline/ HTTP/1.1" 200 5456
+[19/Sep/2025 03:09:01] "GET /media/profile_pics/chibi_gandalf.jpg HTTP/1.1" 200 24804
+[19/Sep/2025 03:09:12] "GET /public-timeline/ HTTP/1.1" 200 5456
+[19/Sep/2025 03:09:12] "GET /public-timeline/ HTTP/1.1" 200 5456
+[19/Sep/2025 03:09:13] "GET /public-timeline/ HTTP/1.1" 200 5456
+[19/Sep/2025 03:09:41] "GET /post/3/ HTTP/1.1" 200 5936
+[19/Sep/2025 03:09:41] "GET /media/audio/The_series_of_dutch_attacks_mia.m4a HTTP/1.1" 200 16096325
+[19/Sep/2025 03:09:42] "GET /post/3/request-review/ HTTP/1.1" 200 2562
+[19/Sep/2025 03:09:46] "GET /post/3/ HTTP/1.1" 200 5936
+[19/Sep/2025 03:09:48] "GET /author/Ammillia/ HTTP/1.1" 200 24277
+[19/Sep/2025 03:09:48] "GET /media/photos/LOTR_BookCover.jpg HTTP/1.1" 200 81745
+[19/Sep/2025 03:10:33] "GET / HTTP/1.1" 302 0
+[19/Sep/2025 03:10:33] "GET /public-timeline/ HTTP/1.1" 200 2832
+[19/Sep/2025 03:10:33] "GET /static/css/styles.css HTTP/1.1" 304 0
+[19/Sep/2025 03:10:33] "GET /media/photos/mmm_cover.png HTTP/1.1" 304 0
+[19/Sep/2025 03:10:33] "GET /media/photos/moh.png HTTP/1.1" 304 0
+[19/Sep/2025 03:10:33] "GET /media/photos/violet.jpg HTTP/1.1" 200 229123
+[19/Sep/2025 03:10:33] "GET /media/photos/bon.png HTTP/1.1" 200 465899
+[19/Sep/2025 03:10:34] "GET /accounts/login/ HTTP/1.1" 200 2700
+[19/Sep/2025 03:10:45] "POST /accounts/login/ HTTP/1.1" 200 2858
+[19/Sep/2025 03:10:55] "POST /accounts/login/ HTTP/1.1" 200 2858
+[19/Sep/2025 03:11:03] "POST /accounts/login/ HTTP/1.1" 200 2858
+[19/Sep/2025 03:11:06] "GET /public-timeline/ HTTP/1.1" 200 2832
+[19/Sep/2025 03:11:07] "GET /accounts/login/ HTTP/1.1" 200 2700
+[19/Sep/2025 03:11:21] "GET /admin/ HTTP/1.1" 302 0
+[19/Sep/2025 03:11:21] "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4173
+[19/Sep/2025 03:11:21] "GET /static/admin/css/base.css HTTP/1.1" 304 0
+[19/Sep/2025 03:11:21] "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+[19/Sep/2025 03:11:21] "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+[19/Sep/2025 03:11:21] "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+[19/Sep/2025 03:11:21] "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+[19/Sep/2025 03:11:21] "GET /static/admin/css/login.css HTTP/1.1" 304 0
+[19/Sep/2025 03:11:21] "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+[19/Sep/2025 03:11:27] "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+[19/Sep/2025 03:11:27] "GET /admin/ HTTP/1.1" 200 12792
+[19/Sep/2025 03:11:27] "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 304 0
+[19/Sep/2025 03:11:27] "GET /static/admin/css/dashboard.css HTTP/1.1" 304 0
+[19/Sep/2025 03:11:27] "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+[19/Sep/2025 03:11:27] "GET /static/admin/img/icon-deletelink.svg HTTP/1.1" 200 392
+[19/Sep/2025 03:11:36] "GET /admin/auth/user/ HTTP/1.1" 200 15949
+[19/Sep/2025 03:11:36] "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+[19/Sep/2025 03:11:36] "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+[19/Sep/2025 03:11:36] "GET /static/admin/js/core.js HTTP/1.1" 304 0
+[19/Sep/2025 03:11:36] "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+[19/Sep/2025 03:11:36] "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+[19/Sep/2025 03:11:36] "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+[19/Sep/2025 03:11:36] "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+[19/Sep/2025 03:11:36] "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+[19/Sep/2025 03:11:36] "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+[19/Sep/2025 03:11:36] "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+[19/Sep/2025 03:11:36] "GET /static/admin/img/icon-no.svg HTTP/1.1" 304 0
+[19/Sep/2025 03:11:36] "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+[19/Sep/2025 03:11:36] "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 304 0
+[19/Sep/2025 03:11:36] "GET /static/admin/img/icon-yes.svg HTTP/1.1" 304 0
+[19/Sep/2025 03:11:36] "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+[19/Sep/2025 03:11:36] "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 304 0
+[19/Sep/2025 03:11:36] "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 304 0
+[19/Sep/2025 03:11:38] "GET /admin/auth/user/2/change/ HTTP/1.1" 200 27186
+[19/Sep/2025 03:11:38] "GET /static/admin/css/forms.css HTTP/1.1" 304 0
+[19/Sep/2025 03:11:38] "GET /static/admin/js/calendar.js HTTP/1.1" 304 0
+[19/Sep/2025 03:11:38] "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+[19/Sep/2025 03:11:38] "GET /static/admin/js/SelectFilter2.js HTTP/1.1" 304 0
+[19/Sep/2025 03:11:38] "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 304 0
+[19/Sep/2025 03:11:38] "GET /static/admin/js/SelectBox.js HTTP/1.1" 304 0
+[19/Sep/2025 03:11:38] "GET /static/admin/css/widgets.css HTTP/1.1" 304 0
+[19/Sep/2025 03:11:38] "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 304 0
+[19/Sep/2025 03:11:38] "GET /static/admin/js/change_form.js HTTP/1.1" 304 0
+[19/Sep/2025 03:11:39] "GET /static/admin/img/icon-clock.svg HTTP/1.1" 304 0
+[19/Sep/2025 03:11:39] "GET /static/admin/img/selector-icons.svg HTTP/1.1" 304 0
+[19/Sep/2025 03:11:39] "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 304 0
+[19/Sep/2025 03:11:50] "GET /admin/auth/user/2/password/ HTTP/1.1" 200 11410
+[19/Sep/2025 03:11:50] "GET /static/admin/css/unusable_password_field.css HTTP/1.1" 304 0
+[19/Sep/2025 03:11:50] "GET /static/admin/js/unusable_password_field.js HTTP/1.1" 304 0
+[19/Sep/2025 03:12:08] "POST /admin/auth/user/2/password/ HTTP/1.1" 302 0
+[19/Sep/2025 03:12:08] "GET /admin/auth/user/2/change/ HTTP/1.1" 200 27322
+[19/Sep/2025 03:12:08] "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+[19/Sep/2025 03:12:24] "POST /admin/auth/user/2/change/ HTTP/1.1" 302 0
+[19/Sep/2025 03:12:24] "GET /admin/auth/user/ HTTP/1.1" 200 16143
+[19/Sep/2025 03:12:24] "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+[19/Sep/2025 03:12:52] "POST /admin/logout/ HTTP/1.1" 302 0
+[19/Sep/2025 03:12:52] "GET / HTTP/1.1" 302 0
+[19/Sep/2025 03:12:52] "GET /public-timeline/ HTTP/1.1" 200 2832
+[19/Sep/2025 03:23:04] "POST /accounts/logout/ HTTP/1.1" 302 0
+[19/Sep/2025 03:23:04] "GET / HTTP/1.1" 302 0
+[19/Sep/2025 03:23:04] "GET /public-timeline/ HTTP/1.1" 200 2832
+[20/Sep/2025 13:02:43] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 13:02:43] "GET /public-timeline/ HTTP/1.1" 200 2832
+[20/Sep/2025 13:02:43] "GET /static/css/styles.css HTTP/1.1" 304 0
+[20/Sep/2025 13:02:43] "GET /media/photos/bon.png HTTP/1.1" 304 0
+[20/Sep/2025 13:02:43] "GET /media/photos/violet.jpg HTTP/1.1" 304 0
+[20/Sep/2025 13:02:43] "GET /media/photos/mmm_cover.png HTTP/1.1" 304 0
+[20/Sep/2025 13:02:43] "GET /media/photos/moh.png HTTP/1.1" 304 0
+[20/Sep/2025 13:02:56] "GET /accounts/login/ HTTP/1.1" 200 2700
+[20/Sep/2025 13:03:05] "POST /accounts/login/ HTTP/1.1" 302 0
+[20/Sep/2025 13:03:05] "GET /public-timeline/ HTTP/1.1" 200 5108
+Not Found: /media/default.jpg
+[20/Sep/2025 13:03:05] "GET /media/default.jpg HTTP/1.1" 404 11222
+[20/Sep/2025 13:03:09] "GET /teacher/dashboard/ HTTP/1.1" 200 11770
+[20/Sep/2025 13:03:15] "GET /public-timeline/ HTTP/1.1" 200 5108
+Not Found: /media/default.jpg
+[20/Sep/2025 13:03:15] "GET /media/default.jpg HTTP/1.1" 404 11222
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have 2 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): blog.
+Run 'python manage.py migrate' to apply them.
+September 19, 2025 - 02:57:33
+Django version 5.2.6, using settings 'timeline_project.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+WARNING: This is a development server. Do not use it in a production setting. Use a production WSGI or ASGI server instead.
+For more information on production servers see: https://docs.djangoproject.com/en/5.2/howto/deployment/
+Watching for file changes with StatReloader
+[20/Sep/2025 13:18:26] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 13:18:26] "GET /public-timeline/ HTTP/1.1" 200 5108
+Not Found: /media/default.jpg
+[20/Sep/2025 13:18:27] "GET /media/default.jpg HTTP/1.1" 404 11222
+Not Found: /favicon.ico
+[20/Sep/2025 13:18:27] "GET /favicon.ico HTTP/1.1" 404 10977
+[20/Sep/2025 13:18:31] "GET /teacher/dashboard/ HTTP/1.1" 200 132967
+[20/Sep/2025 13:18:44] "GET /public-timeline/ HTTP/1.1" 200 5108
+Not Found: /media/default.jpg
+[20/Sep/2025 13:18:44] "GET /media/default.jpg HTTP/1.1" 404 11222
+[20/Sep/2025 13:19:17] "GET /public-timeline/ HTTP/1.1" 200 5108
+Not Found: /media/default.jpg
+[20/Sep/2025 13:19:17] "GET /media/default.jpg HTTP/1.1" 404 11222
+[20/Sep/2025 13:19:18] "GET /public-timeline/ HTTP/1.1" 200 5108
+Not Found: /media/default.jpg
+[20/Sep/2025 13:19:18] "GET /media/default.jpg HTTP/1.1" 404 11222
+[20/Sep/2025 13:19:18] "GET /public-timeline/ HTTP/1.1" 200 5108
+Not Found: /media/default.jpg
+[20/Sep/2025 13:19:18] "GET /media/default.jpg HTTP/1.1" 404 11222
+[20/Sep/2025 13:19:18] "GET /public-timeline/ HTTP/1.1" 200 5108
+Not Found: /media/default.jpg
+[20/Sep/2025 13:19:18] "GET /media/default.jpg HTTP/1.1" 404 11222
+[20/Sep/2025 13:19:22] "GET /post/4/ HTTP/1.1" 200 8923
+[20/Sep/2025 13:19:30] "GET /public-timeline/ HTTP/1.1" 200 5108
+Not Found: /media/default.jpg
+[20/Sep/2025 13:19:30] "GET /media/default.jpg HTTP/1.1" 404 11222
+[20/Sep/2025 13:19:32] "POST /accounts/logout/ HTTP/1.1" 302 0
+[20/Sep/2025 13:19:32] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 13:19:32] "GET /public-timeline/ HTTP/1.1" 200 2832
+[20/Sep/2025 13:19:33] "GET /accounts/login/ HTTP/1.1" 200 2700
+[20/Sep/2025 13:19:42] "POST /accounts/login/ HTTP/1.1" 302 0
+[20/Sep/2025 13:19:42] "GET /public-timeline/ HTTP/1.1" 200 5463
+[20/Sep/2025 13:19:42] "GET /media/profile_pics/chibi_gandalf.jpg HTTP/1.1" 304 0
+[20/Sep/2025 13:19:55] "GET /post/4/ HTTP/1.1" 200 7027
+[20/Sep/2025 13:19:57] "GET /public-timeline/ HTTP/1.1" 200 5463
+[20/Sep/2025 13:20:00] "GET /author/Ammillia/ HTTP/1.1" 200 24277
+[20/Sep/2025 13:20:00] "GET /media/photos/LOTR_BookCover.jpg HTTP/1.1" 304 0
+[20/Sep/2025 13:20:04] "GET /post/2/request-review/ HTTP/1.1" 200 2520
+[20/Sep/2025 13:20:09] "POST /post/2/request-review/ HTTP/1.1" 302 0
+[20/Sep/2025 13:20:09] "GET /post/2/ HTTP/1.1" 200 5834
+[20/Sep/2025 13:20:09] "GET /media/audio/Alexander_the_Great_mia.m4a HTTP/1.1" 200 8831223
+Not Found: /favicon.ico
+[20/Sep/2025 13:20:18] "GET /favicon.ico HTTP/1.1" 404 10977
+[20/Sep/2025 13:20:29] "GET /author/Ammillia/ HTTP/1.1" 200 24277
+[20/Sep/2025 13:20:37] "POST /accounts/logout/ HTTP/1.1" 302 0
+[20/Sep/2025 13:20:37] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 13:20:37] "GET /public-timeline/ HTTP/1.1" 200 2832
+[20/Sep/2025 13:20:53] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 13:20:53] "GET /public-timeline/ HTTP/1.1" 200 2832
+[20/Sep/2025 13:20:53] "GET /static/css/styles.css HTTP/1.1" 200 5336
+[20/Sep/2025 13:20:53] "GET /media/photos/mmm_cover.png HTTP/1.1" 304 0
+[20/Sep/2025 13:20:53] "GET /media/photos/violet.jpg HTTP/1.1" 304 0
+[20/Sep/2025 13:20:53] "GET /media/photos/moh.png HTTP/1.1" 304 0
+[20/Sep/2025 13:20:53] "GET /media/photos/bon.png HTTP/1.1" 200 465899
+Not Found: /favicon.ico
+[20/Sep/2025 13:20:53] "GET /favicon.ico HTTP/1.1" 404 10977
+[20/Sep/2025 13:20:58] "GET /post/5/ HTTP/1.1" 200 6060
+[20/Sep/2025 13:20:58] "GET /media/audio/Puto_Lomi.m4a HTTP/1.1" 200 2187200
+[20/Sep/2025 13:21:00] "GET /public-timeline/ HTTP/1.1" 200 2832
+[20/Sep/2025 13:21:05] "GET /post/2/ HTTP/1.1" 200 4743
+[20/Sep/2025 13:21:05] "GET /media/audio/Alexander_the_Great_mia.m4a HTTP/1.1" 304 0
+[20/Sep/2025 13:23:19,667] - Broken pipe from ('192.168.68.102', 35562)
+[20/Sep/2025 13:23:19,668] - Broken pipe from ('192.168.68.102', 35568)
+[20/Sep/2025 13:23:19,668] - Broken pipe from ('192.168.68.102', 35558)
+[20/Sep/2025 13:23:19,668] - Broken pipe from ('192.168.68.102', 35560)
+[20/Sep/2025 13:25:50] "GET /public-timeline/ HTTP/1.1" 200 2832
+[20/Sep/2025 13:25:53] "GET /static/css/styles.css HTTP/1.1" 200 5336
+[20/Sep/2025 13:25:53] "GET /media/photos/mmm_cover.png HTTP/1.1" 304 0
+[20/Sep/2025 13:25:53] "GET /media/photos/moh.png HTTP/1.1" 304 0
+[20/Sep/2025 13:25:53] "GET /media/photos/violet.jpg HTTP/1.1" 200 229123
+[20/Sep/2025 13:25:53] "GET /media/photos/bon.png HTTP/1.1" 200 465899
+Not Found: /favicon.ico
+[20/Sep/2025 13:25:53] "GET /favicon.ico HTTP/1.1" 404 10977
+[20/Sep/2025 13:25:57] "GET /accounts/login/ HTTP/1.1" 200 2700
+[20/Sep/2025 13:26:05] "POST /accounts/login/ HTTP/1.1" 302 0
+[20/Sep/2025 13:26:05] "GET /public-timeline/ HTTP/1.1" 200 5108
+Not Found: /media/default.jpg
+[20/Sep/2025 13:26:05] "GET /media/default.jpg HTTP/1.1" 404 11222
+[20/Sep/2025 13:26:10] "GET /teacher/dashboard/ HTTP/1.1" 200 132967
+[20/Sep/2025 13:26:19] "GET /post/2/ HTTP/1.1" 200 7334
+[20/Sep/2025 13:26:19] "GET /media/audio/Alexander_the_Great_mia.m4a HTTP/1.1" 304 0
+Not Found: /favicon.ico
+[20/Sep/2025 13:26:22] "GET /favicon.ico HTTP/1.1" 404 10977
+[20/Sep/2025 13:29:12] "GET /public-timeline/ HTTP/1.1" 200 5108
+[20/Sep/2025 13:29:13] "GET /static/css/styles.css HTTP/1.1" 304 0
+Not Found: /media/default.jpg
+[20/Sep/2025 13:29:13] "GET /media/default.jpg HTTP/1.1" 404 11222
+[20/Sep/2025 13:29:18] "POST /accounts/logout/ HTTP/1.1" 302 0
+[20/Sep/2025 13:29:18] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 13:29:18] "GET /public-timeline/ HTTP/1.1" 200 2832
+[20/Sep/2025 13:29:21] "GET /accounts/login/ HTTP/1.1" 200 2700
+[20/Sep/2025 13:29:30] "POST /accounts/login/ HTTP/1.1" 200 2858
+[20/Sep/2025 13:29:36] "POST /accounts/login/ HTTP/1.1" 200 2858
+[20/Sep/2025 13:29:40] "POST /accounts/login/ HTTP/1.1" 200 2858
+[20/Sep/2025 13:29:44] "GET /public-timeline/ HTTP/1.1" 200 2832
+[20/Sep/2025 13:29:49] "GET /accounts/login/ HTTP/1.1" 200 2700
+[20/Sep/2025 13:29:56] "POST /accounts/login/ HTTP/1.1" 302 0
+[20/Sep/2025 13:29:56] "GET /public-timeline/ HTTP/1.1" 200 5508
+Not Found: /media/default.jpg
+[20/Sep/2025 13:29:56] "GET /media/default.jpg HTTP/1.1" 404 11222
+[20/Sep/2025 13:30:04] "GET /post/2/ HTTP/1.1" 200 7334
+[20/Sep/2025 13:30:11] "GET /public-timeline/ HTTP/1.1" 200 5509
+Not Found: /media/default.jpg
+[20/Sep/2025 13:30:11] "GET /media/default.jpg HTTP/1.1" 404 11222
+[20/Sep/2025 13:30:16] "POST /accounts/logout/ HTTP/1.1" 302 0
+[20/Sep/2025 13:30:16] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 13:30:17] "GET /public-timeline/ HTTP/1.1" 200 2832
+[20/Sep/2025 13:48:48] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 13:48:48] "GET /public-timeline/ HTTP/1.1" 200 2832
+[20/Sep/2025 13:48:48] "GET /static/css/styles.css HTTP/1.1" 200 5336
+[20/Sep/2025 13:48:49] "GET /media/photos/bon.png HTTP/1.1" 304 0
+[20/Sep/2025 13:48:49] "GET /media/photos/violet.jpg HTTP/1.1" 304 0
+[20/Sep/2025 13:48:49] "GET /media/photos/mmm_cover.png HTTP/1.1" 304 0
+[20/Sep/2025 13:48:49] "GET /media/photos/moh.png HTTP/1.1" 304 0
+Not Found: /favicon.ico
+[20/Sep/2025 13:48:49] "GET /favicon.ico HTTP/1.1" 404 10977
+[20/Sep/2025 13:49:04] "GET /post/5/ HTTP/1.1" 200 6060
+[20/Sep/2025 13:49:05] "GET /media/audio/Puto_Lomi.m4a HTTP/1.1" 200 2187200
+Not Found: /favicon.ico
+[20/Sep/2025 13:49:09] "GET /favicon.ico HTTP/1.1" 404 10977
+[20/Sep/2025 13:49:20] "GET /public-timeline/ HTTP/1.1" 200 2832
+[20/Sep/2025 13:50:44] "GET /accounts/login/ HTTP/1.1" 200 2700
+[20/Sep/2025 13:50:50] "POST /accounts/login/ HTTP/1.1" 302 0
+[20/Sep/2025 13:50:51] "GET /public-timeline/ HTTP/1.1" 200 5108
+Not Found: /media/default.jpg
+[20/Sep/2025 13:50:51] "GET /media/default.jpg HTTP/1.1" 404 11222
+[20/Sep/2025 13:50:57] "GET /teacher/dashboard/ HTTP/1.1" 200 132967
+[20/Sep/2025 13:51:13] "GET /teacher/dashboard/Ammillia/ HTTP/1.1" 200 130476
+[20/Sep/2025 13:51:20] "GET /teacher/dashboard/Kyper/ HTTP/1.1" 200 129172
+[20/Sep/2025 13:51:25] "GET /teacher/dashboard/ HTTP/1.1" 200 132967
+[20/Sep/2025 13:51:28] "GET /teacher/dashboard/Ammillia/ HTTP/1.1" 200 130476
+[20/Sep/2025 13:51:33] "GET /teacher/dashboard/Kyper/ HTTP/1.1" 200 129172
+[20/Sep/2025 13:51:36] "GET /teacher/dashboard/Liv/ HTTP/1.1" 200 126037
+[20/Sep/2025 13:51:41] "GET /teacher/dashboard/ HTTP/1.1" 200 132967
+[20/Sep/2025 13:51:58] "GET /public-timeline/ HTTP/1.1" 200 5108
+Not Found: /media/default.jpg
+[20/Sep/2025 13:51:58] "GET /media/default.jpg HTTP/1.1" 404 11222
+[20/Sep/2025 13:53:35] "GET /profile/edit/ HTTP/1.1" 200 2244
+[20/Sep/2025 13:53:43] "POST /profile/edit/ HTTP/1.1" 302 0
+[20/Sep/2025 13:53:43] "GET /author/chelle/ HTTP/1.1" 200 15855
+Not Found: /media/default.jpg
+[20/Sep/2025 13:53:43] "GET /media/default.jpg HTTP/1.1" 404 11222
+[20/Sep/2025 13:53:47] "GET /profile/edit/ HTTP/1.1" 200 2244
+[20/Sep/2025 13:54:11] "POST /profile/edit/ HTTP/1.1" 302 0
+[20/Sep/2025 13:54:11] "GET /author/chelle/ HTTP/1.1" 200 15868
+[20/Sep/2025 13:54:11] "GET /media/profile_pics/Chel_01.jpg HTTP/1.1" 200 13409
+[20/Sep/2025 13:54:22] "GET /post/new/ HTTP/1.1" 200 11471
+[20/Sep/2025 13:55:17] "POST /post/new/ HTTP/1.1" 302 0
+[20/Sep/2025 13:55:17] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 13:55:18] "GET /public-timeline/ HTTP/1.1" 200 5413
+[20/Sep/2025 13:55:18] "GET /static/css/styles.css HTTP/1.1" 304 0
+[20/Sep/2025 13:55:18] "GET /media/profile_pics/Chel_01.jpg HTTP/1.1" 304 0
+[20/Sep/2025 13:55:19] "GET /media/photos/Liv_01.jpg HTTP/1.1" 200 67636
+[20/Sep/2025 13:55:31] "POST /accounts/logout/ HTTP/1.1" 302 0
+[20/Sep/2025 13:55:31] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 13:55:31] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 13:55:31] "GET /media/photos/Liv_01.jpg HTTP/1.1" 304 0
+[20/Sep/2025 13:55:35] "GET /post/6/ HTTP/1.1" 200 4414
+[20/Sep/2025 13:55:35] "GET /media/photos/Liv_01.jpg HTTP/1.1" 304 0
+[20/Sep/2025 13:55:42] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 13:55:42] "GET /media/photos/Liv_01.jpg HTTP/1.1" 304 0
+[20/Sep/2025 13:55:48] "GET /accounts/login/ HTTP/1.1" 200 2700
+[20/Sep/2025 13:55:59] "POST /accounts/login/ HTTP/1.1" 302 0
+[20/Sep/2025 13:55:59] "GET /public-timeline/ HTTP/1.1" 200 5413
+[20/Sep/2025 13:55:59] "GET /media/profile_pics/Chel_01.jpg HTTP/1.1" 304 0
+[20/Sep/2025 13:55:59] "GET /media/photos/Liv_01.jpg HTTP/1.1" 304 0
+[20/Sep/2025 13:56:04] "POST /accounts/logout/ HTTP/1.1" 302 0
+[20/Sep/2025 13:56:04] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 13:56:04] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 13:56:04] "GET /media/photos/Liv_01.jpg HTTP/1.1" 304 0
+[20/Sep/2025 13:56:06] "GET /accounts/login/ HTTP/1.1" 200 2700
+[20/Sep/2025 13:56:15] "POST /accounts/login/ HTTP/1.1" 200 2859
+[20/Sep/2025 13:56:23] "POST /accounts/login/ HTTP/1.1" 200 2859
+[20/Sep/2025 13:56:33] "POST /accounts/login/ HTTP/1.1" 302 0
+[20/Sep/2025 13:56:33] "GET /public-timeline/ HTTP/1.1" 200 5755
+[20/Sep/2025 13:56:33] "GET /media/profile_pics/chibi_gandalf.jpg HTTP/1.1" 200 24804
+[20/Sep/2025 13:56:33] "GET /media/photos/Liv_01.jpg HTTP/1.1" 304 0
+[20/Sep/2025 13:56:37] "GET /post/6/ HTTP/1.1" 200 5108
+[20/Sep/2025 13:56:56] "POST /post/6/ HTTP/1.1" 302 0
+[20/Sep/2025 13:56:56] "GET /post/6/ HTTP/1.1" 200 5603
+[20/Sep/2025 13:56:57] "GET /media/photos/Liv_01.jpg HTTP/1.1" 304 0
+[20/Sep/2025 13:57:00] "GET /public-timeline/ HTTP/1.1" 200 5755
+[20/Sep/2025 13:57:04] "POST /accounts/logout/ HTTP/1.1" 302 0
+[20/Sep/2025 13:57:04] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 13:57:05] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 13:58:07] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 13:58:12] "GET /static/css/styles.css HTTP/1.1" 304 0
+[20/Sep/2025 13:58:12] "GET /media/photos/Liv_01.jpg HTTP/1.1" 200 67636
+[20/Sep/2025 13:58:15] "GET /post/6/ HTTP/1.1" 200 4910
+[20/Sep/2025 13:58:15] "GET /media/profile_pics/chibi_gandalf.jpg HTTP/1.1" 304 0
+[20/Sep/2025 13:58:29] "GET /post/4/ HTTP/1.1" 200 6335
+[20/Sep/2025 13:58:34] "GET /post/5/ HTTP/1.1" 200 6060
+[20/Sep/2025 13:58:34] "GET /media/audio/Puto_Lomi.m4a HTTP/1.1" 200 2187200
+[20/Sep/2025 13:58:55] "GET /post/5/ HTTP/1.1" 200 6060
+[20/Sep/2025 13:59:02] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 13:59:02] "GET /media/photos/Liv_01.jpg HTTP/1.1" 304 0
+[20/Sep/2025 13:59:06] "GET /accounts/login/ HTTP/1.1" 200 2700
+[20/Sep/2025 13:59:20] "POST /accounts/login/ HTTP/1.1" 200 2857
+[20/Sep/2025 13:59:43] "POST /accounts/login/ HTTP/1.1" 302 0
+[20/Sep/2025 13:59:43] "GET /public-timeline/ HTTP/1.1" 200 5309
+[20/Sep/2025 13:59:43] "GET /media/profile_pics/ProfilePic.jpg HTTP/1.1" 200 239154
+[20/Sep/2025 13:59:43] "GET /media/photos/Liv_01.jpg HTTP/1.1" 304 0
+[20/Sep/2025 13:59:49] "GET /author/Kyper/ HTTP/1.1" 200 20432
+[20/Sep/2025 13:59:53] "GET /post/4/ HTTP/1.1" 200 7421
+[20/Sep/2025 13:59:56] "GET /post/4/request-review/ HTTP/1.1" 200 2521
+[20/Sep/2025 14:00:07] "POST /post/4/request-review/ HTTP/1.1" 302 0
+[20/Sep/2025 14:00:07] "GET /post/4/ HTTP/1.1" 200 7421
+[20/Sep/2025 14:00:14] "GET /post/4/ HTTP/1.1" 200 7421
+[20/Sep/2025 14:00:15] "GET /author/Kyper/ HTTP/1.1" 200 20432
+[20/Sep/2025 14:00:18] "GET /profile/edit/ HTTP/1.1" 200 2275
+[20/Sep/2025 14:00:23] "POST /profile/edit/ HTTP/1.1" 302 0
+[20/Sep/2025 14:00:23] "GET /author/Kyper/ HTTP/1.1" 200 20431
+[20/Sep/2025 14:00:26] "GET /public-timeline/ HTTP/1.1" 200 5309
+[20/Sep/2025 14:00:26] "GET /media/photos/Liv_01.jpg HTTP/1.1" 304 0
+[20/Sep/2025 14:00:30] "GET /profile/edit/ HTTP/1.1" 200 2275
+[20/Sep/2025 14:00:34] "POST /profile/edit/ HTTP/1.1" 302 0
+[20/Sep/2025 14:00:34] "GET /author/Kyper/ HTTP/1.1" 200 20433
+[20/Sep/2025 14:00:37] "GET /public-timeline/ HTTP/1.1" 200 5309
+[20/Sep/2025 14:00:39] "GET /post/6/ HTTP/1.1" 200 5603
+[20/Sep/2025 14:01:26] "POST /post/6/ HTTP/1.1" 302 0
+[20/Sep/2025 14:01:26] "GET /post/6/ HTTP/1.1" 200 6181
+[20/Sep/2025 14:01:26] "GET /media/photos/Liv_01.jpg HTTP/1.1" 304 0
+[20/Sep/2025 14:01:41] "GET /public-timeline/ HTTP/1.1" 200 5309
+[20/Sep/2025 14:04:15] "GET /profile/edit/ HTTP/1.1" 200 2275
+[20/Sep/2025 14:04:47] "POST /profile/edit/ HTTP/1.1" 302 0
+[20/Sep/2025 14:04:47] "GET /author/Kyper/ HTTP/1.1" 200 20431
+[20/Sep/2025 14:04:47] "GET /media/profile_pics/Fuecoco.webp HTTP/1.1" 200 27470
+[20/Sep/2025 14:06:25] "GET /profile/edit/ HTTP/1.1" 200 2271
+[20/Sep/2025 14:06:31] "POST /profile/edit/ HTTP/1.1" 302 0
+[20/Sep/2025 14:06:31] "GET /author/Kyper/ HTTP/1.1" 200 20430
+[20/Sep/2025 14:06:31] "GET /media/profile_pics/Grookey.png HTTP/1.1" 200 109936
+[20/Sep/2025 14:06:41] "GET /profile/edit/ HTTP/1.1" 200 2269
+[20/Sep/2025 14:06:45] "POST /profile/edit/ HTTP/1.1" 302 0
+[20/Sep/2025 14:06:45] "GET /author/Kyper/ HTTP/1.1" 200 20430
+[20/Sep/2025 14:06:45] "GET /media/profile_pics/Grookey.png HTTP/1.1" 304 0
+[20/Sep/2025 14:07:05] "GET /profile/edit/ HTTP/1.1" 200 2269
+[20/Sep/2025 14:07:08] "GET /author/Kyper/ HTTP/1.1" 200 20430
+[20/Sep/2025 14:07:08] "GET /media/profile_pics/Grookey.png HTTP/1.1" 304 0
+[20/Sep/2025 14:07:09] "GET /public-timeline/ HTTP/1.1" 200 5306
+[20/Sep/2025 14:07:09] "GET /static/css/styles.css HTTP/1.1" 304 0
+[20/Sep/2025 14:07:09] "GET /media/photos/Liv_01.jpg HTTP/1.1" 304 0
+[20/Sep/2025 14:07:13] "POST /accounts/logout/ HTTP/1.1" 302 0
+[20/Sep/2025 14:07:13] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 14:07:13] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:07:15] "GET /accounts/login/ HTTP/1.1" 200 2700
+[20/Sep/2025 14:07:39] "POST /accounts/login/ HTTP/1.1" 200 2860
+[20/Sep/2025 14:07:55] "POST /accounts/login/ HTTP/1.1" 200 2860
+[20/Sep/2025 14:08:14] "GET /accounts/login/ HTTP/1.1" 200 2700
+[20/Sep/2025 14:08:17] "GET /accounts/login/ HTTP/1.1" 200 2700
+[20/Sep/2025 14:08:28] "POST /accounts/login/ HTTP/1.1" 302 0
+[20/Sep/2025 14:08:28] "GET /public-timeline/ HTTP/1.1" 200 5306
+[20/Sep/2025 14:08:28] "GET /media/profile_pics/Grookey.png HTTP/1.1" 304 0
+[20/Sep/2025 14:08:28] "GET /media/photos/Liv_01.jpg HTTP/1.1" 304 0
+[20/Sep/2025 14:08:32] "GET /post/3/ HTTP/1.1" 200 5539
+[20/Sep/2025 14:08:32] "GET /media/audio/The_series_of_dutch_attacks_mia.m4a HTTP/1.1" 304 0
+[20/Sep/2025 14:08:36] "GET /public-timeline/ HTTP/1.1" 200 5306
+[20/Sep/2025 14:08:37] "GET /post/6/ HTTP/1.1" 200 6178
+[20/Sep/2025 14:10:55] "GET /public-timeline/ HTTP/1.1" 200 5306
+[20/Sep/2025 14:10:55] "GET /media/photos/Liv_01.jpg HTTP/1.1" 304 0
+[20/Sep/2025 14:10:55] "GET /media/profile_pics/Grookey.png HTTP/1.1" 304 0
+[20/Sep/2025 14:10:57] "GET /profile/edit/ HTTP/1.1" 200 2269
+[20/Sep/2025 14:11:05] "POST /profile/edit/ HTTP/1.1" 302 0
+[20/Sep/2025 14:11:05] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 14:11:05] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:11:05] "GET /static/css/styles.css HTTP/1.1" 200 5336
+[20/Sep/2025 14:11:05] "GET /author/Kyper/ HTTP/1.1" 200 20428
+[20/Sep/2025 14:11:05] "GET /media/photos/Liv_01.jpg HTTP/1.1" 200 67636
+[20/Sep/2025 14:11:05] "GET /media/photos/bon.png HTTP/1.1" 304 0
+[20/Sep/2025 14:11:05] "GET /media/photos/mmm_cover.png HTTP/1.1" 304 0
+[20/Sep/2025 14:11:05] "GET /media/photos/violet.jpg HTTP/1.1" 304 0
+[20/Sep/2025 14:11:05] "GET /media/photos/moh.png HTTP/1.1" 304 0
+[20/Sep/2025 14:11:05] "GET /media/profile_pics/Mudkip.png HTTP/1.1" 200 124303
+[20/Sep/2025 14:11:08] "GET /post/6/ HTTP/1.1" 200 5485
+[20/Sep/2025 14:11:08] "GET /media/profile_pics/Mudkip.png HTTP/1.1" 200 124303
+[20/Sep/2025 14:11:08] "GET /media/profile_pics/chibi_gandalf.jpg HTTP/1.1" 200 24804
+[20/Sep/2025 14:11:13] "GET /public-timeline/ HTTP/1.1" 200 5305
+[20/Sep/2025 14:11:13] "GET /media/profile_pics/Mudkip.png HTTP/1.1" 304 0
+[20/Sep/2025 14:11:14] "GET /post/6/ HTTP/1.1" 200 6178
+[20/Sep/2025 14:11:14] "GET /media/profile_pics/Mudkip.png HTTP/1.1" 304 0
+[20/Sep/2025 14:11:41] "GET /profile/edit/ HTTP/1.1" 200 2267
+[20/Sep/2025 14:11:41] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:11:42] "GET /post/5/ HTTP/1.1" 200 6060
+[20/Sep/2025 14:11:42] "GET /media/audio/Puto_Lomi.m4a HTTP/1.1" 200 2187200
+[20/Sep/2025 14:11:43] "POST /profile/edit/ HTTP/1.1" 302 0
+[20/Sep/2025 14:11:43] "GET /author/Kyper/ HTTP/1.1" 200 20428
+[20/Sep/2025 14:11:43] "GET /media/profile_pics/Mudkip.png HTTP/1.1" 304 0
+[20/Sep/2025 14:11:44] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:11:45] "GET /post/4/ HTTP/1.1" 200 6335
+[20/Sep/2025 14:11:47] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:11:48] "GET /post/3/ HTTP/1.1" 200 4844
+[20/Sep/2025 14:11:48] "GET /media/audio/The_series_of_dutch_attacks_mia.m4a HTTP/1.1" 200 16096325
+[20/Sep/2025 14:11:50] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:11:51] "GET /post/2/ HTTP/1.1" 200 4743
+[20/Sep/2025 14:11:51] "POST /accounts/logout/ HTTP/1.1" 302 0
+[20/Sep/2025 14:11:51] "GET /media/audio/Alexander_the_Great_mia.m4a HTTP/1.1" 200 8831223
+[20/Sep/2025 14:11:51] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 14:11:51] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:11:52] "GET /post/4/ HTTP/1.1" 200 6335
+[20/Sep/2025 14:11:52] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:11:53] "GET /post/6/ HTTP/1.1" 200 5485
+[20/Sep/2025 14:11:53] "GET /media/profile_pics/Mudkip.png HTTP/1.1" 304 0
+[20/Sep/2025 14:11:55] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:11:56] "GET /accounts/login/ HTTP/1.1" 200 2700
+[20/Sep/2025 14:12:30] "POST /accounts/login/ HTTP/1.1" 200 2860
+[20/Sep/2025 14:12:43] "POST /accounts/login/ HTTP/1.1" 200 2860
+[20/Sep/2025 14:12:59] "GET /accounts/login/ HTTP/1.1" 200 2700
+[20/Sep/2025 14:13:02] "GET /post/6/ HTTP/1.1" 200 5485
+[20/Sep/2025 14:13:02] "GET /media/photos/Liv_01.jpg HTTP/1.1" 304 0
+[20/Sep/2025 14:13:02] "GET /media/profile_pics/Mudkip.png HTTP/1.1" 304 0
+[20/Sep/2025 14:13:17] "GET /post/5/ HTTP/1.1" 200 6060
+[20/Sep/2025 14:13:29] "GET /post/4/ HTTP/1.1" 200 6335
+[20/Sep/2025 14:13:42] "GET /post/2/ HTTP/1.1" 200 4743
+[20/Sep/2025 14:13:47] "GET /post/4/ HTTP/1.1" 200 6335
+[20/Sep/2025 14:13:50] "GET /post/5/ HTTP/1.1" 200 6060
+[20/Sep/2025 14:13:53] "GET /post/3/ HTTP/1.1" 200 4844
+[20/Sep/2025 14:13:57] "GET /post/6/ HTTP/1.1" 200 5485
+[20/Sep/2025 14:13:57] "GET /media/profile_pics/Mudkip.png HTTP/1.1" 304 0
+[20/Sep/2025 14:13:59] "GET /post/2/ HTTP/1.1" 200 4743
+[20/Sep/2025 14:14:17] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 14:14:17] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:14:17] "GET /media/photos/Liv_01.jpg HTTP/1.1" 200 67636
+Not Found: /favicon.ico
+[20/Sep/2025 14:14:17] "GET /favicon.ico HTTP/1.1" 404 10977
+[20/Sep/2025 14:14:21] "GET /accounts/login/ HTTP/1.1" 200 2700
+[20/Sep/2025 14:14:23] "GET /admin HTTP/1.1" 301 0
+[20/Sep/2025 14:14:23] "GET /admin/ HTTP/1.1" 302 0
+[20/Sep/2025 14:14:23] "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4173
+[20/Sep/2025 14:14:23] "GET /static/admin/css/base.css HTTP/1.1" 200 22120
+[20/Sep/2025 14:14:23] "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2808
+[20/Sep/2025 14:14:23] "GET /static/admin/css/login.css HTTP/1.1" 200 951
+[20/Sep/2025 14:14:23] "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+[20/Sep/2025 14:14:23] "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+[20/Sep/2025 14:14:23] "GET /static/admin/css/responsive.css HTTP/1.1" 200 16565
+[20/Sep/2025 14:14:23] "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+[20/Sep/2025 14:14:27] "GET /post/6/ HTTP/1.1" 200 5485
+[20/Sep/2025 14:14:27] "GET /media/profile_pics/Mudkip.png HTTP/1.1" 304 0
+[20/Sep/2025 14:14:32] "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+[20/Sep/2025 14:14:32] "GET /admin/ HTTP/1.1" 200 4520
+[20/Sep/2025 14:14:32] "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+[20/Sep/2025 14:14:34] "GET /accounts/login/ HTTP/1.1" 200 2700
+[20/Sep/2025 14:14:42] "POST /admin/logout/ HTTP/1.1" 302 0
+[20/Sep/2025 14:14:42] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 14:14:42] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:14:46] "GET /accounts/login/ HTTP/1.1" 200 2700
+[20/Sep/2025 14:14:48] "GET /admin/ HTTP/1.1" 302 0
+[20/Sep/2025 14:14:48] "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4173
+[20/Sep/2025 14:14:54] "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+[20/Sep/2025 14:14:54] "GET /admin/ HTTP/1.1" 200 12806
+[20/Sep/2025 14:14:54] "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+[20/Sep/2025 14:14:54] "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+[20/Sep/2025 14:14:54] "GET /static/admin/img/icon-deletelink.svg HTTP/1.1" 200 392
+[20/Sep/2025 14:14:56] "GET /admin/auth/user/ HTTP/1.1" 200 15949
+[20/Sep/2025 14:14:57] "GET /static/admin/css/changelists.css HTTP/1.1" 200 6878
+[20/Sep/2025 14:14:57] "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+[20/Sep/2025 14:14:57] "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+[20/Sep/2025 14:14:57] "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+[20/Sep/2025 14:14:57] "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+[20/Sep/2025 14:14:57] "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+[20/Sep/2025 14:14:57] "GET /static/admin/img/search.svg HTTP/1.1" 200 458
+[20/Sep/2025 14:14:57] "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+[20/Sep/2025 14:14:57] "GET /static/admin/img/icon-no.svg HTTP/1.1" 200 560
+[20/Sep/2025 14:14:57] "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436
+[20/Sep/2025 14:14:57] "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+[20/Sep/2025 14:14:57] "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+[20/Sep/2025 14:14:57] "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+[20/Sep/2025 14:14:57] "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+[20/Sep/2025 14:14:57] "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 200 1097
+[20/Sep/2025 14:14:57] "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+[20/Sep/2025 14:14:57] "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+[20/Sep/2025 14:15:01] "GET /admin/auth/user/5/change/ HTTP/1.1" 200 27130
+[20/Sep/2025 14:15:01] "GET /static/admin/js/SelectBox.js HTTP/1.1" 200 4530
+[20/Sep/2025 14:15:01] "GET /static/admin/js/SelectFilter2.js HTTP/1.1" 200 15845
+[20/Sep/2025 14:15:01] "GET /static/admin/css/forms.css HTTP/1.1" 200 8525
+[20/Sep/2025 14:15:01] "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 19319
+[20/Sep/2025 14:15:01] "GET /static/admin/js/calendar.js HTTP/1.1" 200 9141
+[20/Sep/2025 14:15:01] "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+[20/Sep/2025 14:15:01] "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+[20/Sep/2025 14:15:01] "GET /static/admin/css/widgets.css HTTP/1.1" 200 11991
+[20/Sep/2025 14:15:01] "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+[20/Sep/2025 14:15:01] "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 200 1086
+[20/Sep/2025 14:15:01] "GET /static/admin/img/selector-icons.svg HTTP/1.1" 200 3291
+[20/Sep/2025 14:15:01] "GET /static/admin/img/icon-clock.svg HTTP/1.1" 200 677
+[20/Sep/2025 14:15:05] "POST /accounts/login/ HTTP/1.1" 200 2860
+[20/Sep/2025 14:15:18] "GET /admin/auth/user/5/password/ HTTP/1.1" 200 11395
+[20/Sep/2025 14:15:18] "GET /static/admin/css/unusable_password_field.css HTTP/1.1" 200 663
+[20/Sep/2025 14:15:18] "GET /static/admin/js/unusable_password_field.js HTTP/1.1" 200 1480
+[20/Sep/2025 14:15:25] "POST /accounts/login/ HTTP/1.1" 200 2859
+[20/Sep/2025 14:15:45] "POST /admin/auth/user/5/password/ HTTP/1.1" 302 0
+[20/Sep/2025 14:15:45] "GET /admin/auth/user/5/change/ HTTP/1.1" 200 27266
+[20/Sep/2025 14:15:45] "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+[20/Sep/2025 14:15:49] "POST /admin/logout/ HTTP/1.1" 302 0
+[20/Sep/2025 14:15:49] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 14:15:49] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:15:49] "POST /accounts/login/ HTTP/1.1" 200 2859
+[20/Sep/2025 14:15:50] "GET /accounts/login/ HTTP/1.1" 200 2700
+[20/Sep/2025 14:15:58] "POST /accounts/login/ HTTP/1.1" 302 0
+[20/Sep/2025 14:15:58] "GET /public-timeline/ HTTP/1.1" 200 6168
+Not Found: /media/default.jpg
+[20/Sep/2025 14:15:58] "GET /media/default.jpg HTTP/1.1" 404 11222
+[20/Sep/2025 14:16:00] "GET /post/6/ HTTP/1.1" 200 6178
+[20/Sep/2025 14:16:00] "GET /media/profile_pics/Mudkip.png HTTP/1.1" 200 124303
+[20/Sep/2025 14:16:10] "POST /accounts/login/ HTTP/1.1" 200 2860
+[20/Sep/2025 14:16:48] "POST /accounts/login/ HTTP/1.1" 200 2855
+[20/Sep/2025 14:17:25] "POST /post/6/ HTTP/1.1" 302 0
+[20/Sep/2025 14:17:25] "GET /post/6/ HTTP/1.1" 200 6842
+[20/Sep/2025 14:17:25] "GET /media/photos/Liv_01.jpg HTTP/1.1" 304 0
+Not Found: /media/default.jpg
+[20/Sep/2025 14:17:25] "GET /media/profile_pics/Mudkip.png HTTP/1.1" 304 0
+[20/Sep/2025 14:17:25] "GET /media/default.jpg HTTP/1.1" 404 11222
+[20/Sep/2025 14:18:07] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:18:07] "GET /static/css/styles.css HTTP/1.1" 304 0
+[20/Sep/2025 14:18:07] "GET /media/photos/Liv_01.jpg HTTP/1.1" 304 0
+[20/Sep/2025 14:18:11] "GET /post/6/ HTTP/1.1" 200 6149
+[20/Sep/2025 14:18:11] "GET /media/profile_pics/Mudkip.png HTTP/1.1" 304 0
+Not Found: /media/default.jpg
+[20/Sep/2025 14:18:11] "GET /media/default.jpg HTTP/1.1" 404 11222
+[20/Sep/2025 14:18:21] "GET /public-timeline/ HTTP/1.1" 200 6168
+Not Found: /media/default.jpg
+[20/Sep/2025 14:18:21] "GET /media/default.jpg HTTP/1.1" 404 11222
+[20/Sep/2025 14:18:24] "GET /profile/edit/ HTTP/1.1" 200 2241
+[20/Sep/2025 14:18:28] "GET /accounts/login/ HTTP/1.1" 200 2700
+[20/Sep/2025 14:18:32] "POST /profile/edit/ HTTP/1.1" 302 0
+[20/Sep/2025 14:18:32] "GET /author/Liv/ HTTP/1.1" 200 16226
+[20/Sep/2025 14:18:32] "GET /media/profile_pics/Screenshot_2025-09-20_at_10.18.18PM.png HTTP/1.1" 200 1919132
+[20/Sep/2025 14:18:36] "GET /profile/edit/ HTTP/1.1" 200 2323
+[20/Sep/2025 14:18:39] "POST /accounts/login/ HTTP/1.1" 302 0
+[20/Sep/2025 14:18:39] "GET /public-timeline/ HTTP/1.1" 200 5305
+[20/Sep/2025 14:18:40] "POST /profile/edit/ HTTP/1.1" 302 0
+[20/Sep/2025 14:18:41] "GET /author/Liv/ HTTP/1.1" 200 16227
+[20/Sep/2025 14:18:41] "GET /media/profile_pics/Screenshot_2025-09-20_at_10.18.18PM.png HTTP/1.1" 304 0
+[20/Sep/2025 14:18:42] "GET /author/Kyper/ HTTP/1.1" 200 20428
+[20/Sep/2025 14:18:55] "GET /public-timeline/ HTTP/1.1" 200 5305
+[20/Sep/2025 14:18:55] "GET /media/profile_pics/Mudkip.png HTTP/1.1" 304 0
+[20/Sep/2025 14:18:56] "POST /accounts/logout/ HTTP/1.1" 302 0
+[20/Sep/2025 14:18:56] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 14:18:56] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:18:56] "GET /public-timeline/ HTTP/1.1" 200 5305
+[20/Sep/2025 14:18:58] "GET /post/6/ HTTP/1.1" 200 6190
+[20/Sep/2025 14:18:58] "GET /media/profile_pics/Screenshot_2025-09-20_at_10.18.18PM.png HTTP/1.1" 304 0
+[20/Sep/2025 14:18:58] "GET /media/profile_pics/Mudkip.png HTTP/1.1" 304 0
+[20/Sep/2025 14:19:03] "POST /accounts/logout/ HTTP/1.1" 302 0
+[20/Sep/2025 14:19:03] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 14:19:03] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:19:06] "GET /post/4/ HTTP/1.1" 200 6335
+[20/Sep/2025 14:19:08] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:19:11] "GET /post/6/ HTTP/1.1" 200 6190
+[20/Sep/2025 14:19:11] "GET /media/profile_pics/Screenshot_2025-09-20_at_10.18.18PM.png HTTP/1.1" 200 1919132
+[20/Sep/2025 14:19:15] "GET /post/5/ HTTP/1.1" 200 6060
+[20/Sep/2025 14:19:17] "GET /post/3/ HTTP/1.1" 200 4844
+[20/Sep/2025 14:19:21] "GET /post/2/ HTTP/1.1" 200 4743
+[20/Sep/2025 14:19:28] "GET /post/4/ HTTP/1.1" 200 6335
+[20/Sep/2025 14:19:32] "GET /post/6/ HTTP/1.1" 200 6190
+[20/Sep/2025 14:19:32] "GET /media/profile_pics/Screenshot_2025-09-20_at_10.18.18PM.png HTTP/1.1" 304 0
+[20/Sep/2025 14:19:36] "GET /post/4/ HTTP/1.1" 200 6335
+[20/Sep/2025 14:19:39] "GET /post/6/ HTTP/1.1" 200 6190
+[20/Sep/2025 14:19:39] "GET /media/profile_pics/Screenshot_2025-09-20_at_10.18.18PM.png HTTP/1.1" 304 0
+[20/Sep/2025 14:20:50] "GET /accounts/login/ HTTP/1.1" 200 2700
+[20/Sep/2025 14:21:56] "POST /accounts/login/ HTTP/1.1" 302 0
+[20/Sep/2025 14:21:56] "GET /public-timeline/ HTTP/1.1" 200 6209
+[20/Sep/2025 14:21:56] "GET /media/profile_pics/Screenshot_2025-09-20_at_10.18.18PM.png HTTP/1.1" 304 0
+[20/Sep/2025 14:21:56] "GET /media/photos/Liv_01.jpg HTTP/1.1" 304 0
+[20/Sep/2025 14:22:08] "GET /post/4/ HTTP/1.1" 200 7027
+[20/Sep/2025 14:22:47] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:22:47] "GET /media/photos/Liv_01.jpg HTTP/1.1" 304 0
+[20/Sep/2025 14:22:49] "GET /accounts/login/ HTTP/1.1" 200 2700
+[20/Sep/2025 14:23:12] "POST /accounts/login/ HTTP/1.1" 302 0
+[20/Sep/2025 14:23:12] "GET /public-timeline/ HTTP/1.1" 200 5305
+[20/Sep/2025 14:23:12] "GET /media/profile_pics/Mudkip.png HTTP/1.1" 304 0
+[20/Sep/2025 14:23:23] "GET /author/Kyper/ HTTP/1.1" 200 20428
+[20/Sep/2025 14:24:45] "POST /post/4/ HTTP/1.1" 302 0
+[20/Sep/2025 14:24:45] "GET /post/4/ HTTP/1.1" 200 7565
+[20/Sep/2025 14:24:45] "GET /media/profile_pics/Screenshot_2025-09-20_at_10.18.18PM.png HTTP/1.1" 304 0
+[20/Sep/2025 14:25:14] "GET /public-timeline/ HTTP/1.1" 200 6209
+[20/Sep/2025 14:25:14] "GET /media/photos/Liv_01.jpg HTTP/1.1" 304 0
+[20/Sep/2025 14:25:20] "GET /post/5/ HTTP/1.1" 200 6752
+[20/Sep/2025 14:25:20] "GET /media/audio/Puto_Lomi.m4a HTTP/1.1" 200 2187200
+[20/Sep/2025 14:25:23] "GET /public-timeline/ HTTP/1.1" 200 6209
+[20/Sep/2025 14:25:23] "GET /media/profile_pics/Screenshot_2025-09-20_at_10.18.18PM.png HTTP/1.1" 304 0
+[20/Sep/2025 14:25:30] "POST /accounts/logout/ HTTP/1.1" 302 0
+[20/Sep/2025 14:25:30] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 14:25:30] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:25:58] "GET /post/4/ HTTP/1.1" 200 7959
+[20/Sep/2025 14:25:58] "GET /media/profile_pics/Screenshot_2025-09-20_at_10.18.18PM.png HTTP/1.1" 304 0
+[20/Sep/2025 14:28:05] "GET /post/5/ HTTP/1.1" 200 7146
+[20/Sep/2025 14:28:16] "GET /post/4/ HTTP/1.1" 200 7959
+[20/Sep/2025 14:28:16] "GET /media/profile_pics/Screenshot_2025-09-20_at_10.18.18PM.png HTTP/1.1" 304 0
+[20/Sep/2025 14:28:25] "GET /password_change/ HTTP/1.1" 200 4516
+[20/Sep/2025 14:28:25] "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2808
+[20/Sep/2025 14:28:25] "GET /static/admin/css/base.css HTTP/1.1" 200 22120
+[20/Sep/2025 14:28:25] "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+[20/Sep/2025 14:28:25] "GET /static/admin/css/forms.css HTTP/1.1" 200 8525
+[20/Sep/2025 14:28:25] "GET /static/admin/css/responsive.css HTTP/1.1" 200 16565
+[20/Sep/2025 14:28:25] "GET /static/admin/css/widgets.css HTTP/1.1" 200 11991
+[20/Sep/2025 14:28:29] "POST /accounts/logout/ HTTP/1.1" 302 0
+[20/Sep/2025 14:28:29] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 14:28:29] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:28:29] "GET /static/css/styles.css HTTP/1.1" 304 0
+[20/Sep/2025 14:28:29] "GET /media/photos/Liv_01.jpg HTTP/1.1" 304 0
+[20/Sep/2025 14:28:32] "GET /accounts/login/ HTTP/1.1" 200 2700
+[20/Sep/2025 14:29:03] "POST /accounts/login/ HTTP/1.1" 302 0
+[20/Sep/2025 14:29:03] "GET /public-timeline/ HTTP/1.1" 200 6209
+[20/Sep/2025 14:29:08] "GET /profile/edit/ HTTP/1.1" 200 2323
+[20/Sep/2025 14:29:28] "POST /notifications/mark-as-read/ HTTP/1.1" 302 0
+[20/Sep/2025 14:29:28] "GET /public-timeline/ HTTP/1.1" 200 5330
+[20/Sep/2025 14:29:28] "GET /media/profile_pics/Screenshot_2025-09-20_at_10.18.18PM.png HTTP/1.1" 304 0
+[20/Sep/2025 14:29:33] "GET /author/Liv/ HTTP/1.1" 200 15981
+[20/Sep/2025 14:30:31] "GET /post/new/ HTTP/1.1" 200 11468
+[20/Sep/2025 14:31:00] "POST /post/new/ HTTP/1.1" 302 0
+[20/Sep/2025 14:31:00] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 14:31:00] "GET /author/Liv/ HTTP/1.1" 200 18303
+[20/Sep/2025 14:31:00] "GET /media/profile_pics/Screenshot_2025-09-20_at_10.18.18PM.png HTTP/1.1" 304 0
+[20/Sep/2025 14:31:00] "GET /media/photos/fagly.jpg HTTP/1.1" 200 255019
+[20/Sep/2025 14:31:01] "GET /post/7/ HTTP/1.1" 200 5412
+[20/Sep/2025 14:31:01] "GET /media/photos/fagly.jpg HTTP/1.1" 304 0
+[20/Sep/2025 14:31:09] "GET /post/7/delete/ HTTP/1.1" 200 2103
+[20/Sep/2025 14:31:10] "POST /post/7/delete/ HTTP/1.1" 302 0
+[20/Sep/2025 14:31:10] "GET /author/Liv/ HTTP/1.1" 200 15981
+[20/Sep/2025 14:31:17] "GET /profile/edit/ HTTP/1.1" 200 2323
+Not Found: /post/7/delete/
+[20/Sep/2025 14:32:34] "GET /post/7/delete/ HTTP/1.1" 404 7592
+[20/Sep/2025 14:32:40] "GET /public-timeline/ HTTP/1.1" 200 5330
+[20/Sep/2025 14:32:40] "GET /media/profile_pics/Screenshot_2025-09-20_at_10.18.18PM.png HTTP/1.1" 304 0
+[20/Sep/2025 14:32:40] "GET /media/photos/Liv_01.jpg HTTP/1.1" 304 0
+[20/Sep/2025 14:32:41] "GET /post/5/ HTTP/1.1" 200 6752
+[20/Sep/2025 14:33:34] "POST /post/5/ HTTP/1.1" 302 0
+[20/Sep/2025 14:33:34] "GET /post/5/ HTTP/1.1" 200 7292
+[20/Sep/2025 14:33:48] "GET /post/4/ HTTP/1.1" 200 7565
+[20/Sep/2025 14:33:58] "GET /post/5/ HTTP/1.1" 200 7292
+[20/Sep/2025 14:34:03] "POST /accounts/logout/ HTTP/1.1" 302 0
+[20/Sep/2025 14:34:03] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 14:34:03] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:34:05] "GET /accounts/login/ HTTP/1.1" 200 2700
+[20/Sep/2025 14:34:13] "POST /accounts/login/ HTTP/1.1" 302 0
+[20/Sep/2025 14:34:13] "GET /public-timeline/ HTTP/1.1" 200 5305
+[20/Sep/2025 14:34:13] "GET /media/profile_pics/Mudkip.png HTTP/1.1" 304 0
+[20/Sep/2025 14:34:16] "GET /post/6/ HTTP/1.1" 200 6883
+[20/Sep/2025 14:34:16] "GET /media/profile_pics/Screenshot_2025-09-20_at_10.18.18PM.png HTTP/1.1" 304 0
+[20/Sep/2025 14:34:42] "GET /post/2/ HTTP/1.1" 200 5438
+[20/Sep/2025 14:35:38] "POST /post/2/ HTTP/1.1" 302 0
+[20/Sep/2025 14:35:38] "GET /post/2/ HTTP/1.1" 200 5953
+[20/Sep/2025 14:36:01] "GET /public-timeline/ HTTP/1.1" 200 5305
+[20/Sep/2025 14:36:01] "GET /static/css/styles.css HTTP/1.1" 304 0
+[20/Sep/2025 14:36:04] "POST /accounts/logout/ HTTP/1.1" 302 0
+[20/Sep/2025 14:36:04] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 14:36:04] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:36:05] "GET /accounts/login/ HTTP/1.1" 200 2700
+[20/Sep/2025 14:36:14] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 14:36:14] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:36:14] "GET /media/photos/Liv_01.jpg HTTP/1.1" 304 0
+[20/Sep/2025 14:36:16] "GET /post/6/ HTTP/1.1" 200 6190
+[20/Sep/2025 14:36:16] "GET /media/profile_pics/Mudkip.png HTTP/1.1" 304 0
+[20/Sep/2025 14:36:16] "GET /media/profile_pics/Screenshot_2025-09-20_at_10.18.18PM.png HTTP/1.1" 304 0
+[20/Sep/2025 14:36:23] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:36:24] "GET /post/5/ HTTP/1.1" 200 6600
+[20/Sep/2025 14:36:28] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:36:29] "GET /post/4/ HTTP/1.1" 200 6873
+[20/Sep/2025 14:36:33] "POST /accounts/login/ HTTP/1.1" 302 0
+[20/Sep/2025 14:36:33] "GET /public-timeline/ HTTP/1.1" 200 5330
+[20/Sep/2025 14:36:33] "GET /media/photos/Liv_01.jpg HTTP/1.1" 304 0
+[20/Sep/2025 14:36:33] "GET /media/profile_pics/Screenshot_2025-09-20_at_10.18.18PM.png HTTP/1.1" 304 0
+[20/Sep/2025 14:36:34] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:36:34] "GET /post/5/ HTTP/1.1" 200 6600
+[20/Sep/2025 14:36:41] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:36:43] "GET /post/2/ HTTP/1.1" 200 5258
+[20/Sep/2025 14:36:48] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:36:49] "GET /post/3/ HTTP/1.1" 200 4844
+[20/Sep/2025 14:36:49] "GET /media/audio/The_series_of_dutch_attacks_mia.m4a HTTP/1.1" 304 0
+[20/Sep/2025 14:36:52] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:36:57] "POST /notifications/mark-as-read/ HTTP/1.1" 302 0
+[20/Sep/2025 14:36:57] "GET /public-timeline/ HTTP/1.1" 200 5330
+[20/Sep/2025 14:36:59] "GET /post/6/ HTTP/1.1" 200 6883
+[20/Sep/2025 14:36:59] "GET /media/profile_pics/Mudkip.png HTTP/1.1" 304 0
+[20/Sep/2025 14:37:22] "GET /post/5/ HTTP/1.1" 200 7292
+[20/Sep/2025 14:38:00] "POST /accounts/logout/ HTTP/1.1" 302 0
+[20/Sep/2025 14:38:00] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 14:38:00] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:38:02] "GET /accounts/login/ HTTP/1.1" 200 2700
+[20/Sep/2025 14:38:09] "POST /accounts/login/ HTTP/1.1" 302 0
+[20/Sep/2025 14:38:09] "GET /public-timeline/ HTTP/1.1" 200 5305
+[20/Sep/2025 14:38:11] "GET /password_change/ HTTP/1.1" 200 4516
+[20/Sep/2025 14:39:19] "POST /password_change/ HTTP/1.1" 302 0
+[20/Sep/2025 14:39:19] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 14:39:19] "GET /author/Kyper/ HTTP/1.1" 200 20758
+[20/Sep/2025 14:39:26] "POST /accounts/logout/ HTTP/1.1" 302 0
+[20/Sep/2025 14:39:26] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 14:39:26] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:39:27] "GET /accounts/login/ HTTP/1.1" 200 2700
+[20/Sep/2025 14:39:41] "POST /accounts/login/ HTTP/1.1" 200 2857
+[20/Sep/2025 14:39:45] "GET /accounts/login/ HTTP/1.1" 200 2700
+[20/Sep/2025 14:39:48] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:39:49] "GET /accounts/login/ HTTP/1.1" 200 2700
+[20/Sep/2025 14:40:02] "POST /accounts/login/ HTTP/1.1" 200 2857
+[20/Sep/2025 14:40:10] "POST /accounts/login/ HTTP/1.1" 200 2857
+[20/Sep/2025 14:40:24] "POST /accounts/login/ HTTP/1.1" 200 2857
+[20/Sep/2025 14:40:27] "GET /signup/ HTTP/1.1" 200 3758
+[20/Sep/2025 14:41:02] "POST /signup/ HTTP/1.1" 200 3913
+[20/Sep/2025 14:41:28] "POST /signup/ HTTP/1.1" 200 3913
+[20/Sep/2025 14:41:43] "POST /signup/ HTTP/1.1" 200 3913
+[20/Sep/2025 14:41:57] "POST /signup/ HTTP/1.1" 200 4051
+[20/Sep/2025 14:42:14] "POST /signup/ HTTP/1.1" 200 3913
+[20/Sep/2025 14:42:35] "POST /signup/ HTTP/1.1" 200 4078
+[20/Sep/2025 14:42:44] "POST /signup/ HTTP/1.1" 200 4051
+[20/Sep/2025 14:43:02] "POST /signup/ HTTP/1.1" 200 4040
+[20/Sep/2025 14:43:38] "POST /signup/ HTTP/1.1" 200 4078
+[20/Sep/2025 14:43:57] "POST /signup/ HTTP/1.1" 200 3913
+[20/Sep/2025 14:44:25] "POST /signup/ HTTP/1.1" 200 3913
+[20/Sep/2025 14:44:55] "POST /signup/ HTTP/1.1" 302 0
+[20/Sep/2025 14:44:55] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 14:44:55] "GET /author/Mudkip/ HTTP/1.1" 200 15745
+Not Found: /media/default.jpg
+[20/Sep/2025 14:44:55] "GET /media/default.jpg HTTP/1.1" 404 11222
+Forbidden (CSRF token from POST incorrect.): /signup/
+[20/Sep/2025 14:45:05] "POST /signup/ HTTP/1.1" 403 2503
+[20/Sep/2025 14:45:22] "GET /public-timeline/ HTTP/1.1" 200 5295
+Not Found: /media/default.jpg
+[20/Sep/2025 14:45:22] "GET /static/css/styles.css HTTP/1.1" 304 0
+[20/Sep/2025 14:45:22] "GET /media/default.jpg HTTP/1.1" 404 11222
+[20/Sep/2025 14:45:22] "GET /media/photos/Liv_01.jpg HTTP/1.1" 304 0
+[20/Sep/2025 14:45:25] "POST /accounts/logout/ HTTP/1.1" 302 0
+[20/Sep/2025 14:45:25] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 14:45:25] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:45:26] "GET /post/5/ HTTP/1.1" 200 6600
+[20/Sep/2025 14:45:26] "GET /media/profile_pics/Screenshot_2025-09-20_at_10.18.18PM.png HTTP/1.1" 304 0
+[20/Sep/2025 14:45:31] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:45:32] "GET /accounts/login/ HTTP/1.1" 200 2700
+[20/Sep/2025 14:45:46] "POST /accounts/login/ HTTP/1.1" 200 2857
+[20/Sep/2025 14:45:54] "GET /accounts/login/ HTTP/1.1" 200 2700
+[20/Sep/2025 14:46:20] "GET /accounts/login/ HTTP/1.1" 200 2700
+[20/Sep/2025 14:46:29] "POST /accounts/login/ HTTP/1.1" 200 2857
+Not Found: /a
+[20/Sep/2025 14:47:02] "GET /a HTTP/1.1" 404 10947
+[20/Sep/2025 14:47:06] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 14:47:06] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:47:06] "GET /media/photos/Liv_01.jpg HTTP/1.1" 304 0
+[20/Sep/2025 14:47:27] "GET /post/5/ HTTP/1.1" 200 6600
+[20/Sep/2025 14:47:27] "GET /media/profile_pics/Screenshot_2025-09-20_at_10.18.18PM.png HTTP/1.1" 304 0
+[20/Sep/2025 14:47:29] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:47:33] "GET /admin/ HTTP/1.1" 302 0
+[20/Sep/2025 14:47:33] "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4173
+[20/Sep/2025 14:47:39] "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+[20/Sep/2025 14:47:39] "GET /admin/ HTTP/1.1" 200 12801
+[20/Sep/2025 14:47:43] "GET /admin/auth/user/ HTTP/1.1" 200 16391
+[20/Sep/2025 14:47:43] "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+[20/Sep/2025 14:47:54] "GET /admin/auth/user/9/change/ HTTP/1.1" 200 27178
+[20/Sep/2025 14:47:54] "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+[20/Sep/2025 14:47:58] "GET /admin/auth/user/9/delete/ HTTP/1.1" 200 10078
+[20/Sep/2025 14:47:58] "GET /static/admin/js/cancel.js HTTP/1.1" 200 884
+[20/Sep/2025 14:48:03] "POST /admin/auth/user/9/delete/ HTTP/1.1" 302 0
+[20/Sep/2025 14:48:03] "GET /admin/auth/user/ HTTP/1.1" 200 16102
+[20/Sep/2025 14:48:03] "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+[20/Sep/2025 14:48:07] "GET /admin/auth/user/4/change/ HTTP/1.1" 200 27174
+[20/Sep/2025 14:48:07] "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+[20/Sep/2025 14:48:09] "GET /admin/auth/user/4/password/ HTTP/1.1" 200 11405
+[20/Sep/2025 14:48:37] "POST /admin/auth/user/4/password/ HTTP/1.1" 302 0
+[20/Sep/2025 14:48:37] "GET /admin/auth/user/4/change/ HTTP/1.1" 200 27310
+[20/Sep/2025 14:48:37] "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+[20/Sep/2025 14:48:39] "POST /admin/logout/ HTTP/1.1" 302 0
+[20/Sep/2025 14:48:39] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 14:48:39] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:48:41] "GET /post/5/ HTTP/1.1" 200 6600
+[20/Sep/2025 14:48:57] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 14:48:57] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 14:48:59] "GET /accounts/login/ HTTP/1.1" 200 2700
+[20/Sep/2025 14:49:08] "POST /accounts/login/ HTTP/1.1" 302 0
+[20/Sep/2025 14:49:08] "GET /public-timeline/ HTTP/1.1" 200 5305
+[20/Sep/2025 14:49:08] "GET /media/profile_pics/Mudkip.png HTTP/1.1" 304 0
+[20/Sep/2025 14:49:16] "POST /accounts/logout/ HTTP/1.1" 302 0
+[20/Sep/2025 14:49:16] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 14:49:17] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 22:33:32] "GET / HTTP/1.1" 302 0
+[20/Sep/2025 22:33:32] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 22:33:32] "GET /static/css/styles.css HTTP/1.1" 304 0
+[20/Sep/2025 22:33:32] "GET /media/photos/Liv_01.jpg HTTP/1.1" 304 0
+[20/Sep/2025 22:33:32] "GET /media/photos/mmm_cover.png HTTP/1.1" 304 0
+[20/Sep/2025 22:33:32] "GET /media/photos/violet.jpg HTTP/1.1" 304 0
+[20/Sep/2025 22:33:32] "GET /media/photos/bon.png HTTP/1.1" 304 0
+[20/Sep/2025 22:33:32] "GET /media/photos/moh.png HTTP/1.1" 304 0
+[20/Sep/2025 22:33:45] "GET /post/6/ HTTP/1.1" 200 6190
+[20/Sep/2025 22:33:45] "GET /media/profile_pics/chibi_gandalf.jpg HTTP/1.1" 304 0
+[20/Sep/2025 22:33:45] "GET /media/profile_pics/Mudkip.png HTTP/1.1" 304 0
+[20/Sep/2025 22:33:45] "GET /media/profile_pics/Screenshot_2025-09-20_at_10.18.18PM.png HTTP/1.1" 200 1919132
+[20/Sep/2025 22:33:53] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 22:33:55] "GET /post/5/ HTTP/1.1" 200 6600
+[20/Sep/2025 22:33:55] "GET /media/audio/Puto_Lomi.m4a HTTP/1.1" 304 0
+[20/Sep/2025 22:34:04] "GET /public-timeline/ HTTP/1.1" 200 3124
+[20/Sep/2025 22:45:25] "GET /post/6/ HTTP/1.1" 200 6190
+Watching for file changes with StatReloader
+Error: That port is already in use.
+Invalid HTTP_HOST header: '192.168.68.102:8000'. You may need to add '192.168.68.102' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/Users/chelle/Zone/01_Projects/hs-portfolio-app/venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/chelle/Zone/01_Projects/hs-portfolio-app/venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "/Users/chelle/Zone/01_Projects/hs-portfolio-app/venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/Users/chelle/Zone/01_Projects/hs-portfolio-app/venv/lib/python3.13/site-packages/django/http/request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '192.168.68.102:8000'. You may need to add '192.168.68.102' to ALLOWED_HOSTS.
+[26/Sep/2025 10:14:31] "GET / HTTP/1.1" 400 62891
+Invalid HTTP_HOST header: '192.168.68.102:8000'. You may need to add '192.168.68.102' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/Users/chelle/Zone/01_Projects/hs-portfolio-app/venv/lib/python3.13/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+  File "/Users/chelle/Zone/01_Projects/hs-portfolio-app/venv/lib/python3.13/site-packages/django/utils/deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "/Users/chelle/Zone/01_Projects/hs-portfolio-app/venv/lib/python3.13/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+  File "/Users/chelle/Zone/01_Projects/hs-portfolio-app/venv/lib/python3.13/site-packages/django/http/request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '192.168.68.102:8000'. You may need to add '192.168.68.102' to ALLOWED_HOSTS.
+[26/Sep/2025 10:14:31] "GET /favicon.ico HTTP/1.1" 400 62843
+/Users/chelle/Zone/01_Projects/hs-portfolio-app/timeline_project/settings.py changed, reloading.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+September 20, 2025 - 13:18:13
+Django version 5.2.6, using settings 'timeline_project.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
+
+WARNING: This is a development server. Do not use it in a production setting. Use a production WSGI or ASGI server instead.
+For more information on production servers see: https://docs.djangoproject.com/en/5.2/howto/deployment/
+Fatal Python error: init_sys_streams: can't initialize sys standard streams
+Python runtime state: core initialized
+OSError: [Errno 9] Bad file descriptor
+
+Current thread 0x0000000201cc1f00 (most recent call first):
+  <no Python frame>

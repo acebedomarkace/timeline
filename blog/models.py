@@ -107,12 +107,20 @@ class Presentation(models.Model):
     ]
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
-    posts = models.ManyToManyField(Post)
+    posts = models.ManyToManyField(Post, through='PresentationPost')
     type = models.CharField(max_length=20, choices=TYPE_CHOICES, default='project')
     created_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.title
+
+class PresentationPost(models.Model):
+    presentation = models.ForeignKey(Presentation, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    order = models.PositiveIntegerField()
+
+    class Meta:
+        ordering = ['order']
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)

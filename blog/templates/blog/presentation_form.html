@@ -147,7 +147,7 @@
                     <button type="submit" class="btn-search" form="filter-form-proxy">Search</button>
                 </div>
                 <div id="post-grid" class="post-grid">
-                    {% for post in form.photo_posts %}
+                    {% for post in posts %}
                     <div class="post-card" data-id="{{ post.pk }}" data-title="{{ post.title }}" data-thumbnail-url="{% if post.photo %}{{ post.photo.url }}{% endif %}">
                         {% if post.photo %}
                             <img src="{{ post.photo.url }}" alt="{{ post.title }}">
@@ -182,9 +182,13 @@
             const presentationForm = document.getElementById('presentation-form');
 
             new Sortable(postGrid, {
-                group: 'shared',
+                group: {
+                    name: 'shared',
+                    pull: 'clone',
+                    put: false 
+                },
                 animation: 150,
-                sort: false, 
+                sort: false,
             });
 
             const storyboardSortable = new Sortable(storyboardList, {
@@ -195,12 +199,17 @@
                     const title = item.dataset.title;
                     const thumbnailUrl = item.dataset.thumbnailUrl;
                     
-                    item.innerHTML = ''; // Clear the card content
-                    item.classList.remove('post-card');
-                    item.classList.add('storyboard-item');
+                    // Create a new element for the storyboard
+                    const storyboardItem = document.createElement('div');
+                    storyboardItem.classList.add('storyboard-item');
+                    storyboardItem.dataset.id = item.dataset.id;
 
                     let thumbnailHtml = thumbnailUrl ? `<img src="${thumbnailUrl}" alt="${title}">` : '<div class="storyboard-item-placeholder"></div>';
-                    item.innerHTML = `${thumbnailHtml}<span>${title}</span>`;
+                    storyboardItem.innerHTML = `${thumbnailHtml}<span>${title}</span>`;
+
+                    // Replace the clone with the new item
+                    evt.item.replaceWith(storyboardItem);
+
                     updateHiddenField();
                 },
                 onUpdate: updateHiddenField,
@@ -216,19 +225,7 @@
                 });
             }
 
-            // Initial population for the edit view
-            const existingPostIds = {{ existing_post_ids|safe }};
-            if (existingPostIds && existingPostIds.length > 0) {
-                existingPostIds.forEach(postId => {
-                    const postCard = document.querySelector(`.post-card[data-id="${postId}"]`);
-                    if (postCard) {
-                        storyboardList.appendChild(postCard); // Move the card
-                        // Manually trigger the onAdd logic to format the card
-                        storyboardSortable.options.onAdd({ item: postCard, from: postGrid });
-                    }
-                });
-                updateHiddenField(); // Update the ahidden field with the initial posts
-            }
+
 
             // Ensure the hidden field is updated right before submission
             if (presentationForm) {
