@@ -143,8 +143,6 @@ header {
     position: relative;
     background-size: cover;
     background-position: center;
-    background-color: #eee;
-    background-image: linear-gradient(to right, #e2e2e2, #d1d1d1);
     transition: transform 0.2s ease-in-out;
 }
 .card:hover {
@@ -299,7 +297,7 @@ figcaption {
   font-style: italic;  /* Differentiates style */
   color: #666;           /* Lighter color */
   margin-top: 0.75rem;
-  margin-bottom: 2rem;  /* Adds crucial whitespace */
+  margin-bottom: 2.0rem;  /* Adds crucial whitespace */
 }
 
 figcaption p {
@@ -340,7 +338,6 @@ figcaption p + p {
 /* --- Other styles from post_detail.html --- */
 
 .post-card {
-    background-color: #fff;
     border-radius: 8px;
     padding: 30px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
@@ -524,6 +521,10 @@ body.theme-dark header, body.theme-dark .post-card, body.theme-dark .teacher-act
 body.theme-sepia header, body.theme-sepia .post-card, body.theme-sepia .teacher-actions, body.theme-sepia .comments-section, body.theme-sepia .private-feedback-section, body.theme-sepia .notification-dropdown, body.theme-sepia .user-menu-dropdown {
     background-color: #efe4cf;
     border-color: #dcd0b8;
+    color: #433421;
+}
+
+.theme-sepia .card-title {
     color: #433421;
 }
 
