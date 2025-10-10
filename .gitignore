@@ -99,3 +99,12 @@ PresentationBuilder_Improvements.md
 upgrade_plans.md
 previously.md
 GEMINI.md
+
+# Environment-specific files
+.env
+gunicorn_start.bash
+nginx.conf
+supervisord.conf
+supervisord.pid
+supervisor.sock
+logs/
