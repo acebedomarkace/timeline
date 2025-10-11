@@ -1,3 +1,7 @@
+body {
+    font-family: 'Lato', sans-serif;
+}
+
 .container {
     max-width: 900px;
     margin: 0 auto;
@@ -87,6 +91,10 @@ header {
     text-align: center;
     color: #888;
 }
+.guest-menu a {
+    margin: 0 5px;
+}
+
 .user-menu-trigger {
     display: flex;
     align-items: center;
@@ -144,6 +152,11 @@ header {
     background-size: cover;
     background-position: center;
     transition: transform 0.2s ease-in-out;
+    border: 1px solid #ddd;
+}
+
+.card-body {
+    padding: 1.25rem;
 }
 .card:hover {
     transform: scale(1.03);
@@ -278,6 +291,11 @@ header {
   color: #666;
   margin-bottom: 1.5rem;
 }
+.article-metadata > a {
+    color: inherit !important;
+    text-decoration: underline;
+}
+
 /* Remove icons if they are inline elements for a cleaner look */
 
 /* --- Image & Caption --- */
@@ -550,6 +568,15 @@ body.theme-sepia header, body.theme-sepia .post-card, body.theme-sepia .teacher-
 
 .theme-sepia .tag {
     background-color: #dcd0b8;
+    color: #433421;
+}
+
+.theme-sepia .pagination .current {
+    background-color: #5a4730;
+    color: #f4ecd8;
+}
+
+.theme-sepia header a {
     color: #433421;
 }
 
