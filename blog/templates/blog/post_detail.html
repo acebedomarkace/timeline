@@ -66,7 +66,7 @@
                             allowfullscreen>
                         </iframe>
                     </div>
-                    {% if post.media_description %}
+                    {% if post.media_description and not post.photo %}
                         <p><em>{{ post.media_description|linebreaksbr }}</em></p>
                     {% endif %}
                 {% endif %}
@@ -74,7 +74,7 @@
 
             {% if post.audio_file %}
                 <audio controls controlsList="nodownload" src="{{ post.audio_file.url }}"></audio>
-                {% if post.media_description %}
+                {% if post.media_description and not post.photo and not post.get_youtube_embed_url %}
                     <p><em>{{ post.media_description|linebreaksbr }}</em></p>
                 {% endif %}
             {% endif %}
@@ -85,7 +85,7 @@
                         <source src="{{ post.video_file.url }}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
-                    {% if post.media_description %}
+                    {% if post.media_description and not post.photo and not post.get_youtube_embed_url and not post.audio_file %}
                         <p><em>{{ post.media_description|linebreaksbr }}</em></p>
                     {% endif %}
                 </div>
