@@ -45,7 +45,7 @@
                             <p>{{ post.photo_caption }}</p>
                         {% endif %}
                         {% if post.media_description %}
-                            <p><em>{{ post.media_description }}</em></p>
+                            <p><em>{{ post.media_description|linebreaksbr }}</em></p>
                         {% endif %}
                     </figcaption>
                     {% endif %}
@@ -67,7 +67,7 @@
                         </iframe>
                     </div>
                     {% if post.media_description %}
-                        <p><em>{{ post.media_description }}</em></p>
+                        <p><em>{{ post.media_description|linebreaksbr }}</em></p>
                     {% endif %}
                 {% endif %}
             {% endwith %}
@@ -75,7 +75,7 @@
             {% if post.audio_file %}
                 <audio controls controlsList="nodownload" src="{{ post.audio_file.url }}"></audio>
                 {% if post.media_description %}
-                    <p><em>{{ post.media_description }}</em></p>
+                    <p><em>{{ post.media_description|linebreaksbr }}</em></p>
                 {% endif %}
             {% endif %}
 
@@ -86,7 +86,7 @@
                         Your browser does not support the video tag.
                     </video>
                     {% if post.media_description %}
-                        <p><em>{{ post.media_description }}</em></p>
+                        <p><em>{{ post.media_description|linebreaksbr }}</em></p>
                     {% endif %}
                 </div>
             {% endif %}
