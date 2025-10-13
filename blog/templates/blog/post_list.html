@@ -30,6 +30,7 @@
                     {% endif %}
                 </a>
                 <div class="card-body">
+                    <p class="card-date text-muted">{{ post.created_date|timesince }} ago</p>
                     <a href="{% url 'post_detail' pk=post.pk %}" class="text-decoration-none text-dark">
                         <h5 class="card-title mb-0">{{ post.title }}</h5>
                     </a>
