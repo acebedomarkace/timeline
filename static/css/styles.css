@@ -338,9 +338,9 @@ figcaption p + p {
 
 .tag {
   display: inline-block;
-  background-color: #f0f0f0;
-  color: #555;
-  padding: 0.25rem 0.75rem;
+  background-color: #5a4730;
+  color: #fff;
+  padding: 0.5rem 1rem;
   border-radius: 1rem; /* Pill shape */
   font-size: 0.85rem;
   text-decoration: none;
