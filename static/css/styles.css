@@ -146,13 +146,12 @@ header {
 .card {
     height: 250px;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     overflow: hidden;
     position: relative;
     background-size: cover;
     background-position: center;
     transition: transform 0.2s ease-in-out;
-    border: 1px solid #ddd;
 }
 
 .card-body {
@@ -160,6 +159,11 @@ header {
 }
 .card:hover {
     transform: scale(1.03);
+}
+
+.card-img-top {
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
 }
 .card-overlay {
     position: absolute;
@@ -532,12 +536,12 @@ body.theme-dark header, body.theme-dark .post-card, body.theme-dark .teacher-act
 
 /* Sepia Theme */
 .theme-sepia {
-    background-color: #f4ecd8;
+    background-color: #f0f2f5;
     color: #433421;
 }
 
 body.theme-sepia header, body.theme-sepia .post-card, body.theme-sepia .teacher-actions, body.theme-sepia .comments-section, body.theme-sepia .private-feedback-section, body.theme-sepia .notification-dropdown, body.theme-sepia .user-menu-dropdown {
-    background-color: #efe4cf;
+    background-color: #fff;
     border-color: #dcd0b8;
     color: #433421;
 }
@@ -578,6 +582,12 @@ body.theme-sepia header, body.theme-sepia .post-card, body.theme-sepia .teacher-
 
 .theme-sepia header a {
     color: #433421;
+}
+
+.theme-sepia .button-primary,
+.theme-sepia .action-button {
+    background-color: #5a4730;
+    color: #fff;
 }
 
 /* Ocean Theme */
