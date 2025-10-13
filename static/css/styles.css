@@ -187,18 +187,14 @@ header {
     margin-top: 30px;
     text-align: center;
 }
-.pagination a, .pagination .current {
-    padding: 8px 12px;
-    margin: 0 4px;
-    border-radius: 4px;
+.pagination a {
     text-decoration: none;
-    background-color: #fff;
-    color: #007bff;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    color: #5a4730; /* Sepia theme accent color */
+    margin: 0 10px;
 }
 .pagination .current {
-    background-color: #007bff;
-    color: #fff;
+    color: #5a4730; /* Sepia theme accent color */
+    font-weight: bold;
 }
 .profile-pic {
     width: 40px;
