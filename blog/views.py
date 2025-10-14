@@ -23,13 +23,31 @@ def timeline_redirect(request):
     return redirect('public_timeline')
 
 def public_timeline(request):
-    all_posts = Post.objects.filter(status='published').order_by('-created_date')
+    all_posts = Post.objects.filter(status='published')
+
+    search_query = request.GET.get('q')
+    if search_query:
+        all_posts = all_posts.filter(Q(title__icontains=search_query) | Q(content__icontains=search_query))
+
+    sort_by = request.GET.get('sort')
+    if sort_by == 'oldest':
+        all_posts = all_posts.order_by('created_date')
+    else:
+        all_posts = all_posts.order_by('-created_date')
+
+    subject_id = request.GET.get('subject')
+    if subject_id:
+        all_posts = all_posts.filter(subject__id=subject_id)
+
+    subjects = Subject.objects.all()
+
     paginator = Paginator(all_posts, 6)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
     context = {
         'page_obj': page_obj,
+        'subjects': subjects,
     }
     return render(request, 'blog/post_list.html', context)
 

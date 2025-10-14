@@ -237,6 +237,43 @@ header {
     object-fit: cover;
 }
 
+.filter-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-form {
+    display: flex;
+}
+
+.search-form input[type="text"] {
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 5px 0 0 5px;
+}
+
+.search-form button {
+    border: 1px solid #ccc;
+    background-color: #f5f5f5;
+    padding: 8px 12px;
+    border-left: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+.filter-form {
+    display: flex;
+    gap: 10px;
+}
+
+.filter-form select {
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 5px;
+}
+
 /* Contribution Graph Styles */
 .contrib-graph {
     padding: 15px;

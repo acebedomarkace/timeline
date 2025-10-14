@@ -75,7 +75,10 @@ class Post(models.Model):
             video_id = None
 
             if 'youtube.com' in url_data.netloc:
-                video_id = query.get('v', [None])[0]
+                if '/embed/' in url_data.path:
+                    video_id = url_data.path.split('/embed/')[1]
+                else:
+                    video_id = query.get('v', [None])[0]
             elif 'youtu.be' in url_data.netloc:
                 video_id = url_data.path.lstrip('/')
 
