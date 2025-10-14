@@ -1,7 +1,5 @@
 {% extends 'blog/base.html' %}
 
-{% block body_class %}theme-sepia{% endblock %}
-
 {% block content %}
 <style>
     /* Card styles from student_post.html inspiration */
@@ -22,7 +20,7 @@
     {% for post in page_obj %}
         <div class="col">
             <div class="card h-100 post-card">
-                <a href="{% url 'post_detail' pk=post.pk %}">
+                <a href="{% url 'post_detail' pk=post.pk %}" class="image-container">
                     {% if post.photo %}
                         <img src="{{ post.photo.url }}" class="card-img-top" alt="{{ post.title }}">
                     {% else %}
@@ -54,18 +52,24 @@
 </div>
 
 <div class="pagination">
-    {% if page_obj.has_previous %}
-        <a href="?page=1">&laquo; First</a>
-        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
-    {% endif %}
+    {% if page_obj.paginator.num_pages > 1 %}
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">&lt; Previous</a>
+        {% else %}
+            <span class="disabled">&lt; Previous</span>
+        {% endif %}
 
-    <span class="current">
-        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-    </span>
+        <span class="current">
+            {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </span>
 
-    {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}">Next</a>
-        <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Next &gt;</a>
+        {% else %}
+            <span class="disabled">Next &gt;</span>
+        {% endif %}
+    {% else %}
+        <p>End of Timeline</p>
     {% endif %}
 </div>
 {% endblock %}

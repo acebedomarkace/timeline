@@ -37,8 +37,8 @@
 
         <div class="article-body">
             {% if post.photo %}
-                <figure>
-                    <img src="{{ post.photo.url }}" alt="{{ post.title }}">
+                <figure class="image-container">
+                    <img src="{{ post.photo.url }}" class="card-img-top" alt="{{ post.title }}">
                     {% if post.photo_caption or post.media_description %}
                     <figcaption>
                         {% if post.photo_caption %}
