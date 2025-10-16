@@ -447,6 +447,15 @@ def post_detail(request, pk):
     comment_form = None
     private_feedback_form = None
     review_status_form = None
+    assessment = None
+    evaluations = None
+
+    if post.rubric:
+        try:
+            assessment = post.assessment
+            evaluations = assessment.evaluations.all()
+        except Assessment.DoesNotExist:
+            pass
     
     if request.user.is_authenticated:
         if request.method == 'POST':
@@ -515,6 +524,8 @@ def post_detail(request, pk):
         'private_feedback': private_feedback,
         'private_feedback_form': private_feedback_form,
         'review_status_form': review_status_form,
+        'assessment': assessment,
+        'evaluations': evaluations,
     }
     return render(request, 'blog/post_detail.html', context)
 

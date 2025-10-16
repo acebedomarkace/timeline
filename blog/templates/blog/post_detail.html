@@ -155,6 +155,42 @@
     </div>
     {% endif %}
 
+    {% if assessment %}
+    <div class="assessment-section">
+        <h2>Assessment</h2>
+        <div class="card">
+        <div class="card-header">
+            <h4>Rubric: {{ assessment.rubric.name }}</h4>
+            <p>Assessed by: {{ assessment.assessor.username }} on {{ assessment.created_date|date:"F j, Y" }}</p>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+            <thead>
+                <tr>
+                <th>Criterion</th>
+                <th>Level</th>
+                <th>Points</th>
+                <th>Feedback</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for evaluation in evaluations %}
+                <tr>
+                    <td>{{ evaluation.criterion.name }}</td>
+                    <td>{{ evaluation.level.name }}</td>
+                    <td>{{ evaluation.level.points }}</td>
+                    <td>{{ evaluation.feedback }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+            <h5>Overall Feedback:</h5>
+            <p>{{ assessment.overall_feedback }}</p>
+        </div>
+        </div>
+    </div>
+    {% endif %}
+
     <div class="comments-section">
         <h2>Public Feedback & Peer Review</h2>
         {% for comment in post.comments.all %}
