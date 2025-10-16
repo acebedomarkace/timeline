@@ -4,8 +4,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User, Group
-from .models import Post, Presentation, Subject, PeerReviewRequest, Comment, Profile, Notification, Tag, Announcement, Family, PresentationPost
-from .forms import PostForm, PresentationForm, CommentForm, PeerReviewRequestForm, ProfileForm, PrivateFeedbackForm, PostReviewStatusForm, FamilyForm, JoinFamilyForm
+from .models import Post, Presentation, Subject, PeerReviewRequest, Comment, Profile, Notification, Tag, Announcement, Family, PresentationPost, Rubric
+from .forms import PostForm, PresentationForm, CommentForm, PeerReviewRequestForm, ProfileForm, PrivateFeedbackForm, PostReviewStatusForm, FamilyForm, JoinFamilyForm, RubricForm, CriterionFormSet, LevelFormSet
 from django.db.models import Q
 from django.utils import timezone
 from django.db.models.functions import ExtractYear
@@ -817,3 +817,76 @@ def join_family(request):
         form = JoinFamilyForm()
     
     return render(request, 'blog/join_family_form.html', {'form': form})
+
+@login_required
+@user_passes_test(is_teacher)
+def rubric_list(request):
+    rubrics = Rubric.objects.filter(author=request.user)
+    return render(request, 'blog/rubric_list.html', {'rubrics': rubrics})
+
+@login_required
+@user_passes_test(is_teacher)
+def rubric_create(request):
+    if request.method == 'POST':
+        form = RubricForm(request.POST)
+        if form.is_valid():
+            rubric = form.save(commit=False)
+            rubric.author = request.user
+            rubric.save()
+            criterion_formset = CriterionFormSet(request.POST, instance=rubric)
+            level_formset = LevelFormSet(request.POST, instance=rubric)
+            if criterion_formset.is_valid() and level_formset.is_valid():
+                criterion_formset.save()
+                level_formset.save()
+                messages.success(request, 'Rubric created successfully.')
+                return redirect('rubric_list')
+    else:
+        form = RubricForm()
+        criterion_formset = CriterionFormSet()
+        level_formset = LevelFormSet()
+    return render(request, 'blog/rubric_form.html', {
+        'form': form,
+        'criterion_formset': criterion_formset,
+        'level_formset': level_formset
+    })
+
+@login_required
+@user_passes_test(is_teacher)
+def rubric_edit(request, pk):
+    rubric = get_object_or_404(Rubric, pk=pk, author=request.user)
+    if request.method == 'POST':
+        form = RubricForm(request.POST, instance=rubric)
+        if form.is_valid():
+            rubric = form.save()
+            criterion_formset = CriterionFormSet(request.POST, instance=rubric)
+            level_formset = LevelFormSet(request.POST, instance=rubric)
+            if criterion_formset.is_valid() and level_formset.is_valid():
+                criterion_formset.save()
+                level_formset.save()
+                messages.success(request, 'Rubric updated successfully.')
+                return redirect('rubric_list')
+    else:
+        form = RubricForm(instance=rubric)
+        criterion_formset = CriterionFormSet(instance=rubric)
+        level_formset = LevelFormSet(instance=rubric)
+    return render(request, 'blog/rubric_form.html', {
+        'form': form,
+        'criterion_formset': criterion_formset,
+        'level_formset': level_formset
+    })
+
+@login_required
+@user_passes_test(is_teacher)
+def rubric_delete(request, pk):
+    rubric = get_object_or_404(Rubric, pk=pk, author=request.user)
+    if request.method == 'POST':
+        rubric.delete()
+        messages.success(request, 'Rubric deleted successfully.')
+        return redirect('rubric_list')
+    return render(request, 'blog/rubric_confirm_delete.html', {'rubric': rubric})
+
+@login_required
+@user_passes_test(is_teacher)
+def rubric_detail(request, pk):
+    rubric = get_object_or_404(Rubric, pk=pk, author=request.user)
+    return render(request, 'blog/rubric_detail.html', {'rubric': rubric})

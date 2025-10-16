@@ -108,3 +108,4 @@ supervisord.conf
 supervisord.pid
 supervisor.sock
 logs/
+rubrics.md

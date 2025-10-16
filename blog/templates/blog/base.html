@@ -64,6 +64,7 @@
                         <a href="{% url 'family_management' %}">Manage Family</a>
                         {% if is_teacher %}
                             <a href="{% url 'teacher_dashboard' %}">Teacher Dashboard</a>
+                            <a href="{% url 'rubric_list' %}">My Rubrics</a>
                         {% endif %}
                         <form action="{% url 'logout' %}" method="post">
                             {% csrf_token %}

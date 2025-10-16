@@ -1,0 +1,74 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <h2>{% if form.instance.pk %}Edit{% else %}Create{% endif %} Rubric</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+
+    <h3>Criteria</h3>
+    {{ criterion_formset.management_form }}
+    <div id="criterion-forms">
+      {% for form in criterion_formset %}
+        <div class="criterion-form">
+          {{ form|crispy }}
+        </div>
+      {% endfor %}
+    </div>
+    <button type="button" id="add-criterion" class="btn btn-secondary btn-sm">Add Criterion</button>
+
+    <h3 class="mt-4">Levels</h3>
+    {{ level_formset.management_form }}
+    <div id="level-forms">
+      {% for form in level_formset %}
+        <div class="level-form">
+          {{ form|crispy }}
+        </div>
+      {% endfor %}
+    </div>
+    <button type="button" id="add-level" class="btn btn-secondary btn-sm">Add Level</button>
+
+    <hr>
+    <button type="submit" class="btn btn-primary">Save Rubric</button>
+  </form>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Function to add a new form to a formset
+      function addForm(formsetPrefix, containerId) {
+        const formsetContainer = document.getElementById(containerId);
+        const totalFormsInput = document.querySelector(`#id_${formsetPrefix}-TOTAL_FORMS`);
+        const formIndex = parseInt(totalFormsInput.value);
+
+        // Create a new form element
+        const newForm = document.createElement('div');
+        newForm.classList.add(`${formsetPrefix}-form`);
+
+        // Get the empty form template
+        const emptyFormTemplate = document.getElementById(`${formsetPrefix}-empty-form`).innerHTML;
+        newForm.innerHTML = emptyFormTemplate.replace(/__prefix__/g, formIndex);
+
+        formsetContainer.appendChild(newForm);
+        totalFormsInput.value = formIndex + 1;
+      }
+
+      // Add event listeners for the "Add" buttons
+      document.getElementById('add-criterion').addEventListener('click', function() {
+        addForm('criterion_set', 'criterion-forms');
+      });
+
+      document.getElementById('add-level').addEventListener('click', function() {
+        addForm('level_set', 'level-forms');
+      });
+    });
+  </script>
+
+  <template id="criterion_set-empty-form">
+    {{ criterion_formset.empty_form|crispy }}
+  </template>
+
+  <template id="level_set-empty-form">
+    {{ level_formset.empty_form|crispy }}
+  </template>
+{% endblock %}

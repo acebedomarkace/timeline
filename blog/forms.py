@@ -133,3 +133,26 @@ class PeerReviewRequestForm(forms.Form):
         self.fields['reviewers'].queryset = User.objects.filter(
             Q(groups__name='Students') | Q(groups__name='Teachers')
         ).exclude(id=user.id)
+
+from .models import Rubric, Criterion, Level
+
+class RubricForm(forms.ModelForm):
+    class Meta:
+        model = Rubric
+        fields = ['name']
+
+CriterionFormSet = forms.inlineformset_factory(
+    Rubric,
+    Criterion,
+    fields=('name', 'description', 'order'),
+    extra=1,
+    can_delete=True
+)
+
+LevelFormSet = forms.inlineformset_factory(
+    Rubric,
+    Level,
+    fields=('name', 'description', 'points', 'order'),
+    extra=1,
+    can_delete=True
+)

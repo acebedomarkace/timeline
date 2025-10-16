@@ -1,0 +1,39 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+  <h2>{{ rubric.name }}</h2>
+
+  <div class="card mt-4">
+    <div class="card-header">
+      Criteria
+    </div>
+    <ul class="list-group list-group-flush">
+      {% for criterion in rubric.criteria.all %}
+        <li class="list-group-item">
+          <h5>{{ criterion.name }}</h5>
+          <p>{{ criterion.description }}</p>
+        </li>
+      {% empty %}
+        <li class="list-group-item">No criteria have been added to this rubric yet.</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="card mt-4">
+    <div class="card-header">
+      Levels
+    </div>
+    <ul class="list-group list-group-flush">
+      {% for level in rubric.levels.all %}
+        <li class="list-group-item">
+          <h5>{{ level.name }} ({{ level.points }} points)</h5>
+          <p>{{ level.description }}</p>
+        </li>
+      {% empty %}
+        <li class="list-group-item">No levels have been added to this rubric yet.</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <a href="{% url 'rubric_list' %}" class="btn btn-secondary mt-4">Back to Rubrics</a>
+{% endblock %}

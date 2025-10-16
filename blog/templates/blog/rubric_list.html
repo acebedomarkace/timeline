@@ -1,0 +1,19 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+  <h2>My Rubrics</h2>
+  <a href="{% url 'rubric_create' %}" class="btn btn-primary mb-3">Create New Rubric</a>
+  <ul class="list-group">
+    {% for rubric in rubrics %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <a href="{% url 'rubric_detail' pk=rubric.pk %}">{{ rubric.name }}</a>
+        <div>
+          <a href="{% url 'rubric_edit' pk=rubric.pk %}" class="btn btn-secondary btn-sm">Edit</a>
+          <a href="{% url 'rubric_delete' pk=rubric.pk %}" class="btn btn-danger btn-sm">Delete</a>
+        </div>
+      </li>
+    {% empty %}
+      <li class="list-group-item">You have not created any rubrics yet.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

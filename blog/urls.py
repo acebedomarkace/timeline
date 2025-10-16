@@ -42,4 +42,11 @@ urlpatterns = [
     path('portfolio/<int:pk>/edit/', views.PortfolioUpdateView.as_view(), name='portfolio_edit'),
     path('portfolio/<int:pk>/delete/', views.PortfolioDeleteView.as_view(), name='portfolio_delete'),
     path('portfolio/public/<int:pk>/', views.PublicPortfolioDetailView.as_view(), name='public_portfolio_detail'),
+
+    # Rubric URLs
+    path('rubrics/', views.rubric_list, name='rubric_list'),
+    path('rubrics/create/', views.rubric_create, name='rubric_create'),
+    path('rubrics/<int:pk>/', views.rubric_detail, name='rubric_detail'),
+    path('rubrics/<int:pk>/edit/', views.rubric_edit, name='rubric_edit'),
+    path('rubrics/<int:pk>/delete/', views.rubric_delete, name='rubric_delete'),
 ]
