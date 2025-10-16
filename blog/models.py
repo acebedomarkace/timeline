@@ -200,7 +200,6 @@ class Announcement(models.Model):
         return self.title
 
 class Portfolio(models.Model):
-    # Temporary change to force migration
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True, null=True)
@@ -213,3 +212,57 @@ class Portfolio(models.Model):
     def __str__(self):
         return self.title
 
+class Rubric(models.Model):
+    name = models.CharField(max_length=200)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_date = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.name
+
+class Criterion(models.Model):
+    rubric = models.ForeignKey(Rubric, on_delete=models.CASCADE, related_name='criteria')
+    name = models.CharField(max_length=200)
+    description = models.TextField(blank=True)
+    order = models.PositiveIntegerField()
+
+    class Meta:
+        ordering = ['order']
+
+    def __str__(self):
+        return self.name
+
+class Level(models.Model):
+    rubric = models.ForeignKey(Rubric, on_delete=models.CASCADE, related_name='levels')
+    name = models.CharField(max_length=100)
+    description = models.TextField(blank=True)
+    points = models.PositiveIntegerField()
+    order = models.PositiveIntegerField()
+
+    class Meta:
+        ordering = ['order']
+
+    def __str__(self):
+        return self.name
+
+class Assessment(models.Model):
+    post = models.OneToOneField(Post, on_delete=models.CASCADE, related_name='assessment')
+    rubric = models.ForeignKey(Rubric, on_delete=models.PROTECT)
+    assessor = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_date = models.DateTimeField(default=timezone.now)
+    overall_feedback = models.TextField(blank=True)
+
+    def __str__(self):
+        return f"Assessment for {self.post.title}"
+
+class Evaluation(models.Model):
+    assessment = models.ForeignKey(Assessment, on_delete=models.CASCADE, related_name='evaluations')
+    criterion = models.ForeignKey(Criterion, on_delete=models.PROTECT)
+    level = models.ForeignKey(Level, on_delete=models.PROTECT)
+    feedback = models.TextField(blank=True)
+
+    class Meta:
+        unique_together = ('assessment', 'criterion')
+
+    def __str__(self):
+        return f"Evaluation of {self.criterion.name} for {self.assessment.post.title}"
