@@ -1,4 +1,13 @@
-from .models import Notification
+from .models import Notification, Profile
+
+def theme(request):
+    if request.user.is_authenticated:
+        try:
+            profile = request.user.profile
+            return {'theme': profile.theme}
+        except Profile.DoesNotExist:
+            return {'theme': 'light'}
+    return {'theme': 'light'}
 
 def user_roles(request):
     is_teacher = False

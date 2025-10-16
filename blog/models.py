@@ -161,6 +161,7 @@ class Profile(models.Model):
         ('sunset', 'Sunset'),
         ('monochrome', 'Monochrome'),
         ('vibrant', 'Vibrant'),
+        ('christmas', 'Christmas'),
     ]
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     family = models.ForeignKey(Family, on_delete=models.SET_NULL, related_name='members', null=True, blank=True)

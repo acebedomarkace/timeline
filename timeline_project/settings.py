@@ -74,6 +74,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'blog.context_processors.user_roles',
                 'blog.context_processors.notifications',
+                'blog.context_processors.theme',
             ],
         },
     },
