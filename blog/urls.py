@@ -21,6 +21,7 @@ urlpatterns = [
     path('post/<int:pk>/', views.post_detail, name='post_detail'),
     path('post/<int:pk>/edit/', views.post_edit, name='post_edit'),
     path('post/<int:pk>/request-review/', views.request_peer_review, name='request_peer_review'),
+    path('post/<int:pk>/assess/', views.assess_post, name='assess_post'),
     path('author/<str:username>/<int:year>/', views.author_post_list, name='author_post_list_by_year'),
     path('author/<str:username>/', views.author_post_list, name='author_post_list'),
     path('teacher/dashboard/', views.teacher_dashboard, name='teacher_dashboard'),

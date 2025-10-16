@@ -44,7 +44,7 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ['subject', 'title', 'content', 'photo', 'photo_caption', 'audio_file', 'youtube_url', 'video_file', 'media_description', 'tags']
+        fields = ['subject', 'title', 'content', 'photo', 'photo_caption', 'audio_file', 'youtube_url', 'video_file', 'media_description', 'tags', 'rubric']
         widgets = {
             'photo': CustomClearableFileInput,
             'audio_file': CustomClearableFileInput,
@@ -53,6 +53,7 @@ class PostForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         self.post_type = kwargs.pop('post_type', None)
+        user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
 
         if self.data:
@@ -69,6 +70,12 @@ class PostForm(forms.ModelForm):
             self.fields['content'].required = True
         elif self.post_type == 'photo':
             self.fields['photo'].required = True
+            
+        if user and user.groups.filter(name='Teachers').exists():
+            self.fields['rubric'].queryset = Rubric.objects.filter(author=user)
+            self.fields['rubric'].required = False
+        else:
+            del self.fields['rubric']
 
     def clean(self):
         cleaned_data = super().clean()
@@ -155,4 +162,19 @@ LevelFormSet = forms.inlineformset_factory(
     fields=('name', 'description', 'points', 'order'),
     extra=1,
     can_delete=True
+)
+
+from .models import Assessment, Evaluation
+
+class AssessmentForm(forms.ModelForm):
+    class Meta:
+        model = Assessment
+        fields = ['overall_feedback']
+
+EvaluationFormSet = forms.inlineformset_factory(
+    Assessment,
+    Evaluation,
+    fields=('criterion', 'level', 'feedback'),
+    extra=0,
+    can_delete=False
 )

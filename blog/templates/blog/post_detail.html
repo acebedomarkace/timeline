@@ -125,6 +125,13 @@
                     <button type="submit" name="feedback_submit" class="button-primary">Submit Feedback</button>
                 </form>
             </div>
+            {% if post.rubric %}
+            <div class="teacher-actions-form-group">
+                <h3>Rubric</h3>
+                <p>This post is associated with the rubric: <strong>{{ post.rubric.name }}</strong></p>
+                <a href="{% url 'assess_post' pk=post.pk %}" class="btn btn-primary">Assess Post</a>
+            </div>
+            {% endif %}
         </div>
     </div>
     {% endif %}

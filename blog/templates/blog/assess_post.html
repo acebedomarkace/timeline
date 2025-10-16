@@ -1,0 +1,51 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <h2>Assess Post: {{ post.title }}</h2>
+  <p><strong>Author:</strong> {{ post.author.username }}</p>
+  <hr>
+
+  <h3>Rubric: {{ rubric.name }}</h3>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ formset.management_form }}
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Criterion</th>
+          {% for level in rubric.levels.all %}
+            <th>{{ level.name }} ({{ level.points }} pts)</th>
+          {% endfor %}
+          <th>Feedback</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for criterion_form in formset %}
+          <tr>
+            <td>
+              {{ criterion_form.instance.criterion.name }}
+              <p class="text-muted">{{ criterion_form.instance.criterion.description }}</p>
+              {{ criterion_form.criterion }}
+            </td>
+            {% for level in rubric.levels.all %}
+              <td>
+                <input type="radio" name="{{ criterion_form.prefix }}-level" value="{{ level.pk }}" {% if criterion_form.instance.level.pk == level.pk %}checked{% endif %}>
+              </td>
+            {% endfor %}
+            <td>
+              {{ criterion_form.feedback|as_crispy_field }}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h3>Overall Feedback</h3>
+    {{ form|crispy }}
+
+    <button type="submit" class="btn btn-primary">Save Assessment</button>
+  </form>
+{% endblock %}

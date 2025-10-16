@@ -4,8 +4,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User, Group
-from .models import Post, Presentation, Subject, PeerReviewRequest, Comment, Profile, Notification, Tag, Announcement, Family, PresentationPost, Rubric
-from .forms import PostForm, PresentationForm, CommentForm, PeerReviewRequestForm, ProfileForm, PrivateFeedbackForm, PostReviewStatusForm, FamilyForm, JoinFamilyForm, RubricForm, CriterionFormSet, LevelFormSet
+from .models import Post, Presentation, Subject, PeerReviewRequest, Comment, Profile, Notification, Tag, Announcement, Family, PresentationPost, Rubric, Assessment, Evaluation
+from .forms import PostForm, PresentationForm, CommentForm, PeerReviewRequestForm, ProfileForm, PrivateFeedbackForm, PostReviewStatusForm, FamilyForm, JoinFamilyForm, RubricForm, CriterionFormSet, LevelFormSet, AssessmentForm, EvaluationFormSet
 from django.db.models import Q
 from django.utils import timezone
 from django.db.models.functions import ExtractYear
@@ -70,7 +70,7 @@ def post_create(request):
     
     if request.method == 'POST':
         print(f"POST data: {request.POST}")  # Debug
-        form = PostForm(request.POST, request.FILES, post_type=post_type)
+        form = PostForm(request.POST, request.FILES, post_type=post_type, user=request.user)
         
         if form.is_valid():
             post = form.save(commit=False)
@@ -97,7 +97,7 @@ def post_create(request):
             print(f"Form errors: {form.errors}")  # Debug
             messages.error(request, "Please fix form errors.")
     else:
-        form = PostForm(post_type=post_type)
+        form = PostForm(post_type=post_type, user=request.user)
     
     return render(request, 'blog/post_form.html', {'form': form, 'post_type': post_type})
 
@@ -164,7 +164,7 @@ def post_edit(request, pk):
     post_type = post.post_type
 
     if request.method == 'POST':
-        form = PostForm(request.POST, request.FILES, instance=post, post_type=post_type)
+        form = PostForm(request.POST, request.FILES, instance=post, post_type=post_type, user=request.user)
         if form.is_valid():
             post = form.save(commit=False)
             action = request.POST.get('action')
@@ -188,7 +188,7 @@ def post_edit(request, pk):
         else:
             messages.error(request, f'Please correct the errors below: {form.errors}')
     else:
-        form = PostForm(instance=post, post_type=post_type, initial={'tags': ', '.join([t.name for t in post.tags.all()])})
+        form = PostForm(instance=post, post_type=post_type, initial={'tags': ', '.join([t.name for t in post.tags.all()])}, user=request.user)
     return render(request, 'blog/post_form.html', {'form': form, 'post_type': post_type})
 
 def is_teacher(user):
@@ -890,3 +890,36 @@ def rubric_delete(request, pk):
 def rubric_detail(request, pk):
     rubric = get_object_or_404(Rubric, pk=pk, author=request.user)
     return render(request, 'blog/rubric_detail.html', {'rubric': rubric})
+
+@login_required
+@user_passes_test(is_teacher)
+def assess_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    rubric = post.rubric
+    if not rubric:
+        messages.error(request, 'This post does not have a rubric associated with it.')
+        return redirect('post_detail', pk=pk)
+
+    try:
+        assessment = post.assessment
+    except Assessment.DoesNotExist:
+        assessment = Assessment(post=post, rubric=rubric, assessor=request.user)
+
+    if request.method == 'POST':
+        form = AssessmentForm(request.POST, instance=assessment)
+        formset = EvaluationFormSet(request.POST, instance=assessment)
+        if form.is_valid() and formset.is_valid():
+            assessment = form.save()
+            formset.save()
+            messages.success(request, 'Assessment saved successfully.')
+            return redirect('post_detail', pk=pk)
+    else:
+        form = AssessmentForm(instance=assessment)
+        formset = EvaluationFormSet(instance=assessment)
+
+    return render(request, 'blog/assess_post.html', {
+        'post': post,
+        'rubric': rubric,
+        'form': form,
+        'formset': formset
+    })
