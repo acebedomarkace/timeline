@@ -158,7 +158,7 @@ def author_post_list(request, username, year=None):
 @login_required
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    if post.author != request.user:
+    if post.author != request.user and not is_teacher(request.user):
         return redirect('timeline_redirect')
 
     post_type = post.post_type
@@ -184,7 +184,10 @@ def post_edit(request, pk):
                     post.tags.add(tag)
             
             messages.success(request, f'Post successfully updated as {post.status}.')
-            return redirect('author_post_list', username=request.user.username) # Redirect after success
+            if is_teacher(request.user):
+                return redirect('public_timeline')
+            else:
+                return redirect('author_post_list', username=request.user.username) # Redirect after success
         else:
             messages.error(request, f'Please correct the errors below: {form.errors}')
     else:

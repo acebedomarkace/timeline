@@ -514,8 +514,7 @@ figcaption p + p {
 }
 
 .teacher-actions-forms {
-    display: flex;
-    gap: 20px;
+
 }
 
 .teacher-actions-form-group {
@@ -727,4 +726,9 @@ body.theme-vibrant header, body.theme-vibrant .post-card, body.theme-vibrant .te
     border-radius: 50%;
     object-fit: cover;
     margin-right: 10px;
+}
+
+.teacher-actions-form-group textarea {
+    max-width: 100%;
+    box-sizing: border-box;
 }

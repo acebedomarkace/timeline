@@ -10,8 +10,8 @@
         {% else %}
             <a href="{% url 'public_timeline' %}" class="back-link">&larr; Back to Public Timeline</a>
         {% endif %}
-        {% if user == post.author %}
-            <a href="{% url 'request_peer_review' pk=post.pk %}" class="action-button">Request Peer Review</a>
+        {% if user == post.author or is_teacher %}
+            <a href="{% url 'post_edit' pk=post.pk %}" class="action-button">Edit Post</a>
         {% endif %}
     </p>
     <article class="post-card">
@@ -108,8 +108,8 @@
     {% if user.is_authenticated and 'Teachers' in user.groups.all|join:", " %}
     <div class="teacher-actions">
         <h2>Teacher Actions</h2>
-        <div class="teacher-actions-forms">
-            <div class="teacher-actions-form-group">
+        <div class="teacher-actions-forms row g-5">
+            <div class="teacher-actions-form-group col-md-6 mb-4">
                 <h3>Update Status</h3>
                 <form method="post">
                     {% csrf_token %}
@@ -117,7 +117,7 @@
                     <button type="submit" name="status_submit" class="button-primary">Update Status</button>
                 </form>
             </div>
-            <div class="teacher-actions-form-group">
+            <div class="teacher-actions-form-group col-md-6 mb-4">
                 <h3>Leave Private Feedback</h3>
                 <form method="post">
                     {% csrf_token %}
@@ -126,7 +126,7 @@
                 </form>
             </div>
             {% if post.rubric %}
-            <div class="teacher-actions-form-group">
+            <div class="teacher-actions-form-group col-md-6 mb-4">
                 <h3>Rubric</h3>
                 <p>This post is associated with the rubric: <strong>{{ post.rubric.name }}</strong></p>
                 <a href="{% url 'assess_post' pk=post.pk %}" class="btn btn-primary">Assess Post</a>
