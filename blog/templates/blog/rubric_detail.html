@@ -35,5 +35,9 @@
     </ul>
   </div>
 
-  <a href="{% url 'rubric_list' %}" class="btn btn-secondary mt-4">Back to Rubrics</a>
+  {% if post_pk %}
+    <a href="{% url 'post_detail' pk=post_pk %}" class="btn btn-secondary mt-4">Back to Post</a>
+  {% else %}
+    <a href="{% url 'rubric_list' %}" class="btn btn-secondary mt-4">Back to Rubrics</a>
+  {% endif %}
 {% endblock %}

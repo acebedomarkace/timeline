@@ -164,17 +164,31 @@ LevelFormSet = forms.inlineformset_factory(
     can_delete=True
 )
 
-from .models import Assessment, Evaluation
+from .models import Assessment, Evaluation, Level
 
 class AssessmentForm(forms.ModelForm):
     class Meta:
         model = Assessment
         fields = ['overall_feedback']
 
+class EvaluationForm(forms.ModelForm):
+    class Meta:
+        model = Evaluation
+        fields = ['criterion', 'level', 'feedback']
+        widgets = {
+            'level': forms.RadioSelect,
+        }
+
+    def __init__(self, *args, **kwargs):
+        rubric = kwargs.pop('rubric', None)
+        super().__init__(*args, **kwargs)
+        if rubric:
+            self.fields['level'].queryset = Level.objects.filter(rubric=rubric)
+
 EvaluationFormSet = forms.inlineformset_factory(
     Assessment,
     Evaluation,
-    fields=('criterion', 'level', 'feedback'),
+    form=EvaluationForm,
     extra=0,
     can_delete=False
 )

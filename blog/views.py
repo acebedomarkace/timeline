@@ -900,17 +900,17 @@ def rubric_delete(request, pk):
     return render(request, 'blog/rubric_confirm_delete.html', {'rubric': rubric})
 
 @login_required
-def rubric_detail(request, pk):
+def rubric_detail(request, pk, post_pk=None):
     rubric = get_object_or_404(Rubric, pk=pk)
     
     # Teachers can see any rubric
     if is_teacher(request.user):
-        return render(request, 'blog/rubric_detail.html', {'rubric': rubric})
+        return render(request, 'blog/rubric_detail.html', {'rubric': rubric, 'post_pk': post_pk})
 
     # Students can see the rubric if it is attached to one of their posts
     if request.user.groups.filter(name='Students').exists():
         if Post.objects.filter(author=request.user, rubric=rubric).exists():
-            return render(request, 'blog/rubric_detail.html', {'rubric': rubric})
+            return render(request, 'blog/rubric_detail.html', {'rubric': rubric, 'post_pk': post_pk})
 
     # If none of the above, redirect to the timeline
     return redirect('timeline_redirect')
@@ -931,7 +931,7 @@ def assess_post(request, pk):
 
     if request.method == 'POST':
         form = AssessmentForm(request.POST, instance=assessment)
-        formset = EvaluationFormSet(request.POST, instance=assessment)
+        formset = EvaluationFormSet(request.POST, instance=assessment, form_kwargs={'rubric': rubric})
         if form.is_valid() and formset.is_valid():
             assessment = form.save()
             formset.save()
@@ -939,7 +939,7 @@ def assess_post(request, pk):
             return redirect('post_detail', pk=pk)
     else:
         form = AssessmentForm(instance=assessment)
-        formset = EvaluationFormSet(instance=assessment)
+        formset = EvaluationFormSet(instance=assessment, form_kwargs={'rubric': rubric})
 
     return render(request, 'blog/assess_post.html', {
         'post': post,

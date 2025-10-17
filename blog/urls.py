@@ -48,6 +48,7 @@ urlpatterns = [
     path('rubrics/', views.rubric_list, name='rubric_list'),
     path('rubrics/create/', views.rubric_create, name='rubric_create'),
     path('rubrics/<int:pk>/', views.rubric_detail, name='rubric_detail'),
+    path('rubrics/<int:pk>/post/<int:post_pk>/', views.rubric_detail, name='rubric_detail_post'),
     path('rubrics/<int:pk>/edit/', views.rubric_edit, name='rubric_edit'),
     path('rubrics/<int:pk>/delete/', views.rubric_delete, name='rubric_delete'),
 ]

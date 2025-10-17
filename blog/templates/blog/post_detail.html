@@ -103,7 +103,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">{{ post.rubric.name }}</h5>
-                    <a href="{% url 'rubric_detail' pk=post.rubric.pk %}" class="btn btn-secondary">View Rubric</a>
+                    <a href="{% url 'rubric_detail_post' pk=post.rubric.pk post_pk=post.pk %}" class="btn btn-secondary">View Rubric</a>
                 </div>
             </div>
         </div>

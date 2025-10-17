@@ -28,12 +28,14 @@
             <td>
               {{ criterion_form.instance.criterion.name }}
               <p class="text-muted">{{ criterion_form.instance.criterion.description }}</p>
-              {{ criterion_form.criterion }}
+              {{ criterion_form.criterion.as_hidden }}
+              {{ criterion_form.id.as_hidden }}
             </td>
-            {% for level in rubric.levels.all %}
-              <td>
-                <input type="radio" name="{{ criterion_form.prefix }}-level" value="{{ level.pk }}" {% if criterion_form.instance.level.pk == level.pk %}checked{% endif %}>
-              </td>
+            {% for radio in criterion_form.level %}
+            <td class="text-center">
+                <input type="radio" name="{{ radio.name }}" id="{{ radio.id_for_label }}" value="{{ radio.choice_value }}" {% if radio.is_checked %}checked{% endif %}>
+                <label for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
+            </td>
             {% endfor %}
             <td>
               {{ criterion_form.feedback|as_crispy_field }}
