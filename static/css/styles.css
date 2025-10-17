@@ -507,6 +507,10 @@ figcaption p + p {
     border-radius: 4px;
 }
 
+.rubric-section {
+    margin-top: 20px;
+}
+
 .teacher-actions, .comments-section, .private-feedback-section {
     background-color: #fff;
     border-radius: 8px;

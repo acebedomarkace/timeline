@@ -900,10 +900,20 @@ def rubric_delete(request, pk):
     return render(request, 'blog/rubric_confirm_delete.html', {'rubric': rubric})
 
 @login_required
-@user_passes_test(is_teacher)
 def rubric_detail(request, pk):
-    rubric = get_object_or_404(Rubric, pk=pk, author=request.user)
-    return render(request, 'blog/rubric_detail.html', {'rubric': rubric})
+    rubric = get_object_or_404(Rubric, pk=pk)
+    
+    # Teachers can see any rubric
+    if is_teacher(request.user):
+        return render(request, 'blog/rubric_detail.html', {'rubric': rubric})
+
+    # Students can see the rubric if it is attached to one of their posts
+    if request.user.groups.filter(name='Students').exists():
+        if Post.objects.filter(author=request.user, rubric=rubric).exists():
+            return render(request, 'blog/rubric_detail.html', {'rubric': rubric})
+
+    # If none of the above, redirect to the timeline
+    return redirect('timeline_redirect')
 
 @login_required
 @user_passes_test(is_teacher)
