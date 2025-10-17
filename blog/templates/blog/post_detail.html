@@ -39,20 +39,13 @@
             {% if post.photo %}
                 <figure class="image-container">
                     <img src="{{ post.photo.url }}" class="card-img-top" alt="{{ post.title }}">
-                    {% if post.photo_caption or post.media_description %}
+                    {% if post.photo_caption %}
                     <figcaption>
-                        {% if post.photo_caption %}
-                            <p>{{ post.photo_caption }}</p>
-                        {% endif %}
-                        {% if post.media_description %}
-                            <p><em>{{ post.media_description|linebreaksbr }}</em></p>
-                        {% endif %}
+                        <p>{{ post.photo_caption }}</p>
                     </figcaption>
                     {% endif %}
                 </figure>
             {% endif %}
-
-            <p>{{ post.content|linebreaksbr }}</p>
 
             {% with embed_url=post.get_youtube_embed_url %}
                 {% if embed_url %}
@@ -66,17 +59,11 @@
                             allowfullscreen>
                         </iframe>
                     </div>
-                    {% if post.media_description and not post.photo %}
-                        <p><em>{{ post.media_description|linebreaksbr }}</em></p>
-                    {% endif %}
                 {% endif %}
             {% endwith %}
 
             {% if post.audio_file %}
                 <audio controls controlsList="nodownload" src="{{ post.audio_file.url }}"></audio>
-                {% if post.media_description and not post.photo and not post.get_youtube_embed_url %}
-                    <p><em>{{ post.media_description|linebreaksbr }}</em></p>
-                {% endif %}
             {% endif %}
 
             {% if post.video_file %}
@@ -85,11 +72,16 @@
                         <source src="{{ post.video_file.url }}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
-                    {% if post.media_description and not post.photo and not post.get_youtube_embed_url and not post.audio_file %}
-                        <p><em>{{ post.media_description|linebreaksbr }}</em></p>
-                    {% endif %}
                 </div>
             {% endif %}
+
+            {% if post.media_description %}
+                <div class="media-description">
+                    <p><em>{{ post.media_description|linebreaksbr }}</em></p>
+                </div>
+            {% endif %}
+
+            <p>{{ post.content|linebreaksbr }}</p>
         </div>
 
         <div class="tags">

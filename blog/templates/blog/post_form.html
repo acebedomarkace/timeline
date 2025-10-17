@@ -158,8 +158,7 @@
                         <audio id="audioPlayback" controls style="display:none; margin-top:10px;"></audio>
                     </div>
                 </div>
-                <div class="form-field">
-                    <label for="{{ form.media_description.id_for_label }}">{{ form.media_description.label }}</label>
+                <div class="form-field" data-type="photo video journal">
                     {{ form.media_description }}
                     {% if form.media_description.errors %}
                         <div class="error">{{ form.media_description.errors }}</div>
