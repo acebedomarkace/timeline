@@ -519,7 +519,7 @@ def post_detail(request, pk):
             private_feedback_form = PrivateFeedbackForm()
             review_status_form = PostReviewStatusForm(instance=post)
 
-    private_feedback = post.private_feedback.all() if request.user == post.author or (request.user.is_authenticated and is_teacher(request.user)) else []
+    private_feedback = post.private_feedback.order_by('-created_date') if request.user == post.author or (request.user.is_authenticated and is_teacher(request.user)) else []
 
     context = {
         'post': post,
